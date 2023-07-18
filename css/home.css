@@ -35,6 +35,13 @@ body {
 
 h1 {
     font-size: 70px;
+    color: #E1E7E0;
+}
+
+h2 {
+    font-size: 40px;
+    color: #E1E7E0;
+    text-align: center;
 }
 
 h4{
@@ -43,6 +50,24 @@ h4{
 
 .loginForm{
     background-color: #0C2D48;
-    
+    border-radius: 35px;
+}
+
+.labelStyle {
+    color: #F7E2C7;
+    font-size: 25px;
+}
+
+.inputStyle {
+    height: 30px;
+    width: 15vw;
+}
+
+.logInButton{
+    font-size: 20px;
+    background-color: #08392B;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 8vw;
 }
 

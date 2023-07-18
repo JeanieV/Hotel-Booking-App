@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+require './functions.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-    <link rel='stylesheet' type='text/css' media='screen' href='./css/home.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/home.css'>
 </head>
 
 <body>
@@ -30,8 +37,8 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
 
-                <video id="oceanView" autoplay muted loop>
-                    <source src="./video/background-ocean.mp4" type="video/mp4"
+                <video id="oceanView" autoplay loop muted>
+                    <source src="../video/background-ocean.mp4" type="video/mp4"
                         attribution="Video by Dimitris Mourousiadis: https://www.pexels.com/video/aerial-view-of-beautiful-greek-beach-6460125/">
                 </video>
 
@@ -43,8 +50,8 @@
 
             <div class="carousel-item">
 
-                <video id="oceanView" autoplay muted loop>
-                    <source src="./video/background-greece.mp4" type="video/mp4"
+                <video id="oceanView" autoplay loop muted>
+                    <source src="../video/background-greece.mp4" type="video/mp4"
                         attribution="Video by Pat Whelen: https://www.pexels.com/video/acropolis-of-athens-5737310/">
                 </video>
 
@@ -56,8 +63,8 @@
 
             <div class="carousel-item">
 
-                <video id="oceanView" autoplay muted loop>
-                    <source src="./video/background-houses.mp4" type="video/mp4"
+                <video id="oceanView" autoplay loop muted>
+                    <source src="../video/background-houses.mp4" type="video/mp4"
                         attribution="Video by Dimitris Mourousiadis: https://www.pexels.com/video/aerial-shot-of-santorini-6192496/">
                 </video>
 
@@ -77,20 +84,63 @@
         </button>
     </div>
 
-    <div class="container d-flex justify-content-center align-items-center mt-5 mb-5 mx-5">
-        <form method="GET" name="loginForm" class="loginForm ">
-            <h2> Kindly log in to your profile: </h2>
-            <input type="text" name="myEmail" required>
-            <button name="myButton" type="submit" class="myButton">Log In</button>
-        </form>
+
+    <!-- Existing Log In -->
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="mt-5 mb-5 mx-5">
+
+            <form method="POST" name="loginForm" class="loginForm p-5">
+                <h2> Kindly log in to your profile: </h2>
+
+                <!-- Username -->
+                <table>
+                    <tr>
+                        <td class="p-4"><label for="username" class="labelStyle"> Username: </label></td>
+                        <td class="p-4"><input type="text" name="username" class="inputStyle" required></td>
+                    </tr>
+
+                    <!-- Password -->
+                    <tr>
+                        <td class="p-4"><label for="password" class="labelStyle"> Password: </label></td>
+                        <td class="p-4"><input type="password" name="password" class="inputStyle" required></td>
+                    </tr>
+
+                    <!-- Email -->
+                    <tr>
+                        <td class="p-4"><label for="email" class="labelStyle"> Email: </label></td>
+                        <td class="p-4"><input type="email" name="email" class="inputStyle" required></td>
+                    </tr>
+                </table>
+
+                <!-- Log In Button -->
+                <div class="container d-flex justify-content-center align-items-center">
+                    <div class="mx-5 mt-3 mb-5">
+                        <button name="logInButton" type="submit" class="logInButton p-2">Log In</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
     </div>
 
+    <!-- Directs to New User Sign Up -->
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="mt-3 mb-5 mx-5">
 
-    <form method="GET" name="myForm" class="form">
-        <button name="existButton" type="submit" class="existButton">New User?</button>
-    </form>
+            <form method="POST" name="newForm" class="loginForm p-5">
 
+                <h2> Are you a new user? </h2>
 
+                <!-- New User Button -->
+                <div class="container d-flex justify-content-center align-items-center">
+                    <div class="mx-5 mt-3">
+                        <button name="existButton" type="submit" class="logInButton p-2">Sign Up</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
 
 
 </body>
