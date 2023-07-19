@@ -23,7 +23,7 @@ require './functions.php';
 
 <body>
 
-    <!-- Carousel -->
+    <!-- Carousel Video -->
     <div id="carousel" class="carousel slide mb-5" data-bs-ride="carousel">
 
         <!-- Indicators on carousel -->
@@ -84,65 +84,207 @@ require './functions.php';
         </button>
     </div>
 
+    <span id="loginFormId"></span>
 
-    <!-- Existing Log In -->
-    <div class="container d-flex justify-content-center align-items-center">
-        <div class="mt-5 mb-5 mx-5">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Existing Log In -->
+            <div class="col-sm-6">
+                <div class="mt-5 mb-5 mx-5 loginForm p-5">
 
-            <form method="POST" name="loginForm" class="loginForm p-5">
-                <h2> Kindly log in to your profile: </h2>
+                    <form method="POST">
+                        <h2> Kindly log in to your profile: </h2>
 
-                <!-- Username -->
-                <table>
-                    <tr>
-                        <td class="p-4"><label for="username" class="labelStyle"> Username: </label></td>
-                        <td class="p-4"><input type="text" name="username" class="inputStyle" required></td>
-                    </tr>
+                        <!-- Username -->
+                        <table>
+                            <tr>
+                                <td class="p-4"><label for="username" class="labelStyle"> Username: </label></td>
+                                <td class="p-4"><input type="text" name="username" class="inputStyle" required></td>
+                            </tr>
 
-                    <!-- Password -->
-                    <tr>
-                        <td class="p-4"><label for="password" class="labelStyle"> Password: </label></td>
-                        <td class="p-4"><input type="password" name="password" class="inputStyle" required></td>
-                    </tr>
+                            <!-- Password -->
+                            <tr>
+                                <td class="p-4"><label for="password" class="labelStyle"> Password: </label></td>
+                                <td class="p-4"><input type="password" name="password" class="inputStyle" required></td>
+                            </tr>
 
-                    <!-- Email -->
-                    <tr>
-                        <td class="p-4"><label for="email" class="labelStyle"> Email: </label></td>
-                        <td class="p-4"><input type="email" name="email" class="inputStyle" required></td>
-                    </tr>
-                </table>
+                            <!-- Email -->
+                            <tr>
+                                <td class="p-4"><label for="email" class="labelStyle"> Email: </label></td>
+                                <td class="p-4"><input type="email" name="email" class="inputStyle" required></td>
+                            </tr>
+                        </table>
 
-                <!-- Log In Button -->
-                <div class="container d-flex justify-content-center align-items-center">
-                    <div class="mx-5 mt-3 mb-5">
-                        <button name="logInButton" type="submit" class="logInButton p-2">Log In</button>
-                    </div>
+                        <!-- Log In Button -->
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <div class="mx-5 mt-3 mb-5">
+                                <button name="logInButton" type="submit" class="logInButton p-2">Log In</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <!-- Directs to New User Sign Up -->
+                    <form method="POST">
+
+                        <h2> Are you a new user? </h2>
+
+                        <!-- New User Button -->
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <div class="mx-5 mt-3">
+                                <button name="existButton" type="submit" class="logInButton p-2">Sign Up</button>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
+            </div>
 
-            </form>
+            <!-- Staff Form Section -->
+            <div class="col-sm-6">
+                <div class="mt-5 mb-5 mx-5 loginForm p-5">
+                    <form method="POST">
+
+                        <h2> Are you a staff member? </h2>
+
+                        <!-- Staff Id -->
+                        <table>
+                            <tr>
+                                <td class="p-4"><label for="id" class="labelStyle"> Staff Id: </label></td>
+                                <td class="p-4"><input type="text" name="id" class="inputStyle" required></td>
+                            </tr>
+                        </table>
+
+                        <!-- Log in Button -->
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <div class="mx-5 mt-3">
+                                <button name="existButton" type="submit" class="logInButton p-2">Log In</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Directs to New User Sign Up -->
-    <div class="container d-flex justify-content-center align-items-center">
-        <div class="mt-3 mb-5 mx-5">
+    <!-- Our Hotles -->
+    <div class="container-fluid">
 
-            <form method="POST" name="newForm" class="loginForm p-5">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="background mx-5 my-4 p-3">
+                <h3> What we have to offer </h3>
+            </div>
+        </div>
 
-                <h2> Are you a new user? </h2>
+        <div class="row">
 
-                <!-- New User Button -->
-                <div class="container d-flex justify-content-center align-items-center">
-                    <div class="mx-5 mt-3">
-                        <button name="existButton" type="submit" class="logInButton p-2">Sign Up</button>
+            <!-- Marbella Elix -->
+            <div class="col-sm-6">
+                <div class="container mt-3 mb-5">
+                    <div class="card img-fluid">
+                        <img class="card-img-top hotelImage" src="../img/marbellaElix.jpg" alt="Card image">
+
+                        <div class="card-img-overlay">
+                            <h5 class="card-title"> Marbella Elix </h5>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="#loginFormId" class="viewMoreButton p-2"> View More </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-            </form>
+            <!-- Royal Senses -->
+            <div class="col-sm-6">
+                <div class="container mt-3 mb-5">
+                    <div class="card img-fluid">
+                        <img class="card-img-top hotelImage" src="../img/royalSenses.jpg" alt="Card image">
+
+                        <div class="card-img-overlay">
+                            <h5 class="card-title"> Royal Sensesx </h5>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="#loginFormId" class="viewMoreButton p-2"> View More </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="row">
+
+            <!-- The View -->
+            <div class="col-sm-6">
+                <div class="container mt-3 mb-5">
+                    <div class="card img-fluid">
+                        <img class="card-img-top hotelImage" src="../img/theView.jpg" alt="Card image">
+
+                        <div class="card-img-overlay">
+                            <h5 class="card-title"> The View </h5>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="#loginFormId" class="viewMoreButton p-2"> View More </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Angsana Corfu -->
+            <div class="col-sm-6">
+                <div class="container mt-3 mb-5">
+                    <div class="card img-fluid">
+                        <img class="card-img-top hotelImage" src="../img/angsanaCorfu.jpg" alt="Card image">
+
+                        <div class="card-img-overlay">
+                            <h5 class="card-title"> Angsana Corfu </h5>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="#loginFormId" class="viewMoreButton p-2"> View More </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Rooster -->
+            <div class="col-sm-6">
+                <div class="container mt-3 mb-5">
+                    <div class="card img-fluid">
+                        <img class="card-img-top hotelImage" src="../img/theRooster.jpg" alt="Card image">
+
+                        <div class="card-img-overlay">
+                            <h5 class="card-title"> The Rooster </h5>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="#loginFormId" class="viewMoreButton p-2"> View More </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Destino Pacha -->
+            <div class="col-sm-6">
+                <div class="container mt-3 mb-5">
+                    <div class="card img-fluid">
+                        <img class="card-img-top hotelImage" src="../img/destinoPacha.jpeg" alt="Card image">
+
+                        <div class="card-img-overlay">
+                            <h5 class="card-title"> Destino Pacha </h5>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="#loginFormId" class="viewMoreButton p-2"> View More </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
     </div>
-
-
 </body>
 
 </html>
