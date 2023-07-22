@@ -1,0 +1,12 @@
+{
+    "users": [
+        {
+            "id": "64bba51e490a6",
+            "username": "Jeanie",
+            "fullname": "Jeanie Venter",
+            "address": "17 Acacia street",
+            "password": "123",
+            "email": "ben@gmail.com"
+        }
+    ]
+}

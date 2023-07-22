@@ -15,6 +15,12 @@ h1 {
     color: #08392B;
 }
 
+h2 {
+    font-size: 50px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
 .labelStyle {
     color: #08392B;
     font-size: 25px;
@@ -31,4 +37,15 @@ h1 {
     color: #E1E7E0;
     border-color: #E1E7E0;
     width: 9vw;
+}
+
+.tranBack {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.homeButton{
+    width: 80px;
+    height: 80px;
 }

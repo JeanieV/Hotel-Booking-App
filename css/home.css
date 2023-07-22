@@ -73,6 +73,13 @@ h4 {
     width: 8vw;
 }
 
+.logInButton:hover {
+    transform: scale(1.1);
+    background-color: #B1D4E0;
+    color: black;
+    border: none;
+}
+
 /* Card Section */
 h3 {
     font-size: 70px;
@@ -93,6 +100,13 @@ h5 {
     width: 8vw;
     border-radius: 30px;
     text-align: center;
+    outline: none;
+}
+
+.viewMoreButton:hover {
+    transform: scale(1.3);
+    background-color: #08392B;
+    color: #F7E2C7;
 }
 
 a {
@@ -102,4 +116,45 @@ a {
 .hotelImage {
     width: 100%;
     height: 400px;
+}
+
+.checked {
+    color: orange;
+}
+
+.starRating {
+    font-size: 20px;
+    color: #F7E2C7;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    width: max-content;
+}
+
+/* Message View */
+.messageView {
+    background: rgba(0, 0, 0, 0.8);
+    width: max-content;
+    display: flex;
+    align-items: center;
+}
+
+h6 {
+    font-size: 40px;
+    color: #E1E7E0;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.close{
+    background-color: transparent;
+    color: #E1E7E0;
+    font-size: 40px;
+    margin-left: auto;
+}
+
+.existMessage{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
 }
