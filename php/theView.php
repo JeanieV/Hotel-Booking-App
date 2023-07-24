@@ -11,7 +11,7 @@ require './functions.php';
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Marbella Elix</title>
+    <title>The View</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -32,59 +32,32 @@ require './functions.php';
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="1"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="2"></button>
-            <button type="button" data-bs-target="#carousel" data-bs-slide-to="3"></button>
-            <button type="button" data-bs-target="#carousel" data-bs-slide-to="4"></button>
-            <button type="button" data-bs-target="#carousel" data-bs-slide-to="5"></button>
         </div>
 
         <!-- Slideshow -->
         <div class="carousel-inner">
 
-            <!-- Marbella 1 -->
+            <!-- View 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella4.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix2.jpg">
+                    <img src="../img/view1.jpg" alt="The View" class="viewImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Exterior.jpg">
                 </picture>
             </div>
 
-            <!-- Marbella 2 -->
+            <!-- View 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella2.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix19-0357.jpg">
+                    <img src="../img/view2.jpg" alt="The View" class="viewImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Living-Room.jpg">
                 </picture>
             </div>
 
-            <!-- Marbella 3 -->
+            <!-- View 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella3.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbella-elix-4.jpg">
-                </picture>
-            </div>
-
-            <!-- Marbella 4 -->
-            <div class="carousel-item d-flex justify-content-center align-items-center">
-                <picture>
-                    <img src="../img/marbella1.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/Greece-Hotel-Openings-2021-MarBella-Elix-17.jpg">
-                </picture>
-            </div>
-
-            <!-- Marbella 5 -->
-            <div class="carousel-item d-flex justify-content-center align-items-center">
-                <picture>
-                    <img src="../img/marbella5.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix20-2037.jpg">
-                </picture>
-            </div>
-
-            <!-- Marbella 6 -->
-            <div class="carousel-item d-flex justify-content-center align-items-center">
-                <picture>
-                    <img src="../img/marbella6.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/greece-hotel-openings-2021-marbella-elix/">
+                    <img src="../img/view3.jpg" alt="The View" class="viewImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Master-Bedroom.jpg">
                 </picture>
             </div>
 
@@ -114,14 +87,13 @@ require './functions.php';
                                     attribution="https://www.flaticon.com/free-icons/home"></button>
                         </form>
 
-                        <h1> Welcome to Marbella Elix </h1>
+                        <h1> Welcome to The View </h1>
 
-                        <p> Located above the beautiful Karavostasi Beach in the Parga region, looking west towards
-                            Corfu and Paxos. As the third hotel to join the Marbella Collection portfolio and the
-                            brand’s first property outside of the island of Corfu, Marbella Elix sits in unspoilt
-                            surroundings where the mountains meet the Ionian Sea. The existing seaside hotel of the
-                            place was renovated and turned into a modern resort with t146 spacious and contemporary
-                            guest rooms and suites, all featuring stunning views of this beautiful golden coastline.</p>
+                        <p> The View is a tranquil retreat for a relaxing self-catering holiday – only five minutes away
+                            of the vibrant Mykonos Town with its unmatched shopping, dining and nightlife. The 4 boho
+                            suites that consist The View are located above the charming beach of Agios Stefanos and
+                            combine modern architecture with classic Cycladic styling elements, all offering stunning
+                            views of the Aegean.</p>
                     </form>
                 </div>
             </div>

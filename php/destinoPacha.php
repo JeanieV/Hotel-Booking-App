@@ -11,7 +11,7 @@ require './functions.php';
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Marbella Elix</title>
+    <title>Destino Pacha</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -35,56 +35,65 @@ require './functions.php';
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="3"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="4"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="5"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="6"></button>
         </div>
 
         <!-- Slideshow -->
         <div class="carousel-inner">
 
-            <!-- Marbella 1 -->
+            <!-- Destino 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella4.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix2.jpg">
+                    <img src="../img/destino1.jpeg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha6.jpeg">
                 </picture>
             </div>
 
-            <!-- Marbella 2 -->
+            <!-- Destino 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella2.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix19-0357.jpg">
+                    <img src="../img/destino2.jpeg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha2.jpeg">
                 </picture>
             </div>
 
-            <!-- Marbella 3 -->
+            <!-- Destino 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella3.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbella-elix-4.jpg">
+                    <img src="../img/destino3.jpeg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha7.jpeg">
                 </picture>
             </div>
 
-            <!-- Marbella 4 -->
+            <!-- Destino 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella1.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/Greece-Hotel-Openings-2021-MarBella-Elix-17.jpg">
+                    <img src="../img/destino4.jpg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/310534652.jpg?k=717880fda40f503e21bd3cc76ba6c302c16c8d5a15dc10e7e46abae012d12ddd&o=&hp=1">
                 </picture>
             </div>
 
-            <!-- Marbella 5 -->
+            <!-- Destino 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella5.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix20-2037.jpg">
+                    <img src="../img/destino5.jpg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://www.nichetravelguides.com/wp-content/uploads/2020/12/Oniro-1.jpg">
                 </picture>
             </div>
 
-            <!-- Marbella 6 -->
+            <!-- Destino 6 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella6.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/greece-hotel-openings-2021-marbella-elix/">
+                    <img src="../img/destino6.jpg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/310534660.jpg?k=2946da1c3163a1e103cc5e5a6928c93566d8521c2b43aada0d22e09e8a4c2cc5&o=&hp=1">
+                </picture>
+            </div>
+
+            <!-- Destino 7 -->
+            <div class="carousel-item d-flex justify-content-center align-items-center">
+                <picture>
+                    <img src="../img/destino7.jpg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/343096454.jpg?k=cf75813e6c18bcbc5375c0bceac14697e2b62194f3095d1efb02027697a267c2&o=&hp=1">
                 </picture>
             </div>
 
@@ -114,14 +123,13 @@ require './functions.php';
                                     attribution="https://www.flaticon.com/free-icons/home"></button>
                         </form>
 
-                        <h1> Welcome to Marbella Elix </h1>
+                        <h1> Welcome to Destino Pacha </h1>
 
-                        <p> Located above the beautiful Karavostasi Beach in the Parga region, looking west towards
-                            Corfu and Paxos. As the third hotel to join the Marbella Collection portfolio and the
-                            brand’s first property outside of the island of Corfu, Marbella Elix sits in unspoilt
-                            surroundings where the mountains meet the Ionian Sea. The existing seaside hotel of the
-                            place was renovated and turned into a modern resort with t146 spacious and contemporary
-                            guest rooms and suites, all featuring stunning views of this beautiful golden coastline.</p>
+                        <p> Destino Pacha Mykonos is located in one of the most beautiful parts of the island,
+                            overlooking the turquoise waters of the Aegean. It offers 34 rooms, with six spacious suites
+                            and combines traditional Cycladic architecture with modern touches, typical of the Pacha
+                            group. The elegant floors and the prevailing white are complemented by natural wood, stone
+                            and linen fabrics.</p>
                     </form>
                 </div>
             </div>

@@ -54,7 +54,7 @@ if (isset($_POST['viewMoreButton'])) {
         <div class="carousel-inner">
             <div class="carousel-item active">
 
-                <video id="oceanView" autoplay loop muted>
+                <video class="oceanView" autoplay loop muted>
                     <source src="../video/background-ocean.mp4" type="video/mp4"
                         attribution="Video by Dimitris Mourousiadis: https://www.pexels.com/video/aerial-view-of-beautiful-greek-beach-6460125/">
                 </video>
@@ -67,7 +67,7 @@ if (isset($_POST['viewMoreButton'])) {
 
             <div class="carousel-item">
 
-                <video id="oceanView" autoplay loop muted>
+                <video class="oceanView" autoplay loop muted>
                     <source src="../video/background-greece.mp4" type="video/mp4"
                         attribution="Video by Pat Whelen: https://www.pexels.com/video/acropolis-of-athens-5737310/">
                 </video>
@@ -80,7 +80,7 @@ if (isset($_POST['viewMoreButton'])) {
 
             <div class="carousel-item">
 
-                <video id="oceanView" autoplay loop muted>
+                <video class="oceanView" autoplay loop muted>
                     <source src="../video/background-houses.mp4" type="video/mp4"
                         attribution="Video by Dimitris Mourousiadis: https://www.pexels.com/video/aerial-shot-of-santorini-6192496/">
                 </video>
@@ -236,7 +236,7 @@ if (isset($_POST['viewMoreButton'])) {
                             <img class="card-img-top hotelImage" src="../img/royalSenses.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
-                                <h5 class="card-title p-2"> Royal Sensesx </h5>
+                                <h5 class="card-title p-2"> Royal Senses </h5>
                                 <div class="d-flex justify-content-center align-items-center">
                                     <p class="starRating p-2">
                                         <span class="fa fa-star checked"></span>

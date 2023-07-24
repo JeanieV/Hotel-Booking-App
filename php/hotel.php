@@ -2,9 +2,6 @@
 session_start();
 require './functions.php';
 
-if(isset($_POST['marbellaElixButton'])){
-    header("Location: ./marbellaElix.php");
-}
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +68,7 @@ if(isset($_POST['marbellaElixButton'])){
                             <img class="card-img-top hotelImage" src="../img/royalSenses.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
-                                <h5 class="card-title p-2"> Royal Sensesx </h5>
+                                <h5 class="card-title p-2"> Royal Senses </h5>
                                 <div class="d-flex justify-content-center align-items-center">
                                     <p class="starRating p-2">
                                         <span class="fa fa-star checked"></span>
@@ -82,7 +79,7 @@ if(isset($_POST['marbellaElixButton'])){
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <button type="submit" name="viewMoreButton" class="viewMoreButton p-2"> View More
+                                    <button type="submit" name="royalSensesButton" class="viewMoreButton p-2"> View More
                                     </button>
                                 </div>
                             </div>
@@ -111,7 +108,7 @@ if(isset($_POST['marbellaElixButton'])){
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <button type="submit" name="viewMoreButton" class="viewMoreButton p-2"> View More
+                                    <button type="submit" name="theViewButton" class="viewMoreButton p-2"> View More
                                     </button>
                                 </div>
                             </div>
@@ -137,7 +134,7 @@ if(isset($_POST['marbellaElixButton'])){
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <button type="submit" name="viewMoreButton" class="viewMoreButton p-2"> View More
+                                    <button type="submit" name="angsanaButton" class="viewMoreButton p-2"> View More
                                     </button>
                                 </div>
                             </div>
@@ -163,7 +160,7 @@ if(isset($_POST['marbellaElixButton'])){
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <button type="submit" name="viewMoreButton" class="viewMoreButton p-2"> View More
+                                    <button type="submit" name="theRoosterButton" class="viewMoreButton p-2"> View More
                                     </button>
                                 </div>
                             </div>
@@ -190,7 +187,7 @@ if(isset($_POST['marbellaElixButton'])){
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <button type="submit" name="viewMoreButton" class="viewMoreButton p-2"> View More
+                                    <button type="submit" name="destinoButton" class="viewMoreButton p-2"> View More
                                     </button>
                                 </div>
                             </div>

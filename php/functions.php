@@ -13,12 +13,48 @@ if (isset($_POST['signUpButton'])) {
     header("Location: ./index.php");
 }
 
+// Return to Home Page
 if(isset($_POST['returnHome'])){
     header("Location: ./index.php");
 }
 
 if(isset($_POST['logInButton'])){
     header("Location: ./hotel.php");
+}
+
+// Return to Hotel Page after clicking on viewing a Hotel
+if(isset($_POST['returntoHotelPage'])){
+    header("Location: ./hotel.php");
+}
+
+// View Marbella Elix
+if(isset($_POST['marbellaElixButton'])){
+    header("Location: ./marbellaElix.php");
+}
+
+// View Royal Senses
+if(isset($_POST['royalSensesButton'])){
+    header("Location: ./royalSenses.php");
+}
+
+// View The View
+if(isset($_POST['theViewButton'])){
+    header("Location: ./theView.php");
+}
+
+// View Angsana Corfu
+if(isset($_POST['angsanaButton'])){
+    header("Location: ./angsanaCorfu.php");
+}
+
+// View The Rooster
+if(isset($_POST['theRoosterButton'])){
+    header("Location: ./theRooster.php");
+}
+
+// View The Rooster
+if(isset($_POST['destinoButton'])){
+    header("Location: ./destinoPacha.php");
 }
 
 // Using JSON while figuring out SQL
