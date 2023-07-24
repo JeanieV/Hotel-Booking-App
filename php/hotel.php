@@ -23,9 +23,16 @@ require './functions.php';
 
 <body>
 
-<!-- Our Hotles -->
-<form method="POST">
+    <!-- Our Hotles -->
+    <form method="POST">
         <div class="container-fluid">
+
+            <!-- Return Home Button -->
+            <form method="POST">
+                <button type="submit" name="returnHome" class="tranBack"><img class="homeButton mx-3 mt-3"
+                        src="../img/home.png" alt="Back to Home Page" title="Back to Home Page"
+                        attribution="https://www.flaticon.com/free-icons/home"></button>
+            </form>
 
             <div class="d-flex justify-content-center align-items-center">
                 <div class="background mx-5 my-4 p-3">
@@ -53,7 +60,8 @@ require './functions.php';
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <button type="submit" name="marbellaElixButton" class="viewMoreButton p-2"> View More
+                                    <button type="submit" name="marbellaElixButton" class="viewMoreButton p-2"> View
+                                        More
                                     </button>
                                 </div>
                             </div>

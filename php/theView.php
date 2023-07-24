@@ -32,6 +32,9 @@ require './functions.php';
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="1"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="4"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="5"></button>
         </div>
 
         <!-- Slideshow -->
@@ -58,6 +61,30 @@ require './functions.php';
                 <picture>
                     <img src="../img/view3.jpg" alt="The View" class="viewImage"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Master-Bedroom.jpg">
+                </picture>
+            </div>
+
+            <!-- View 4 -->
+            <div class="carousel-item d-flex justify-content-center align-items-center">
+                <picture>
+                    <img src="../img/view4.jpg" alt="The View" class="viewImage"
+                        attribution="https://www.discovergreece.com/sites/default/files/styles/default/public/2019-12/basilicas_of_saint_stephen_in_kos-edited-1.jpg?itok=-CBg8mZL">
+                </picture>
+            </div>
+
+            <!-- View 5 -->
+            <div class="carousel-item d-flex justify-content-center align-items-center">
+                <picture>
+                    <img src="../img/view5.webp" alt="The View" class="viewImage"
+                        attribution="https://images.trvl-media.com/lodging/4000000/3680000/3673200/3673167/e4d700fc.jpg?impolicy=resizecrop&rw=1200&ra=fit">
+                </picture>
+            </div>
+
+            <!-- View 6 -->
+            <div class="carousel-item d-flex justify-content-center align-items-center">
+                <picture>
+                    <img src="../img/view6.avif" alt="The View" class="viewImage"
+                        attribution="https://images.trvl-media.com/lodging/4000000/3680000/3673200/3673167/3f996764.jpg?impolicy=resizecrop&rw=1200&ra=fit">
                 </picture>
             </div>
 

@@ -145,16 +145,29 @@ h6 {
     margin-right: 10px;
 }
 
-.close{
+.close {
     background-color: transparent;
     color: #E1E7E0;
     font-size: 40px;
     margin-left: auto;
 }
 
-.existMessage{
+.existMessage {
     border: none;
     background-color: transparent;
     outline: none;
     cursor: pointer;
+}
+
+/* Home Button */
+
+.tranBack {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.homeButton {
+    width: 80px;
+    height: 80px;
 }
