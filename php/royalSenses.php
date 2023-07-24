@@ -19,7 +19,7 @@ require './functions.php';
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
 </head>
 
 <body>
@@ -43,7 +43,7 @@ require './functions.php';
             <!-- Royal 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/royal1.jpg" alt="Royal Senses" class="royalImage"
+                    <img src="../static/img/royal1.jpg" alt="Royal Senses" class="royalImage"
                         attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
@@ -51,7 +51,7 @@ require './functions.php';
             <!-- Royal 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/royal2.jpg" alt="Royal Senses" class="royalImage"
+                    <img src="../static/img/royal2.jpg" alt="Royal Senses" class="royalImage"
                         attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
@@ -59,7 +59,7 @@ require './functions.php';
             <!-- Royal 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/royal3.jpg" alt="Royal Senses" class="royalImage"
+                    <img src="../static/img/royal3.jpg" alt="Royal Senses" class="royalImage"
                         attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
@@ -67,7 +67,7 @@ require './functions.php';
             <!-- Royal 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/royal4.jpg" alt="Royal Senses" class="royalImage"
+                    <img src="../static/img/royal4.jpg" alt="Royal Senses" class="royalImage"
                         attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
@@ -75,7 +75,7 @@ require './functions.php';
             <!-- Royal 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/royal5.jpg" alt="Royal Senses" class="royalImage"
+                    <img src="../static/img/royal5.jpg" alt="Royal Senses" class="royalImage"
                         attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
@@ -83,7 +83,7 @@ require './functions.php';
             <!-- Royal 6 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/royal6.jpg" alt="Royal Senses" class="royalImage"
+                    <img src="../static/img/royal6.jpg" alt="Royal Senses" class="royalImage"
                         attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
@@ -109,7 +109,7 @@ require './functions.php';
                         <!-- Return Home Button -->
                         <form method="POST">
                             <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                    class="homeButton mx-3 mt-3" src="../img/home.png" alt="Back to Home Page"
+                                    class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
                                     title="Back to Home Page"
                                     attribution="https://www.flaticon.com/free-icons/home"></button>
                         </form>

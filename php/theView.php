@@ -19,7 +19,7 @@ require './functions.php';
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
 </head>
 
 <body>
@@ -43,7 +43,7 @@ require './functions.php';
             <!-- View 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/view1.jpg" alt="The View" class="viewImage"
+                    <img src="../static/img/view1.jpg" alt="The View" class="viewImage"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Exterior.jpg">
                 </picture>
             </div>
@@ -51,7 +51,7 @@ require './functions.php';
             <!-- View 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/view2.jpg" alt="The View" class="viewImage"
+                    <img src="../static/img/view2.jpg" alt="The View" class="viewImage"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Living-Room.jpg">
                 </picture>
             </div>
@@ -59,7 +59,7 @@ require './functions.php';
             <!-- View 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/view3.jpg" alt="The View" class="viewImage"
+                    <img src="../static/img/view3.jpg" alt="The View" class="viewImage"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Master-Bedroom.jpg">
                 </picture>
             </div>
@@ -67,7 +67,7 @@ require './functions.php';
             <!-- View 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/view4.jpg" alt="The View" class="viewImage"
+                    <img src="../static/img/view4.jpg" alt="The View" class="viewImage"
                         attribution="https://www.discovergreece.com/sites/default/files/styles/default/public/2019-12/basilicas_of_saint_stephen_in_kos-edited-1.jpg?itok=-CBg8mZL">
                 </picture>
             </div>
@@ -75,7 +75,7 @@ require './functions.php';
             <!-- View 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/view5.webp" alt="The View" class="viewImage"
+                    <img src="../static/img/view5.webp" alt="The View" class="viewImage"
                         attribution="https://images.trvl-media.com/lodging/4000000/3680000/3673200/3673167/e4d700fc.jpg?impolicy=resizecrop&rw=1200&ra=fit">
                 </picture>
             </div>
@@ -83,7 +83,7 @@ require './functions.php';
             <!-- View 6 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/view6.avif" alt="The View" class="viewImage"
+                    <img src="../static/img/view6.avif" alt="The View" class="viewImage"
                         attribution="https://images.trvl-media.com/lodging/4000000/3680000/3673200/3673167/3f996764.jpg?impolicy=resizecrop&rw=1200&ra=fit">
                 </picture>
             </div>
@@ -109,7 +109,7 @@ require './functions.php';
                         <!-- Return Home Button -->
                         <form method="POST">
                             <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                    class="homeButton mx-3 mt-3" src="../img/home.png" alt="Back to Home Page"
+                                    class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
                                     title="Back to Home Page"
                                     attribution="https://www.flaticon.com/free-icons/home"></button>
                         </form>

@@ -136,6 +136,8 @@ a {
     width: max-content;
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 h6 {

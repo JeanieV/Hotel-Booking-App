@@ -18,7 +18,7 @@ require './functions.php';
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/home.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/home.css'>
 </head>
 
 <body>
@@ -30,7 +30,7 @@ require './functions.php';
             <!-- Return Home Button -->
             <form method="POST">
                 <button type="submit" name="returnHome" class="tranBack"><img class="homeButton mx-3 mt-3"
-                        src="../img/home.png" alt="Back to Home Page" title="Back to Home Page"
+                        src="../static/img/home.png" alt="Back to Home Page" title="Back to Home Page"
                         attribution="https://www.flaticon.com/free-icons/home"></button>
             </form>
 
@@ -46,7 +46,7 @@ require './functions.php';
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/marbellaElix.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/marbellaElix.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Marbella Elix </h5>
@@ -73,7 +73,7 @@ require './functions.php';
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/royalSenses.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/royalSenses.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Royal Senses </h5>
@@ -102,7 +102,7 @@ require './functions.php';
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/theView.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/theView.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> The View </h5>
@@ -128,7 +128,7 @@ require './functions.php';
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/angsanaCorfu.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/angsanaCorfu.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Angsana Corfu </h5>
@@ -154,7 +154,7 @@ require './functions.php';
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/theRooster.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/theRooster.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> The Rooster </h5>
@@ -181,7 +181,7 @@ require './functions.php';
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/destinoPacha.jpeg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/destinoPacha.jpeg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Destino Pacha </h5>

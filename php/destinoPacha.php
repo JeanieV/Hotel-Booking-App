@@ -19,7 +19,7 @@ require './functions.php';
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
 </head>
 
 <body>
@@ -44,7 +44,7 @@ require './functions.php';
             <!-- Destino 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/destino1.jpeg" alt="Destino Pacha" class="destinoImage"
+                    <img src="../static/img/destino1.jpeg" alt="Destino Pacha" class="destinoImage"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha6.jpeg">
                 </picture>
             </div>
@@ -52,7 +52,7 @@ require './functions.php';
             <!-- Destino 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/destino2.jpeg" alt="Destino Pacha" class="destinoImage"
+                    <img src="../static/img/destino2.jpeg" alt="Destino Pacha" class="destinoImage"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha2.jpeg">
                 </picture>
             </div>
@@ -60,7 +60,7 @@ require './functions.php';
             <!-- Destino 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/destino3.jpeg" alt="Destino Pacha" class="destinoImage"
+                    <img src="../static/img/destino3.jpeg" alt="Destino Pacha" class="destinoImage"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha7.jpeg">
                 </picture>
             </div>
@@ -68,7 +68,7 @@ require './functions.php';
             <!-- Destino 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/destino4.jpg" alt="Destino Pacha" class="destinoImage"
+                    <img src="../static/img/destino4.jpg" alt="Destino Pacha" class="destinoImage"
                         attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/310534652.jpg?k=717880fda40f503e21bd3cc76ba6c302c16c8d5a15dc10e7e46abae012d12ddd&o=&hp=1">
                 </picture>
             </div>
@@ -76,7 +76,7 @@ require './functions.php';
             <!-- Destino 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/destino5.jpg" alt="Destino Pacha" class="destinoImage"
+                    <img src="../static/img/destino5.jpg" alt="Destino Pacha" class="destinoImage"
                         attribution="https://www.nichetravelguides.com/wp-content/uploads/2020/12/Oniro-1.jpg">
                 </picture>
             </div>
@@ -84,7 +84,7 @@ require './functions.php';
             <!-- Destino 6 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/destino6.jpg" alt="Destino Pacha" class="destinoImage"
+                    <img src="../static/img/destino6.jpg" alt="Destino Pacha" class="destinoImage"
                         attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/310534660.jpg?k=2946da1c3163a1e103cc5e5a6928c93566d8521c2b43aada0d22e09e8a4c2cc5&o=&hp=1">
                 </picture>
             </div>
@@ -92,7 +92,7 @@ require './functions.php';
             <!-- Destino 7 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/destino7.jpg" alt="Destino Pacha" class="destinoImage"
+                    <img src="../static/img/destino7.jpg" alt="Destino Pacha" class="destinoImage"
                         attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/343096454.jpg?k=cf75813e6c18bcbc5375c0bceac14697e2b62194f3095d1efb02027697a267c2&o=&hp=1">
                 </picture>
             </div>
@@ -118,7 +118,7 @@ require './functions.php';
                         <!-- Return Home Button -->
                         <form method="POST">
                             <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                    class="homeButton mx-3 mt-3" src="../img/home.png" alt="Back to Home Page"
+                                    class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
                                     title="Back to Home Page"
                                     attribution="https://www.flaticon.com/free-icons/home"></button>
                         </form>

@@ -48,4 +48,5 @@ h2 {
 .homeButton{
     width: 80px;
     height: 80px;
+    border-radius: 30px;
 }

@@ -19,7 +19,7 @@ require './functions.php';
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
 </head>
 
 <body>
@@ -43,7 +43,7 @@ require './functions.php';
             <!-- Rooster 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/rooster1.jpg" alt="The Rooster" class="roosterImage"
+                    <img src="../static/img/rooster1.jpg" alt="The Rooster" class="roosterImage"
                         attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
                 </picture>
             </div>
@@ -51,7 +51,7 @@ require './functions.php';
             <!-- Rooster 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/rooster2.jpg" alt="The Rooster" class="roosterImage"
+                    <img src="../static/img/rooster2.jpg" alt="The Rooster" class="roosterImage"
                         attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
                 </picture>
             </div>
@@ -59,7 +59,7 @@ require './functions.php';
             <!-- Rooster 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/rooster3.jpg" alt="The Rooster" class="roosterImage"
+                    <img src="../static/img/rooster3.jpg" alt="The Rooster" class="roosterImage"
                         attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
                 </picture>
             </div>
@@ -67,7 +67,7 @@ require './functions.php';
             <!-- Rooster 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/rooster4.jpg" alt="The Rooster" class="roosterImage"
+                    <img src="../static/img/rooster4.jpg" alt="The Rooster" class="roosterImage"
                         attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
                 </picture>
             </div>
@@ -75,7 +75,7 @@ require './functions.php';
             <!-- Rooster 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/rooster5.jpg" alt="The Rooster" class="roosterImage"
+                    <img src="../static/img/rooster5.jpg" alt="The Rooster" class="roosterImage"
                         attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
                 </picture>
             </div>
@@ -83,7 +83,7 @@ require './functions.php';
             <!-- Rooster 6 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/rooster6.jpg" alt="The Rooster" class="roosterImage"
+                    <img src="../static/img/rooster6.jpg" alt="The Rooster" class="roosterImage"
                         attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
                 </picture>
             </div>
@@ -109,7 +109,7 @@ require './functions.php';
                         <!-- Return Home Button -->
                         <form method="POST">
                             <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                    class="homeButton mx-3 mt-3" src="../img/home.png" alt="Back to Home Page"
+                                    class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
                                     title="Back to Home Page"
                                     attribution="https://www.flaticon.com/free-icons/home"></button>
                         </form>

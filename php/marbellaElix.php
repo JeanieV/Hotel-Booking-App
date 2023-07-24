@@ -19,7 +19,7 @@ require './functions.php';
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
 </head>
 
 <body>
@@ -43,7 +43,7 @@ require './functions.php';
             <!-- Marbella 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella4.jpg" alt="Marbella Elix"
+                    <img src="../static/img/marbella4.jpg" alt="Marbella Elix"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix2.jpg">
                 </picture>
             </div>
@@ -51,7 +51,7 @@ require './functions.php';
             <!-- Marbella 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella2.jpg" alt="Marbella Elix"
+                    <img src="../static/img/marbella2.jpg" alt="Marbella Elix"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix19-0357.jpg">
                 </picture>
             </div>
@@ -59,7 +59,7 @@ require './functions.php';
             <!-- Marbella 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella3.jpg" alt="Marbella Elix"
+                    <img src="../static/img/marbella3.jpg" alt="Marbella Elix"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbella-elix-4.jpg">
                 </picture>
             </div>
@@ -67,7 +67,7 @@ require './functions.php';
             <!-- Marbella 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella1.jpg" alt="Marbella Elix"
+                    <img src="../static/img/marbella1.jpg" alt="Marbella Elix"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/Greece-Hotel-Openings-2021-MarBella-Elix-17.jpg">
                 </picture>
             </div>
@@ -75,7 +75,7 @@ require './functions.php';
             <!-- Marbella 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella5.jpg" alt="Marbella Elix"
+                    <img src="../static/img/marbella5.jpg" alt="Marbella Elix"
                         attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix20-2037.jpg">
                 </picture>
             </div>
@@ -83,7 +83,7 @@ require './functions.php';
             <!-- Marbella 6 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../img/marbella6.jpg" alt="Marbella Elix"
+                    <img src="../static/img/marbella6.jpg" alt="Marbella Elix"
                         attribution="https://www.thehoteltrotter.com/greece-hotel-openings-2021-marbella-elix/">
                 </picture>
             </div>
@@ -109,7 +109,7 @@ require './functions.php';
                         <!-- Return Home Button -->
                         <form method="POST">
                             <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                    class="homeButton mx-3 mt-3" src="../img/home.png" alt="Back to Home Page"
+                                    class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
                                     title="Back to Home Page"
                                     attribution="https://www.flaticon.com/free-icons/home"></button>
                         </form>

@@ -35,10 +35,18 @@ if (isset($_POST['viewMoreButton'])) {
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../css/home.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/home.css'>
 </head>
 
 <body>
+
+    <!-- This is where the message will show if the user clicked on 'View More' -->
+    <span id="loginFormId"> </span>
+    <?php if (isset($displayMessage) && $displayMessage): ?>
+        <span id="loginFormId">
+            <?php echo $message; ?>
+        </span>
+    <?php endif; ?>
 
     <!-- Carousel Video -->
     <div id="carousel" class="carousel slide mb-5" data-bs-ride="carousel">
@@ -55,7 +63,7 @@ if (isset($_POST['viewMoreButton'])) {
             <div class="carousel-item active">
 
                 <video class="oceanView" autoplay loop muted>
-                    <source src="../video/background-ocean.mp4" type="video/mp4"
+                    <source src="../static/video/background-ocean.mp4" type="video/mp4"
                         attribution="Video by Dimitris Mourousiadis: https://www.pexels.com/video/aerial-view-of-beautiful-greek-beach-6460125/">
                 </video>
 
@@ -68,7 +76,7 @@ if (isset($_POST['viewMoreButton'])) {
             <div class="carousel-item">
 
                 <video class="oceanView" autoplay loop muted>
-                    <source src="../video/background-greece.mp4" type="video/mp4"
+                    <source src="../static/video/background-greece.mp4" type="video/mp4"
                         attribution="Video by Pat Whelen: https://www.pexels.com/video/acropolis-of-athens-5737310/">
                 </video>
 
@@ -81,7 +89,7 @@ if (isset($_POST['viewMoreButton'])) {
             <div class="carousel-item">
 
                 <video class="oceanView" autoplay loop muted>
-                    <source src="../video/background-houses.mp4" type="video/mp4"
+                    <source src="../static/video/background-houses.mp4" type="video/mp4"
                         attribution="Video by Dimitris Mourousiadis: https://www.pexels.com/video/aerial-shot-of-santorini-6192496/">
                 </video>
 
@@ -101,17 +109,10 @@ if (isset($_POST['viewMoreButton'])) {
         </button>
     </div>
 
-    <!-- This is where the message will show if the user clicked on 'View More' -->
-    <span id="loginFormId"> </span>
-    <?php if (isset($displayMessage) && $displayMessage): ?>
-        <span id="loginFormId">
-            <?php echo $message; ?>
-        </span>
-    <?php endif; ?>
 
+    <!-- Existing Log In -->
     <div class="container-fluid">
         <div class="row">
-            <!-- Existing Log In -->
             <div class="col-sm-6">
                 <div class="mt-5 mb-5 mx-5 loginForm p-5">
 
@@ -207,7 +208,7 @@ if (isset($_POST['viewMoreButton'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/marbellaElix.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/marbellaElix.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Marbella Elix </h5>
@@ -233,7 +234,7 @@ if (isset($_POST['viewMoreButton'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/royalSenses.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/royalSenses.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Royal Senses </h5>
@@ -262,7 +263,7 @@ if (isset($_POST['viewMoreButton'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/theView.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/theView.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> The View </h5>
@@ -288,7 +289,7 @@ if (isset($_POST['viewMoreButton'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/angsanaCorfu.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/angsanaCorfu.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Angsana Corfu </h5>
@@ -314,7 +315,7 @@ if (isset($_POST['viewMoreButton'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/theRooster.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/theRooster.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> The Rooster </h5>
@@ -341,7 +342,7 @@ if (isset($_POST['viewMoreButton'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../img/destinoPacha.jpeg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../static/img/destinoPacha.jpeg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Destino Pacha </h5>
