@@ -88,3 +88,48 @@ img {
     width: 80px;
     height: 80px;
 }
+
+/* Information Form */
+p{
+    font-size: 22px;
+    color: #001F3D;
+    text-align: center;
+}
+
+.labelStyle {
+    color: #08392B;
+    font-size: 25px;
+}
+
+.inputStyle {
+    font-size: 20px;
+    height: 40px;
+    width: 12vw;
+    text-align: center;
+}
+
+.dateConfirmHotelPage {
+    font-size: 22px;
+    background-color: #08392B;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 12vw;
+}
+
+.dateConfirmHotelPage:hover {
+    transform: scale(1.1);
+    background-color: #001F3D;
+    color: #E1E7E0;
+    border: none;
+}
+
+.output{
+    background-color: #08392B;
+    width: max-content;
+}
+
+h2{
+    font-size: 22px;
+    color: #E1E7E0;
+    text-align: center;
+}

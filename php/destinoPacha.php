@@ -116,12 +116,10 @@ require './functions.php';
                     <form method="POST">
 
                         <!-- Return Home Button -->
-                        <form method="POST">
-                            <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                    class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
-                                    title="Back to Home Page"
-                                    attribution="https://www.flaticon.com/free-icons/home"></button>
-                        </form>
+                        <button type="submit" name="returntoHotelPage" class="tranBack"><img
+                                class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
+                                title="Back to Home Page"
+                                attribution="https://www.flaticon.com/free-icons/home"></button>
 
                         <h1> Welcome to Destino Pacha </h1>
 
@@ -130,6 +128,32 @@ require './functions.php';
                             and combines traditional Cycladic architecture with modern touches, typical of the Pacha
                             group. The elegant floors and the prevailing white are complemented by natural wood, stone
                             and linen fabrics.</p>
+
+                        <!-- Check In & Out -->
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <table>
+                                <tr>
+                                    <td class="p-4"><label for="checkIn" class="labelStyle"> Check-In Date: </label>
+                                    </td>
+                                    <td class="p-4"><input type="date" name="checkIn" class="inputStyle"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4"><label for="checkOut" class="labelStyle"> Check-Out Date:
+                                        </label>
+                                    </td>
+                                    <td class="p-4"><input type="date" name="checkOut" class="inputStyle"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <button type="submit" name="dateConfirmHotelPage" class="dateConfirmHotelPage p-2 my-3">
+                                Confirm Date </button>
+                        </div>
+                        <!-- Date Output -->
+                        <div class="my-3">
+                            <?php displayDate(); ?>
+                        </div>
                     </form>
                 </div>
             </div>

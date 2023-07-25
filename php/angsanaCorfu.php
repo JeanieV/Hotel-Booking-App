@@ -50,7 +50,7 @@ require './functions.php';
             <!-- Angsana 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/angsana2.jpg" alt="Angsana Corfu" class="angsanaImage" 
+                    <img src="../static/img/angsana2.jpg" alt="Angsana Corfu" class="angsanaImage"
                         attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
                 </picture>
             </div>
@@ -98,12 +98,10 @@ require './functions.php';
                     <form method="POST">
 
                         <!-- Return Home Button -->
-                        <form method="POST">
-                            <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                    class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
-                                    title="Back to Home Page"
-                                    attribution="https://www.flaticon.com/free-icons/home"></button>
-                        </form>
+                        <button type="submit" name="returntoHotelPage" class="tranBack"><img
+                                class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
+                                title="Back to Home Page"
+                                attribution="https://www.flaticon.com/free-icons/home"></button>
 
                         <h1> Welcome to Angsana Corfu </h1>
 
@@ -111,6 +109,32 @@ require './functions.php';
                             Benitses Bay, lies Angsana Corfu –Banyan Tree’s first and much-anticipated resort in Europe.
                             It identifies as a Mediterranean sanctuary of extraordinary beauty, a luxurious spa and
                             beach resort offering a unique blend of Greek and Asian hospitality.</p>
+
+                        <!-- Check In & Out -->
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <table>
+                                <tr>
+                                    <td class="p-4"><label for="checkIn" class="labelStyle"> Check-In Date: </label>
+                                    </td>
+                                    <td class="p-4"><input type="date" name="checkIn" class="inputStyle"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4"><label for="checkOut" class="labelStyle"> Check-Out Date:
+                                        </label>
+                                    </td>
+                                    <td class="p-4"><input type="date" name="checkOut" class="inputStyle"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <button type="submit" name="dateConfirmHotelPage" class="dateConfirmHotelPage p-2 my-3">
+                                Confirm Date </button>
+                        </div>
+                        <!-- Date Output -->
+                        <div class="my-3">
+                            <?php displayDate(); ?>
+                        </div>
                     </form>
                 </div>
             </div>
