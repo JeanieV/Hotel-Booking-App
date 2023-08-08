@@ -2,7 +2,9 @@
 session_start();
 require './functions.php';
 
-
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -112,7 +114,7 @@ require './functions.php';
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <h1> Welcome to The Rooster </h1>
+                        <?php echo "<h1 class='mb-5'> Welcome to The Rooster, $username! </h1>" ?>
 
                         <p> Conceived as a wellness and lifestyle resort to embrace Slow Living, The Rooster is designed
                             with unpretentious aesthetic luxury in mind, paired with excellent service, providing a

@@ -2,7 +2,9 @@
 session_start();
 require './functions.php';
 
-
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +115,7 @@ require './functions.php';
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
 
-                        <h1> Welcome to The View </h1>
+                        <?php echo "<h1 class='mb-5'> Welcome to The View, $username! </h1>" ?>
 
                         <p class="p-2 my-4"> The View is a tranquil retreat for a relaxing self-catering holiday –
                             only

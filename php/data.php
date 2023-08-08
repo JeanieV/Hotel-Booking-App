@@ -8,8 +8,6 @@ if (!mysqli_query($_SESSION['mysqli'], $query)) {
     echo 'Error: ' . mysqli_error($_SESSION['mysqli']);
 }
 
-
-
 function getUsers()
 {
     $query = mysqli_query($_SESSION['mysqli'], 'SELECT * FROM users');

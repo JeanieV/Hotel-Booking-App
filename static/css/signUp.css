@@ -23,12 +23,13 @@ h2 {
 
 .labelStyle {
     color: #08392B;
-    font-size: 25px;
+    font-size: 28px;
 }
 
 .inputStyle {
-    height: 30px;
+    height: 40px;
     width: 15vw;
+    text-align: center;
 }
 
 .logInButton{
@@ -37,6 +38,13 @@ h2 {
     color: #E1E7E0;
     border-color: #E1E7E0;
     width: 9vw;
+}
+
+.logInButton:hover {
+    transform: scale(1.1);
+    background-color: #B1D4E0;
+    color: black;
+    border: none;
 }
 
 .tranBack {

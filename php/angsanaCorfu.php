@@ -2,7 +2,9 @@
 session_start();
 require './functions.php';
 
-
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +105,7 @@ require './functions.php';
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <h1> Welcome to Angsana Corfu </h1>
+                        <?php echo "<h1 class='mb-5'> Welcome to Angsana Corfu, $username! </h1>" ?>
 
                         <p> Set on an idyllic lush green hilltop overlooking the turquoise waters of the historical
                             Benitses Bay, lies Angsana Corfu –Banyan Tree’s first and much-anticipated resort in Europe.

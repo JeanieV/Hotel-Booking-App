@@ -4,23 +4,19 @@ require './classes.php';
 
 
 // Sign Up a new user
-if (isset($_POST['existButton'])) {
+if (isset($_POST['newUserButton'])) {
     header("Location: ./signUp.php");
 }
 
-// Redirect to landing page after sign up
-if (isset($_POST['signUpButton'])) {
+if (isset($_POST['logOutButton'])) {
+    session_unset();
+    session_destroy();
+
     header("Location: ./index.php");
+    exit();
 }
 
-// Return to Home Page
-if (isset($_POST['returnHome'])) {
-    header("Location: ./index.php");
-}
 
-if (isset($_POST['logInButton'])) {
-    header("Location: ./hotel.php");
-}
 
 // Return to Hotel Page after clicking on viewing a Hotel
 if (isset($_POST['returntoHotelPage'])) {
@@ -57,63 +53,133 @@ if (isset($_POST['destinoButton'])) {
     header("Location: ./destinoPacha.php");
 }
 
-// Using JSON while figuring out SQL
 
-function createUser()
+// Database connection
+function db_connect()
 {
-    if (isset($_POST['signUpButton']) && isset($_POST['newUsername']) && isset($_POST['newFullName']) && isset($_POST['newAddress']) && isset($_POST['newPassword']) && isset($_POST['newEmail'])) {
-        $newUser = new stdClass();
-        $newUser->id = generateID();
-        $newUser->username = $_POST['newUsername'];
-        $newUser->fullname = $_POST['newFullName'];
-        $newUser->address = $_POST['newAddress'];
-        $newUser->password = $_POST['newPassword'];
-        $newUser->email = $_POST['newEmail'];
+    $user = 'root';
+    $password = 'root';
+    $db = 'greece_bookings';
+    $host = 'localhost';
+    $port = 3306;
 
-        // Read the existing users from the file
-        $file = '../json/users.json';
-        $json = file_get_contents($file);
-        $users = json_decode($json)->users;
+    $mysqli = mysqli_init();
+    $success = mysqli_real_connect(
+        $mysqli,
+        $host,
+        $user,
+        $password,
+        $db,
+        $port
+    );
 
-        // Add the new User to the array
-        $users[] = $newUser;
+    if (!$success) {
+        echo "Error connecting to the database: " . mysqli_connect_error();
+        return null;
+    }
+    return $mysqli;
+}
 
-        // Convert the array back to JSON
-        $updatedData = json_encode(['users' => $users]);
+// Function to create a new user and check whether the email already exists
+function register()
+{
+    if (isset($_POST['newUsername']) && isset($_POST['newFullName']) && isset($_POST['newAddress']) && isset($_POST['newPassword']) && isset($_POST['newEmail']) && isset($_POST['newPhoneNumber'])) {
+        
+        // Get the user data from the POST request
+        $_SESSION['username'] = $_POST['newUsername'];
+        $username = $_SESSION['username'];
+        $_SESSION['fullname'] = $_POST['newFullName'];
+        $fullName = $_SESSION['fullname'];
+        $address = $_POST['newAddress'];
+        $password = $_POST['newPassword'];
+        $email = $_POST['newEmail'];
+        $phoneNumber = $_POST['newPhoneNumber'];
 
-        // Write the updated JSON data to the file
-        if (file_put_contents($file, $updatedData)) {
-            echo "User added successfully to JSON file";
-        } else {
-            echo "Oops! Error adding user to JSON file";
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
         }
-        header("Location: ./index.php");
+
+            // Check if the email already exists in the database 
+        $query = "SELECT * FROM users WHERE email = ?";
+        $stmt = mysqli_prepare($mysqli, $query);
+
+        // Prepare the statement to bind the parameters (email)
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+
+        // If there is information in the table that matches the input value
+        if (mysqli_stmt_num_rows($stmt) > 0) {
+            echo '<h2 class="p-3">Email already exists. Please use a different email address.</h2>';
+            mysqli_stmt_close($stmt);
+            mysqli_close($mysqli);
+            return;
+        }
+
+        // SQL Statement
+        $query = "INSERT INTO users (`username`, `fullname`, `address`, `password`, `email`, `phoneNumber`) VALUES (?, ?, ?, ?, ?, ?)";
+
+        // Prepare the statement
+        $stmt = mysqli_prepare($mysqli, $query);
+
+        // Bind the parameters to the statement (username, fullname, address, password and email)
+        mysqli_stmt_bind_param($stmt, "ssssss", $username, $fullName, $address, $password, $email, $phoneNumber);
+
+        // If the user has successfully been added to the database
+        if (mysqli_stmt_execute($stmt)) {
+            echo '<h2 class="p-3">Success: User created successfully! <br> Head back to Home Page for Login</h2>';
+            exit();
+        } else {
+            echo 'Error creating user: ' . mysqli_error($mysqli);
+        }
+
+        // Close the statement and the database connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($mysqli);
     }
 }
 
-// This is where the users gets pushed into the UsersArray
-
-$_SESSION['jsonFileUsers'] = '../json/users.json';
-
-function populateUsersArray($jsonFileUsers)
+function login()
 {
-    $jsonU = file_get_contents($jsonFileUsers);
-    $users = json_decode($jsonU)->users;
-    $usersArray = array();
-    foreach ($users as $user) {
-        array_push($usersArray, new User($user->id, $user->username, $user->fullname, $user->address, $user->password, $user->email));
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Check if the email and password match in the database
+        $query = "SELECT * FROM users WHERE email = ? AND password = ?";
+
+        // Prepare the statement to bind the parameters (email and password)
+        $stmt = mysqli_prepare($mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "ss", $email, $password);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        // If there is information in the table, find the username that match
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['fullname'] = $row['fullname'];
+            $_SESSION['username'] = $row['username'];
+
+            mysqli_stmt_close($stmt);
+            mysqli_close($mysqli);
+            header("Location: ./hotel.php");
+            exit();
+        } else {
+            // User does not exist or wrong password, redirect to signUp.php
+            mysqli_stmt_close($stmt);
+            mysqli_close($mysqli);
+            header("Location: ./signUp.php");
+            exit();
+        }
     }
-    return $usersArray;
-}
-
-$_SESSION['usersArray'] = populateUsersArray($_SESSION['jsonFileUsers']);
-
-// Generate unique ID
-function generateID()
-{
-    $unId = uniqid();
-
-    return $unId;
 }
 
 // The date selectors on the Hotel Page
@@ -228,3 +294,4 @@ confirmDateHotelPage();
 
 
 ?>
+

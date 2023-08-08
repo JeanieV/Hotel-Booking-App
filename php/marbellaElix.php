@@ -2,6 +2,9 @@
 session_start();
 require './functions.php';
 
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
 
 ?>
 
@@ -112,7 +115,7 @@ require './functions.php';
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <h1> Welcome to Marbella Elix </h1>
+                        <?php echo "<h1 class='mb-5'> Welcome to Marbella Elix, $username! </h1>" ?>
 
                         <p> Located above the beautiful Karavostasi Beach in the Parga region, looking west towards
                             Corfu and Paxos. As the third hotel to join the Marbella Collection portfolio and the

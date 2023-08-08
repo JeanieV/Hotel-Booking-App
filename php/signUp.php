@@ -1,7 +1,7 @@
 <?php
-
 session_start();
 require './functions.php';
+
 
 ?>
 
@@ -34,49 +34,66 @@ require './functions.php';
     <div class="container d-flex justify-content-center align-items-center">
         <div class="mt-5 mb-5 mx-5">
 
+        <div class="container d-flex justify-content-center align-items-center">
+        <!-- Create a user and add it to the database -->
+        <?php register(); ?>
+    </div>
+
+    <!-- Register New User -->
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="mt-5 mb-5 mx-5">
+
             <form method="POST" name="signUpForm" class="signUpForm p-5">
                 <h1> Sign up as a new user: </h1>
 
+                <div class="d-flex justify-content-center align-items-center my-4">
+                    <table>
+                        <!-- Username -->
+                        <tr>
+                            <td class="p-4"><label for="username" class="labelStyle"> Username: </label></td>
+                            <td class="p-4"><input type="text" name="newUsername" class="inputStyle" required></td>
+                        </tr>
 
-                <table>
-                    <!-- Username -->
-                    <tr>
-                        <td class="p-4"><label for="username" class="labelStyle"> Username: </label></td>
-                        <td class="p-4"><input type="text" name="newUsername" class="inputStyle" required></td>
-                    </tr>
+                        <!-- Full Name -->
+                        <tr>
+                            <td class="p-4"><label for="fullname" class="labelStyle"> Full Name: </label></td>
+                            <td class="p-4"><input type="text" name="newFullName" class="inputStyle" required></td>
+                        </tr>
 
-                    <!-- Full Name -->
-                    <tr>
-                        <td class="p-4"><label for="fullname" class="labelStyle"> Full Name: </label></td>
-                        <td class="p-4"><input type="text" name="newFullName" class="inputStyle" required></td>
-                    </tr>
+                        <!-- Address -->
+                        <tr>
+                            <td class="p-4"><label for="address" class="labelStyle"> Address: </label></td>
+                            <td class="p-4"><input type="text" name="newAddress" class="inputStyle" required></td>
+                        </tr>
 
-                    <!-- Address -->
-                    <tr>
-                        <td class="p-4"><label for="address" class="labelStyle"> Address: </label></td>
-                        <td class="p-4"><input type="text" name="newAddress" class="inputStyle" required></td>
-                    </tr>
+                        <!-- Password -->
+                        <tr>
+                            <td class="p-4"><label for="password" class="labelStyle"> Password: </label></td>
+                            <td class="p-4"><input type="password" name="newPassword" class="inputStyle" required></td>
+                        </tr>
 
-                    <!-- Password -->
-                    <tr>
-                        <td class="p-4"><label for="password" class="labelStyle"> Password: </label></td>
-                        <td class="p-4"><input type="password" name="newPassword" class="inputStyle" required></td>
-                    </tr>
+                        <!-- Email -->
+                        <tr>
+                            <td class="p-4"><label for="email" class="labelStyle"> Email: </label></td>
+                            <td class="p-4"><input type="email" name="newEmail" class="inputStyle" required></td>
+                        </tr>
 
-                    <!-- Email -->
-                    <tr>
-                        <td class="p-4"><label for="email" class="labelStyle"> Email: </label></td>
-                        <td class="p-4"><input type="email" name="newEmail" class="inputStyle" required></td>
-                    </tr>
-                </table>
+                        <!-- Phone Number -->
+                        <tr>
+                            <td class="p-4"><label for="newPhoneNumber" class="labelStyle"> Phone Number: </label></td>
+                            <td class="p-4"><input type="tel" name="newPhoneNumber" class="inputStyle" required></td>
+                        </tr>
+
+                    </table>
+                </div>
 
                 <!-- Log In Button -->
                 <div class="container d-flex justify-content-center align-items-center">
                     <div class="mx-5 mt-3 mb-5">
                         <button name="signUpButton" type="submit" class="logInButton p-2">Sign Up</button>
-                        <?php createUser(); ?>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>

@@ -2,7 +2,9 @@
 session_start();
 require './functions.php';
 
-
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +123,7 @@ require './functions.php';
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <h1> Welcome to Destino Pacha </h1>
+                        <?php echo "<h1 class='mb-5'> Welcome to Destino Pacha, $username! </h1>" ?>
 
                         <p> Destino Pacha Mykonos is located in one of the most beautiful parts of the island,
                             overlooking the turquoise waters of the Aegean. It offers 34 rooms, with six spacious suites

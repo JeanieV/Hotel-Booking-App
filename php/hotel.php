@@ -2,6 +2,9 @@
 session_start();
 require './functions.php';
 
+if (isset($_SESSION['fullname'])) {
+    $fullname = $_SESSION['fullname'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,14 +32,15 @@ require './functions.php';
 
             <!-- Return Home Button -->
             <form method="POST">
-                <button type="submit" name="returnHome" class="tranBack"><img class="homeButton mx-3 mt-3"
-                        src="../static/img/home.png" alt="Back to Home Page" title="Back to Home Page"
-                        attribution="https://www.flaticon.com/free-icons/home"></button>
+                <button type="submit" name="logOutButton" class="tranBack"><img class="logOutStyle mt-3"
+                        src="../static/img/logout.png" alt="Log Out" title="Log Out"
+                        attribution="https://www.flaticon.com/free-icons/logout"></button>
             </form>
 
             <div class="d-flex justify-content-center align-items-center">
                 <div class="background mx-5 my-4 p-3">
-                    <h3> Our Gorgeous Hotels: </h3>
+                    <?php echo "<h3> Greetings, $fullname! </h3>"; ?>
+                    <p> View our gorgeous hotels: </p>
                 </div>
             </div>
 

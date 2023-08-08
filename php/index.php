@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require './functions.php';
 
@@ -18,6 +17,12 @@ if (isset($_POST['viewMoreButton'])) {
     DELIMITER;
     $displayMessage = true;
 }
+
+// Check if the Member Login form is submitted
+if (isset($_POST['logInButton']) && isset($_POST['email']) && isset($_POST['password'])) {
+    login(); // Process Member Login
+}
+
 
 ?>
 
@@ -117,32 +122,29 @@ if (isset($_POST['viewMoreButton'])) {
                 <div class="mt-5 mb-5 mx-5 loginForm p-5">
 
                     <form method="POST">
-                        <h2> Kindly log in to your profile: </h2>
+                        <h2 class="mb-5"> Kindly log in to your profile: </h2>
 
-                        <!-- Username -->
-                        <table>
-                            <tr>
-                                <td class="p-4"><label for="username" class="labelStyle"> Username: </label></td>
-                                <td class="p-4"><input type="text" name="username" class="inputStyle" required></td>
-                            </tr>
+                        <div class="d-flex justify-content-center align-items-center my-4">
+                            <table>
+                                <!-- Email -->
+                                <tr>
+                                    <td class="p-4"><label for="email" class="labelStyle"> Email: </label></td>
+                                    <td class="p-4"><input type="email" name="email" class="inputStyle" required></td>
+                                </tr>
 
-                            <!-- Password -->
-                            <tr>
-                                <td class="p-4"><label for="password" class="labelStyle"> Password: </label></td>
-                                <td class="p-4"><input type="password" name="password" class="inputStyle" required></td>
-                            </tr>
-
-                            <!-- Email -->
-                            <tr>
-                                <td class="p-4"><label for="email" class="labelStyle"> Email: </label></td>
-                                <td class="p-4"><input type="email" name="email" class="inputStyle" required></td>
-                            </tr>
-                        </table>
+                                <!-- Password -->
+                                <tr>
+                                    <td class="p-4"><label for="password" class="labelStyle"> Password: </label></td>
+                                    <td class="p-4"><input type="password" name="password" class="inputStyle" required>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
 
                         <!-- Log In Button -->
                         <div class="container d-flex justify-content-center align-items-center">
                             <div class="mx-5 mt-3 mb-5">
-                                <button name="logInButton" type="submit" class="logInButton p-2">Log In</button>
+                                <button name="logInButton" type="submit" class="logInButton p-2 my-3">Log In</button>
                             </div>
                         </div>
 
@@ -151,12 +153,12 @@ if (isset($_POST['viewMoreButton'])) {
                     <!-- Directs to New User Sign Up -->
                     <form method="POST">
 
-                        <h2> Are you a new user? </h2>
+                        <h2 class="mb-5"> Are you a new user? </h2>
 
                         <!-- New User Button -->
                         <div class="container d-flex justify-content-center align-items-center">
                             <div class="mx-5 mt-3">
-                                <button name="existButton" type="submit" class="logInButton p-2">Sign Up</button>
+                                <button name="newUserButton" type="submit" class="logInButton p-2">Sign Up</button>
                             </div>
                         </div>
 
@@ -169,20 +171,21 @@ if (isset($_POST['viewMoreButton'])) {
                 <div class="mt-5 mb-5 mx-5 loginForm p-5">
                     <form method="POST">
 
-                        <h2> Are you a staff member? </h2>
+                        <h2 class="mb-5"> Are you an employee? </h2>
 
-                        <!-- Staff Id -->
-                        <table>
-                            <tr>
-                                <td class="p-4"><label for="id" class="labelStyle"> Staff Id: </label></td>
-                                <td class="p-4"><input type="text" name="id" class="inputStyle" required></td>
-                            </tr>
-                        </table>
+                        <div class="d-flex justify-content-center align-items-center my-4">
+                            <table>
+                                <tr>
+                                    <td class="p-4"><label for="id" class="labelStyle"> Employee Number: </label></td>
+                                    <td class="p-4"><input type="text" name="id" class="inputStyle" required></td>
+                                </tr>
+                            </table>
+                        </div>
 
                         <!-- Log in Button -->
                         <div class="container d-flex justify-content-center align-items-center">
                             <div class="mx-5 mt-3">
-                                <button name="existButton" type="submit" class="logInButton p-2">Log In</button>
+                                <button name="employeeButton" type="submit" class="logInButton p-2 my-3">Log In</button>
                             </div>
                         </div>
 

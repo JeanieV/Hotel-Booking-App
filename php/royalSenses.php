@@ -2,6 +2,9 @@
 session_start();
 require './functions.php';
 
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
 
 ?>
 
@@ -112,7 +115,7 @@ require './functions.php';
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <h1> Welcome to Royal Senses </h1>
+                                <?php echo "<h1 class='mb-5'> Welcome to Royal Senses, $username! </h1>" ?>
 
                         <p> The hotel will be located in the picturesque Rethymno region on the northern part of the
                             island, which has the best weather and attractions that Crete has to offer, including the

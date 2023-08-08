@@ -49,6 +49,7 @@ h4 {
     font-size: 20px;
 }
 
+
 /* Form Section */
 .loginForm {
     background-color: #0C2D48;
@@ -56,17 +57,18 @@ h4 {
 }
 
 .labelStyle {
-    color: #F7E2C7;
+    color: #E1E7E0;
     font-size: 25px;
 }
 
 .inputStyle {
-    height: 30px;
+    height: 40px;
     width: 15vw;
+    text-align: center;
 }
 
 .logInButton {
-    font-size: 20px;
+    font-size: 25px;
     background-color: #08392B;
     color: #E1E7E0;
     border-color: #E1E7E0;
@@ -84,6 +86,13 @@ h4 {
 h3 {
     font-size: 70px;
     color: #08392B;
+    text-align: center;
+}
+
+p {
+    font-size: 40px;
+    color: #08392B;
+    text-align: center;
 }
 
 h5 {
@@ -92,6 +101,7 @@ h5 {
     background: rgba(0, 0, 0, 0.8);
     text-align: center;
 }
+
 
 .viewMoreButton {
     font-size: 20px;
@@ -172,4 +182,9 @@ h6 {
 .homeButton {
     width: 80px;
     height: 80px;
+}
+
+.logOutStyle {
+    width: 70px;
+    height: 70px;
 }
