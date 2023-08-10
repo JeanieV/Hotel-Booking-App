@@ -134,4 +134,16 @@ h2{
     text-align: center;
 }
 
+h3 {
+    font-size: 32px;
+    color: #001F3D;
+    text-align: center;
+}
 
+.features{
+    width: 40vw;
+}
+
+.informationTable{
+    border: #001F3D solid 5px;
+}

@@ -112,31 +112,12 @@ if (isset($_SESSION['username'])) {
                             It identifies as a Mediterranean sanctuary of extraordinary beauty, a luxurious spa and
                             beach resort offering a unique blend of Greek and Asian hospitality.</p>
 
-                        <!-- Check In & Out -->
-                        <div class="container d-flex justify-content-center align-items-center">
-                            <table>
-                                <tr>
-                                    <td class="p-4"><label for="checkIn" class="labelStyle"> Check-In Date: </label>
-                                    </td>
-                                    <td class="p-4"><input type="date" name="checkIn" class="inputStyle"></td>
-                                </tr>
-                                <tr>
-                                    <td class="p-4"><label for="checkOut" class="labelStyle"> Check-Out Date:
-                                        </label>
-                                    </td>
-                                    <td class="p-4"><input type="date" name="checkOut" class="inputStyle"></td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="container d-flex justify-content-center align-items-center">
-                            <button type="submit" name="dateConfirmHotelPage" class="dateConfirmHotelPage p-2 my-3">
-                                Confirm Date </button>
-                        </div>
                         <!-- Date Output -->
                         <div class="my-3">
                             <?php displayDate(); ?>
                         </div>
+
+                        <?php showInformation(); ?>
                     </form>
                 </div>
             </div>

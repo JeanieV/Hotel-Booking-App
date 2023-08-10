@@ -1,19 +1,64 @@
 <?php
 session_start();
 
+// Accommodation class
+class Accommodation
+{
+
+    private $mysqli;
+
+    public function __construct($mysqli)
+    {
+        $this->mysqli = $mysqli;
+    }
+
+    // Function to select everything from the hotels table
+    public function viewHotelsById($hotelId) {
+
+        $query = "SELECT * FROM hotels WHERE hotel_id=?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $hotelId); 
+        mysqli_stmt_execute($stmt);
+        
+        $result = mysqli_stmt_get_result($stmt);
+        $hotelData = mysqli_fetch_assoc($result);
+
+        mysqli_stmt_close($stmt);
+
+        return $hotelData;
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class User
 {
     // Properties
-    public $id;
     public $username;
     public $fullname;
     public $address;
     public $password;
     public $email;
 
-    function __construct($id, $username, $fullname, $address, $password, $email)
+    function __construct($username, $fullname, $address, $password, $email)
     {
-        $this->id = $id;
         $this->username = $username;
         $this->fullname = $fullname;
         $this->address = $address;
@@ -23,16 +68,6 @@ class User
     }
 
     // Methods
-
-    // Id
-    function set_id($id)
-    {
-        $this->id = $id;
-    }
-    public function get_id()
-    {
-        return $this->id;
-    }
 
     // Username
     function set_username($username)
@@ -89,7 +124,6 @@ class User
 class Hotel
 {
     // Properties
-    public $id;
     public $name;
     public $pricePerNight;
     public $thumbnail;
@@ -99,9 +133,8 @@ class Hotel
     public $rating;
     public $address;
 
-    function __construct($id, $name, $pricePerNight, $thumbnail, $features, $type, $beds, $rating, $address)
+    function __construct($name, $pricePerNight, $thumbnail, $features, $type, $beds, $rating, $address)
     {
-        $this->id = $id;
         $this->name = $name;
         $this->pricePerNight = $pricePerNight;
         $this->thumbnail = $thumbnail;
@@ -114,16 +147,6 @@ class Hotel
     }
 
     // Methods
-
-    // Id
-    function set_id($id)
-    {
-        $this->id = $id;
-    }
-    public function get_id()
-    {
-        return $this->id;
-    }
 
     // Name
     function set_name($name)

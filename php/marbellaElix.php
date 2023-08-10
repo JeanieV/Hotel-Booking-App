@@ -124,32 +124,17 @@ if (isset($_SESSION['username'])) {
                             place was renovated and turned into a modern resort with t146 spacious and contemporary
                             guest rooms and suites, all featuring stunning views of this beautiful golden coastline.</p>
 
-                        <!-- Check In & Out -->
-                        <div class="container d-flex justify-content-center align-items-center">
-                            <table>
-                                <tr>
-                                    <td class="p-4"><label for="checkIn" class="labelStyle"> Check-In Date: </label>
-                                    </td>
-                                    <td class="p-4"><input type="date" name="checkIn" class="inputStyle"></td>
-                                </tr>
-                                <tr>
-                                    <td class="p-4"><label for="checkOut" class="labelStyle"> Check-Out Date:
-                                        </label>
-                                    </td>
-                                    <td class="p-4"><input type="date" name="checkOut" class="inputStyle"></td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="container d-flex justify-content-center align-items-center">
-                            <button type="submit" name="dateConfirmHotelPage" class="dateConfirmHotelPage p-2 my-3">
-                                Confirm Date </button>
-                        </div>
                         <!-- Date Output -->
                         <div class="my-3">
                             <?php displayDate(); ?>
                         </div>
+
+                        <?php showInformation(); ?>
+
+                        
                     </form>
+
+                    
                 </div>
             </div>
         </div>

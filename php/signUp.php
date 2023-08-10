@@ -80,8 +80,8 @@ require './functions.php';
 
                         <!-- Phone Number -->
                         <tr>
-                            <td class="p-4"><label for="newPhoneNumber" class="labelStyle"> Phone Number: </label></td>
-                            <td class="p-4"><input type="tel" name="newPhoneNumber" class="inputStyle" required></td>
+                            <td class="p-4"><label for="newPhoneNumber" class="labelStyle"> Phone Number <br> (xxx-xxx-xxxx): </label></td>
+                            <td class="p-4"><input type="tel" name="newPhoneNumber" class="inputStyle" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required></td>
                         </tr>
 
                     </table>

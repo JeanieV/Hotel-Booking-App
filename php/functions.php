@@ -8,6 +8,7 @@ if (isset($_POST['newUserButton'])) {
     header("Location: ./signUp.php");
 }
 
+// Logout
 if (isset($_POST['logOutButton'])) {
     session_unset();
     session_destroy();
@@ -16,7 +17,10 @@ if (isset($_POST['logOutButton'])) {
     exit();
 }
 
-
+// Return to homepage
+if (isset($_POST['returnHome'])) {
+    header("Location: ./index.php");
+}
 
 // Return to Hotel Page after clicking on viewing a Hotel
 if (isset($_POST['returntoHotelPage'])) {
@@ -84,7 +88,7 @@ function db_connect()
 function register()
 {
     if (isset($_POST['newUsername']) && isset($_POST['newFullName']) && isset($_POST['newAddress']) && isset($_POST['newPassword']) && isset($_POST['newEmail']) && isset($_POST['newPhoneNumber'])) {
-        
+
         // Get the user data from the POST request
         $_SESSION['username'] = $_POST['newUsername'];
         $username = $_SESSION['username'];
@@ -101,7 +105,7 @@ function register()
             return;
         }
 
-            // Check if the email already exists in the database 
+        // Check if the email already exists in the database 
         $query = "SELECT * FROM users WHERE email = ?";
         $stmt = mysqli_prepare($mysqli, $query);
 
@@ -181,6 +185,75 @@ function login()
         }
     }
 }
+
+function showInformation()
+{
+    if (isset($_GET['hotel_id'])) {
+        $hotelId = $_GET['hotel_id'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            echo 'Database connection error.';
+            exit;
+        }
+
+        // Create an instance of the Accommodation class
+        $accommodation = new Accommodation($mysqli);
+
+        // Fetch hotel information using the provided hotel ID
+        $hotelData = $accommodation->viewHotelsById($hotelId);
+
+        if ($hotelData) {
+
+            $information = <<<DELIMETER
+            <div class="container d-flex justify-content-center align-items-center">
+            <table class="informationTable">
+                <tr>
+                    <td class="p-4"> <h3> Price per night: </h3> </td>
+                </tr>
+                <tr>
+                    <td class="p-3"> <p> R {$hotelData['pricePerNight']} </p> </td>
+                </tr>
+                <tr>
+                    <td class="p-4"> <h3> Features: </h3> </td>
+                </tr>
+                <tr>
+                    <td class="features p-3"> <p> {$hotelData['features']} </p> </td>
+                </tr>
+                <tr>
+                    <td class="p-4"> <h3> Sleeps: </h3> </td>
+                </tr>
+                <tr>
+                    <td class="features p-3"> <p> {$hotelData['beds']} people </p> </td>
+                </tr>
+                <tr>
+                    <td class="p-4"> <h3> Type: </h3> </td>
+                </tr>
+                <tr>
+                    <td class="features p-3"> <p> {$hotelData['type']} </p> </td>
+                </tr>
+                <tr>
+                    <td class="p-4"> <h3> Rating: </h3> </td>
+                </tr>
+                <tr>
+                    <td class="features p-3"> <p> {$hotelData['rating']} star</p> </td>
+                </tr>
+            </table>
+            </div>
+            DELIMETER;
+            echo $information;
+
+        } else {
+            echo 'Hotel not found.';
+        }
+
+        mysqli_close($mysqli);
+    } else {
+        echo 'Invalid request.';
+    }
+}
+
 
 // The date selectors on the Hotel Page
 
@@ -270,6 +343,31 @@ function displayDate()
 {
     global $formSubmitted;
 
+     // Check In & Out
+     $checkDates = <<<DELIMETER
+     <div class="container d-flex justify-content-center align-items-center">
+         <table>
+             <tr>
+                 <td class="p-4"><label for="checkIn" class="labelStyle"> Check-In Date: </label>
+                 </td>
+                 <td class="p-4"><input type="date" name="checkIn" class="inputStyle"></td>
+             </tr>
+             <tr>
+                 <td class="p-4"><label for="checkOut" class="labelStyle"> Check-Out Date:
+                     </label>
+                 </td>
+                 <td class="p-4"><input type="date" name="checkOut" class="inputStyle"></td>
+             </tr>
+         </table>
+     </div>
+ 
+     <div class="container d-flex justify-content-center align-items-center">
+         <button type="submit" name="dateConfirmHotelPage" class="dateConfirmHotelPage p-2 mt-3 mb-5">
+             Confirm Date </button>
+     </div>
+    DELIMETER;
+     echo $checkDates;
+
     if ($formSubmitted && isset($_SESSION['daysOutput']) && !empty($_SESSION['daysOutput'])) {
         echo "{$_SESSION['daysOutput']}";
 
@@ -294,4 +392,3 @@ confirmDateHotelPage();
 
 
 ?>
-
