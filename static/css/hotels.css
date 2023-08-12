@@ -147,3 +147,19 @@ h3 {
 .informationTable{
     border: #001F3D solid 5px;
 }
+
+.extraInfoButtons {
+    font-size: 23px;
+    background-color: #001F3D;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 12vw;
+    border-radius: 30px;
+}
+
+.extraInfoButtons:hover {
+    transform: scale(1.1);
+    background-color: #08392B;
+    color: #E1E7E0;
+    border: none;
+}

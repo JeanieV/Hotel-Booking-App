@@ -1,10 +1,9 @@
 <?php
 session_start();
 
-// Accommodation class
-class Accommodation
+// Hotel class
+class Hotel
 {
-
     private $mysqli;
 
     public function __construct($mysqli)
@@ -12,7 +11,7 @@ class Accommodation
         $this->mysqli = $mysqli;
     }
 
-    // Function to select everything from the hotels table
+    // Method to select everything from the hotels table
     public function viewHotelsById($hotelId) {
 
         $query = "SELECT * FROM hotels WHERE hotel_id=?";
@@ -27,205 +26,62 @@ class Accommodation
 
         return $hotelData;
     }
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class User
 {
-    // Properties
-    public $username;
-    public $fullname;
-    public $address;
-    public $password;
-    public $email;
+    private $mysqli;
 
-    function __construct($username, $fullname, $address, $password, $email)
+    public function __construct($mysqli)
     {
-        $this->username = $username;
-        $this->fullname = $fullname;
-        $this->address = $address;
-        $this->password = $password;
-        $this->email = $email;
-
+        $this->mysqli = $mysqli;
     }
 
-    // Methods
-
-    // Username
-    function set_username($username)
-    {
-        $this->username = $username;
-    }
-    public function get_username()
-    {
-        return $this->username;
-    }
-
-    // Fullname
-    function set_fullname($fullname)
-    {
-        $this->fullname = $fullname;
-    }
-    public function get_fullname()
-    {
-        return $this->fullname;
+    // Method to update the user information
+    public function editUser($userId, $username, $fullname, $address, $email, $phoneNumber) {
+        $query = "UPDATE users SET username = ?, fullname = ?, address = ?, email = ?, phoneNumber = ? WHERE user_id = ?";
+        
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "sssssi", $username, $fullname, $address, $email, $phoneNumber, $userId);
+        $result = mysqli_stmt_execute($stmt);
+        
+        mysqli_stmt_close($stmt);
+        return $result;
     }
 
-    // Address
-    function set_address($address)
+    // Method to make sure that only the information is changed that the user interacted with.
+    public function getUserData($userId)
     {
-        $this->address = $address;
-    }
-    public function get_address()
-    {
-        return $this->address;
+        $query = "SELECT * FROM users WHERE user_id = ?";
+        
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+        $userData = mysqli_fetch_assoc($result);
+
+        mysqli_stmt_close($stmt);
+
+        return $userData;
     }
 
-    // Password
-    function set_password($password)
-    {
-        $this->password = $password;
-    }
-    public function get_password()
-    {
-        return $this->password;
-    }
+    // function viewUsers($userId){
+    //     $query = "SELECT * FROM users WHERE user_id = ?";
+        
+    //     $stmt = mysqli_prepare($this->mysqli, $query);
+    //     mysqli_stmt_bind_param($stmt, "i", $userId);
+    //     mysqli_stmt_execute($stmt);
 
-    // Email
-    function set_email($email)
-    {
-        $this->email = $email;
-    }
-    public function get_email()
-    {
-        return $this->email;
-    }
+    //     $result = mysqli_stmt_get_result($stmt);
+    //     $userData = mysqli_fetch_assoc($result);
+
+    //     mysqli_stmt_close($stmt);
+
+    //     return $userData;
+    // }
 }
 
 
-class Hotel
-{
-    // Properties
-    public $name;
-    public $pricePerNight;
-    public $thumbnail;
-    public $features;
-    public $type;
-    public $beds;
-    public $rating;
-    public $address;
 
-    function __construct($name, $pricePerNight, $thumbnail, $features, $type, $beds, $rating, $address)
-    {
-        $this->name = $name;
-        $this->pricePerNight = $pricePerNight;
-        $this->thumbnail = $thumbnail;
-        $this->features = $features;
-        $this->type = $type;
-        $this->beds = $beds;
-        $this->rating = $rating;
-        $this->address = $address;
-
-    }
-
-    // Methods
-
-    // Name
-    function set_name($name)
-    {
-        $this->name = $name;
-    }
-    public function get_name()
-    {
-        return $this->name;
-    }
-
-    // Price Per Night
-    function set_pricePerNight($pricePerNight)
-    {
-        $this->pricePerNight = $pricePerNight;
-    }
-    public function get_pricePerNight()
-    {
-        return $this->pricePerNight;
-    }
-
-    // Thumbnail
-    function set_thumbnail($thumbnail)
-    {
-        $this->thumbnail = $thumbnail;
-    }
-    public function get_thumbnail()
-    {
-        return $this->thumbnail;
-    }
-
-    // Features
-    function set_features($features)
-    {
-        $this->features = $features;
-    }
-    public function get_features()
-    {
-        return $this->features;
-    }
-
-    // Type
-    function set_type($type)
-    {
-        $this->type = $type;
-    }
-    public function get_type()
-    {
-        return $this->type;
-    }
-
-    // Beds
-    function set_beds($beds)
-    {
-        $this->beds = $beds;
-    }
-    public function get_beds()
-    {
-        return $this->beds;
-    }
-
-    // Rating
-    function set_rating($rating)
-    {
-        $this->rating = $rating;
-    }
-    public function get_rating()
-    {
-        return $this->rating;
-    }
-
-    // Address
-    function set_address($address)
-    {
-        $this->address = $address;
-    }
-    public function get_address()
-    {
-        return $this->address;
-    }
-}
 ?>

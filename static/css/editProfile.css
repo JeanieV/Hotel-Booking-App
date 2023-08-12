@@ -1,0 +1,53 @@
+body {
+    background-color: #E1E7E0;
+}
+
+/* Home Button */
+.tranBack {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.homeButton {
+    width: 80px;
+    height: 80px;
+}
+
+.editForm{
+    background-color: #001F3D;
+    border-radius: 35px;
+    width: 50vw;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
+h2 {
+    font-size: 50px;
+    text-align: center;
+    color: #001F3D;
+}
+
+.labelStyle {
+    color: #E1E7E0;
+    font-size: 28px;
+}
+
+.inputStyle {
+    height: 40px;
+    width: 15vw;
+    text-align: center;
+}
+
+.editButton {
+    font-size: 23px;
+    background-color: #08392B;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 10vw;
+}
+

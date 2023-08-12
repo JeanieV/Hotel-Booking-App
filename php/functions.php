@@ -27,6 +27,11 @@ if (isset($_POST['returntoHotelPage'])) {
     header("Location: ./hotel.php");
 }
 
+// Edit Profile Button
+if (isset($_POST['editProfileButton'])) {
+    header("Location: ./editProfile.php");
+}
+
 // View Marbella Elix
 if (isset($_POST['marbellaElixButton'])) {
     header("Location: ./marbellaElix.php");
@@ -83,6 +88,10 @@ function db_connect()
     }
     return $mysqli;
 }
+
+// ---------------------------------------------------------
+// Register and Login Functions
+// ---------------------------------------------------------
 
 // Function to create a new user and check whether the email already exists
 function register()
@@ -145,6 +154,7 @@ function register()
     }
 }
 
+// This is to make sure that the person is directed to the other pages if they are on the database
 function login()
 {
     if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -169,6 +179,7 @@ function login()
         // If there is information in the table, find the username that match
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
+            // Make sure that the username and fullname is known
             $_SESSION['fullname'] = $row['fullname'];
             $_SESSION['username'] = $row['username'];
 
@@ -186,6 +197,11 @@ function login()
     }
 }
 
+// ---------------------------------------------------------
+// Hotel Information
+// ---------------------------------------------------------
+
+// Function to show the information inside the hotel table.
 function showInformation()
 {
     if (isset($_GET['hotel_id'])) {
@@ -198,11 +214,11 @@ function showInformation()
             exit;
         }
 
-        // Create an instance of the Accommodation class
-        $accommodation = new Accommodation($mysqli);
+        // Create an instance of the Hotel class
+        $hotel = new Hotel($mysqli);
 
         // Fetch hotel information using the provided hotel ID
-        $hotelData = $accommodation->viewHotelsById($hotelId);
+        $hotelData = $hotel->viewHotelsById($hotelId);
 
         if ($hotelData) {
 
@@ -255,8 +271,11 @@ function showInformation()
 }
 
 
-// The date selectors on the Hotel Page
+// ---------------------------------------------------------
+// Date Selectors
+// ---------------------------------------------------------
 
+// The date selectors on the Hotel Page
 $formSubmitted = false;
 
 function confirmDateHotelPage()
@@ -343,8 +362,8 @@ function displayDate()
 {
     global $formSubmitted;
 
-     // Check In & Out
-     $checkDates = <<<DELIMETER
+    // Check In & Out
+    $checkDates = <<<DELIMETER
      <div class="container d-flex justify-content-center align-items-center">
          <table>
              <tr>
@@ -366,7 +385,7 @@ function displayDate()
              Confirm Date </button>
      </div>
     DELIMETER;
-     echo $checkDates;
+    echo $checkDates;
 
     if ($formSubmitted && isset($_SESSION['daysOutput']) && !empty($_SESSION['daysOutput'])) {
         echo "{$_SESSION['daysOutput']}";
@@ -389,6 +408,191 @@ function displayDate()
 // Calling the Calculation function to prevent the user from clicking clear button twice before it is cleared
 confirmDateHotelPage();
 
+
+// ---------------------------------------------------------
+// CRUD Operations
+// ---------------------------------------------------------
+
+// Function to show the edit fields in a form format
+function viewEditForm()
+{
+
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // If there is something in the users table
+    $query = "SELECT * FROM users";
+    $result = mysqli_query($mysqli, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $userId = $row['user_id'];
+
+            $rowHTML = <<<DELIMITER
+            <form method="POST" class="editForm">
+                <h1 class="py-5"> Edit your profile: </h1>
+                <div class="d-flex justify-content-center align-items-center my-4">
+                    <table>
+                        <tr>
+                            <td class="p-4"><label for="editUsername" class="labelStyle"> Edit Username: </label></td>
+                            <td class="p-4"><input type="text" name="editUsername" class="inputStyle"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"><label for="editFullName" class="labelStyle"> Edit Full Name: </label></td>
+                            <td class="p-4"><input type="text" name="editFullName" class="inputStyle"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"><label for="editAddress" class="labelStyle"> Edit Address: </label></td>
+                            <td class="p-4"><input type="text" name="editAddress" class="inputStyle"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"><label for="editEmail" class="labelStyle"> Edit Email: </label></td>
+                            <td class="p-4"><input type="email" name="editEmail" class="inputStyle"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"><label for="editPhoneNumber" class="labelStyle"> Edit Phone Number: <br>
+                            (xxx-xxx-xxxx) </label></td>
+                            <td class="p-4"><input type="tel" name="editPhoneNumber" class="inputStyle"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="container d-flex justify-content-center align-items-center">
+                    <div class="mx-5 mt-3 mb-5">
+                        <input type="hidden" name="user_id" value="$userId">
+                        <button name="editButton" type="submit" class="editButton p-2">Edit</button>
+                    </div>
+                </div>
+            </form>
+            DELIMITER;
+            echo $rowHTML;
+        }
+
+    } else {
+        echo 'No users found.';
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+}
+
+// If the user clicks on the editButton, the updating will take place
+function editUserInformation()
+{
+
+    if (isset($_POST['editButton'])) {
+
+        // Capture user_id from the form
+        $userId = $_POST['user_id'];
+        $username = $_POST['editUsername'];
+        $fullname = $_POST['editFullName'];
+        $address = $_POST['editAddress'];
+        $email = $_POST['editEmail'];
+        $phoneNumber = $_POST['editPhoneNumber'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            echo 'Database connection error.';
+            exit;
+        }
+
+        // Create an instance of the User class
+        $user = new User($mysqli);
+
+        // Retrieve existing user data from the database
+        $existingUserData = $user->getUserData($userId);
+
+        // Update only the fields that the user has interacted with
+        if (empty($username)) {
+            $username = $existingUserData['username'];
+        }
+        if (empty($fullname)) {
+            $fullname = $existingUserData['fullname'];
+        }
+        if (empty($address)) {
+            $address = $existingUserData['address'];
+        }
+        if (empty($email)) {
+            $email = $existingUserData['email'];
+        }
+        if (empty($phoneNumber)) {
+            $phoneNumber = $existingUserData['phoneNumber'];
+        }
+
+        // Pass user_id along with other fields to the editUser method
+        $userUpdated = $user->editUser($userId, $username, $fullname, $address, $email, $phoneNumber);
+
+        if ($userUpdated) {
+            $_SESSION['username'] = $username; // Update username
+            $_SESSION['fullname'] = $fullname; // Update fullname
+
+            echo '<h2 class="p-3">Success: User information updated successfully! <br> Head back to the Hotel Page</h2>';
+            mysqli_close($mysqli);
+            exit();
+        } else {
+            echo 'User not updated.';
+
+        }
+    }
+}
+
+// function viewUserInformation()
+// {
+
+//     if (isset($_POST['user_id'])) {
+//         $userId = $_POST['user_id'];
+
+//         // Connect to the database
+//         $mysqli = db_connect();
+//         if (!$mysqli) {
+//             echo 'Database connection error.';
+//             exit;
+//         }
+
+//         // Create an instance of the Users class
+//         $user = new User($mysqli);
+
+//         // Fetch users information using the provided userID
+//         $userData = $user->viewUsers($userId);
+
+//         if ($userData) {
+
+//             $information = <<<DELIMETER
+//         <div class="container d-flex justify-content-center align-items-center">
+//         <table class="informationTable">
+//             <tr>
+//                 <td class="p-4"> <h3> Username: </h3> </td>
+//             </tr>
+//             <tr>
+//                 <td class="p-3"> <p> {$userData['username']} </p> </td>
+//             </tr>
+            
+//         </table>
+//         </div>
+//         DELIMETER;
+//             echo $information;
+
+//         } else {
+//             echo 'Users not found.';
+//         }
+
+//         mysqli_close($mysqli);
+//     } else {
+//         echo 'invalid request';
+//     }
+// }
 
 
 ?>

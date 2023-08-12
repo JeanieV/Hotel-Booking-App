@@ -131,10 +131,13 @@ if (isset($_SESSION['username'])) {
 
                         <?php showInformation(); ?>
 
-                        
+                        <div class="d-flex justify-content-center align-items-center">
+                            <button type="submit" name="bookButton" class="extraInfoButtons p-2 my-5"> Book </button>
+                        </div>
+
                     </form>
 
-                    
+
                 </div>
             </div>
         </div>

@@ -37,6 +37,14 @@ if (isset($_SESSION['fullname'])) {
                         attribution="https://www.flaticon.com/free-icons/logout"></button>
             </form>
 
+            <!-- Buttons -->
+            <div class="d-flex justify-content-center align-items-center">
+                <form method="POST">
+                    <button type="submit" name="bookingsButton" class="extraInfoButtons p-2 mx-3"> Bookings</button>
+                    <button type="submit" name="editProfileButton" class="extraInfoButtons p-2 mx-3"> Edit Profile</button>
+                </form>
+            </div>
+
             <div class="d-flex justify-content-center align-items-center">
                 <div class="background mx-5 my-4 p-3">
                     <?php echo "<h3> Greetings, $fullname! </h3>"; ?>
