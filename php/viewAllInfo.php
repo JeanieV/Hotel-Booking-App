@@ -2,7 +2,6 @@
 session_start();
 require './functions.php';
 
-
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +10,7 @@ require './functions.php';
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Edit Profile</title>
+    <title>View Info</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -26,28 +25,41 @@ require './functions.php';
 
     <form method="POST">
         <!-- Return Home Button -->
-        <button type="submit" name="returnToViewAllInfo" class="tranBack"><img class="homeButton mx-3 mt-3"
+        <button type="submit" name="returntoHotelPage" class="tranBack"><img class="homeButton mx-3 mt-3"
                 src="../static/img/home.png" alt="Back to Home Page" title="Back to Home Page"
                 attribution="https://www.flaticon.com/free-icons/home"></button>
     </form>
 
-   
+    <div class="d-flex justify-content-center align-items-center my-5">
+        <div class="row">
+            <!-- Button which will get the userId -->
+            <div class="col-sm-6">
+                <?php viewCurrentInformation(); ?>
+            </div>
 
-    <div class="container d-flex justify-content-center align-items-center">
-        <div class="mt-5 mb-5 mx-5">
-
-        
-
-            <!-- If the button is clicked, the information will be updated and the message will show -->
-            <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                editUserInformation();
-            }
-            ?>
-
-            <!-- The form where the user can make the edits -->
-            <?php viewEditForm(); ?>
+            <!-- Go to Edit Page -->
+            <div class="col-sm-6">
+                <form method="POST">
+                    <button type="submit" name="goToEditPage" class="viewAllInfoButtons p-3"> Edit Your
+                        Information</button>
+                </form>
+            </div>
         </div>
     </div>
+
+
+    <div class="d-flex justify-content-center align-items-center my-5">
+        <div class="row">
+            <!-- Delete Button -->
+            <div class="col-sm-6">
+                <?php deleteUser(); ?>
+
+                <?php deleteUserFinal(); ?>
+            </div>
+        </div>
+    </div>
+
+    
 
 </body>
 

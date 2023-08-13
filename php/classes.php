@@ -66,20 +66,15 @@ class User
         return $userData;
     }
 
-    // function viewUsers($userId){
-    //     $query = "SELECT * FROM users WHERE user_id = ?";
-        
-    //     $stmt = mysqli_prepare($this->mysqli, $query);
-    //     mysqli_stmt_bind_param($stmt, "i", $userId);
-    //     mysqli_stmt_execute($stmt);
-
-    //     $result = mysqli_stmt_get_result($stmt);
-    //     $userData = mysqli_fetch_assoc($result);
-
-    //     mysqli_stmt_close($stmt);
-
-    //     return $userData;
-    // }
+    public function deleteUser($userId)
+    {
+        $query = "DELETE FROM users WHERE user_id=?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
 }
 
 

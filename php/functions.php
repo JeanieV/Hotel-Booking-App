@@ -29,7 +29,7 @@ if (isset($_POST['returntoHotelPage'])) {
 
 // Edit Profile Button
 if (isset($_POST['editProfileButton'])) {
-    header("Location: ./editProfile.php");
+    header("Location: ./viewAllInfo.php");
 }
 
 // View Marbella Elix
@@ -62,6 +62,15 @@ if (isset($_POST['destinoButton'])) {
     header("Location: ./destinoPacha.php");
 }
 
+// Return to the editProfile.php
+if (isset($_POST['returnToViewAllInfo'])) {
+    header("Location: ./viewAllInfo.php");
+}
+
+// Go to edit Page
+if (isset($_POST['goToEditPage'])) {
+    header("Location: ./editProfile.php");
+}
 
 // Database connection
 function db_connect()
@@ -142,6 +151,10 @@ function register()
 
         // If the user has successfully been added to the database
         if (mysqli_stmt_execute($stmt)) {
+
+            $_SESSION['username'] = $username;
+            $_SESSION['fullname'] = $fullName;
+
             echo '<h2 class="p-3">Success: User created successfully! <br> Head back to Home Page for Login</h2>';
             exit();
         } else {
@@ -436,6 +449,7 @@ function viewEditForm()
             $rowHTML = <<<DELIMITER
             <form method="POST" class="editForm">
                 <h1 class="py-5"> Edit your profile: </h1>
+                <h4> Please note that Password can't be updated! </h4>
                 <div class="d-flex justify-content-center align-items-center my-4">
                     <table>
                         <tr>
@@ -535,8 +549,8 @@ function editUserInformation()
         $userUpdated = $user->editUser($userId, $username, $fullname, $address, $email, $phoneNumber);
 
         if ($userUpdated) {
-            $_SESSION['username'] = $username; // Update username
-            $_SESSION['fullname'] = $fullname; // Update fullname
+            $_SESSION['username'] = $username;
+            $_SESSION['fullname'] = $fullname;
 
             echo '<h2 class="p-3">Success: User information updated successfully! <br> Head back to the Hotel Page</h2>';
             mysqli_close($mysqli);
@@ -548,51 +562,182 @@ function editUserInformation()
     }
 }
 
-// function viewUserInformation()
-// {
 
-//     if (isset($_POST['user_id'])) {
-//         $userId = $_POST['user_id'];
+function viewCurrentInformation()
+{
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
 
-//         // Connect to the database
-//         $mysqli = db_connect();
-//         if (!$mysqli) {
-//             echo 'Database connection error.';
-//             exit;
-//         }
+    // If there is something in the users table
+    $query = "SELECT * FROM users";
+    $result = mysqli_query($mysqli, $query);
 
-//         // Create an instance of the Users class
-//         $user = new User($mysqli);
+    if (mysqli_num_rows($result) > 0) {
 
-//         // Fetch users information using the provided userID
-//         $userData = $user->viewUsers($userId);
+        while ($row = mysqli_fetch_assoc($result)) {
 
-//         if ($userData) {
+            $userId = $row['user_id'];
 
-//             $information = <<<DELIMETER
-//         <div class="container d-flex justify-content-center align-items-center">
-//         <table class="informationTable">
-//             <tr>
-//                 <td class="p-4"> <h3> Username: </h3> </td>
-//             </tr>
-//             <tr>
-//                 <td class="p-3"> <p> {$userData['username']} </p> </td>
-//             </tr>
-            
-//         </table>
-//         </div>
-//         DELIMETER;
-//             echo $information;
+            $rowHTML = <<<DELIMITER
+            <form method="GET" action="viewUserInfo.php">
+                    <input type="hidden" name="user_id" value="$userId">
+                    <button name="viewInfo" type="submit" class="viewAllInfoButtons p-3">View Your Information </button>
+            </form>
+            DELIMITER;
+            echo $rowHTML;
+        }
 
-//         } else {
-//             echo 'Users not found.';
-//         }
+    } else {
+        echo 'No users found.';
+    }
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+}
 
-//         mysqli_close($mysqli);
-//     } else {
-//         echo 'invalid request';
-//     }
-// }
 
+function viewUserInformation()
+{
+
+    if (isset($_GET['viewInfo'])) {
+        $userId = $_GET['user_id'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            echo 'Database connection error.';
+            exit;
+        }
+
+        $query = "SELECT * FROM users WHERE user_id = ?";
+        $stmt = mysqli_prepare($mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+
+            $information = <<<DELIMETER
+        <div class="container d-flex justify-content-center align-items-center">
+            <form method="POST">
+
+            <h2> This is your information: </h2>
+
+                <div class="d-flex justify-content-center align-items-center my-5">
+
+                    <table class="informationTable">
+                        <tr>
+                            <td class="p-4"> <h3> Username: </h3> </td>
+                            <td class="p-4"> <p> {$row['username']} </p> </td>
+                        </tr>
+                
+                        <tr>
+                            <td class="p-4"> <h3> Full Name: </h3> </td>
+                            <td class="p-4"> <p> {$row['fullname']} </p> </td>
+                        </tr>
+                
+                        <tr>
+                            <td class="p-4"> <h3> Address: </h3> </td>
+                            <td class="p-4"> <p> {$row['address']} </p> </td>
+                        </tr>
+                
+                        <tr>
+                            <td class="p-4"> <h3> Password: </h3> </td>
+                            <td class="p-4"> <p> {$row['password']} </p> </td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"> <h3> Email: </h3> </td>
+                            <td class="p-4"> <p> {$row['email']} </p> </td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"> <h3> Phone Number: </h3> </td>
+                            <td class="p-4"> <p> {$row['phoneNumber']} </p> </td>
+                        </tr>
+                
+                    </table>
+                </div>
+            </form>
+        </div>
+
+        DELIMETER;
+            echo $information;
+        } else {
+            echo 'User not found.';
+        }
+    }
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+}
+
+// Delete User button inside the viewAllInfo.php
+function deleteUser()
+{
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // If there is something in the users table
+    $query = "SELECT * FROM users";
+    $result = mysqli_query($mysqli, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $userId = $row['user_id'];
+
+            $rowHTML = <<<DELIMITER
+        <form method="GET" action="index.php">
+                <input type="hidden" name="user_id" value="$userId">
+                <button type="submit" name="deleteUserButton" class="viewAllInfoButtons p-3"> Delete Your
+                Account</button>
+        </form>
+        DELIMITER;
+            echo $rowHTML;
+        }
+
+    }
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+
+}
+
+// Function using the delete method
+
+function deleteUserFinal() {
+    if (isset($_GET['deleteUserButton'])) {
+        $userId = $_GET['user_id'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Create a new instance of the User class
+        $user = new User($mysqli);
+
+        // Call the method from the User class
+        $result = $user->deleteUser($userId);
+
+        if ($result) {
+            echo '<h2 class="p-3">Success: Book Deleted successfully! <br> Head back to Library Page </h2>';
+
+            mysqli_close($mysqli);
+            exit();
+        } else {
+            // Redirect back to the same page or display an error message
+            header("Location: index.php");
+            exit();
+        }
+    }
+}
 
 ?>

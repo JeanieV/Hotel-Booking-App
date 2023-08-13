@@ -14,7 +14,7 @@ body {
     height: 80px;
 }
 
-.editForm{
+.editForm {
     background-color: #001F3D;
     border-radius: 35px;
     width: 50vw;
@@ -30,6 +30,25 @@ h2 {
     font-size: 50px;
     text-align: center;
     color: #001F3D;
+}
+
+h3 {
+    font-size: 35px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
+h4{
+    font-size: 28px;
+    text-align: center;
+    color: #E1E7E0; 
+}
+
+
+p {
+    font-size: 27px;
+    color: #E1E7E0;
+    text-align: center;
 }
 
 .labelStyle {
@@ -51,3 +70,22 @@ h2 {
     width: 10vw;
 }
 
+.informationTable {
+    background-color: #001F3D;
+    border-radius: 35px;
+    width: 50vw;
+}
+
+.viewAllInfoButtons {
+    font-size: 35px;
+    background-color: #08392B;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 15vw;
+}
+
+.viewAllInfoButtons:hover {
+    background-color: #001F3D;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+}
