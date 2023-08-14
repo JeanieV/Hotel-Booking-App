@@ -123,18 +123,18 @@ function register()
             return;
         }
 
-        // Check if the email already exists in the database 
-        $query = "SELECT * FROM users WHERE email = ?";
+        // Check if the email and phoneNumber already exists in the database 
+        $query = "SELECT * FROM users WHERE email = ? OR phoneNumber = ?";
         $stmt = mysqli_prepare($mysqli, $query);
 
         // Prepare the statement to bind the parameters (email)
-        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_bind_param($stmt, "ss", $email, $phoneNumber);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_store_result($stmt);
 
         // If there is information in the table that matches the input value
         if (mysqli_stmt_num_rows($stmt) > 0) {
-            echo '<h2 class="p-3">Email already exists. Please use a different email address.</h2>';
+            echo '<h2 class="p-3">Email or Phone Number already exists.</h2>';
             mysqli_stmt_close($stmt);
             mysqli_close($mysqli);
             return;
@@ -152,6 +152,10 @@ function register()
         // If the user has successfully been added to the database
         if (mysqli_stmt_execute($stmt)) {
 
+            // Getting the user_id from the table
+            $user_id = mysqli_insert_id($mysqli);
+
+            $_SESSION['user_id'] = $user_id;
             $_SESSION['username'] = $username;
             $_SESSION['fullname'] = $fullName;
 
@@ -192,7 +196,8 @@ function login()
         // If there is information in the table, find the username that match
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
-            // Make sure that the username and fullname is known
+            // Make sure that the user_id, username and fullname is known
+            $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['fullname'] = $row['fullname'];
             $_SESSION['username'] = $row['username'];
 
@@ -426,81 +431,6 @@ confirmDateHotelPage();
 // CRUD Operations
 // ---------------------------------------------------------
 
-// Function to show the edit fields in a form format
-function viewEditForm()
-{
-
-    // Connect to the database
-    $mysqli = db_connect();
-    if (!$mysqli) {
-        return;
-    }
-
-    // If there is something in the users table
-    $query = "SELECT * FROM users";
-    $result = mysqli_query($mysqli, $query);
-
-    if (mysqli_num_rows($result) > 0) {
-
-        while ($row = mysqli_fetch_assoc($result)) {
-
-            $userId = $row['user_id'];
-
-            $rowHTML = <<<DELIMITER
-            <form method="POST" class="editForm">
-                <h1 class="py-5"> Edit your profile: </h1>
-                <h4> Please note that Password can't be updated! </h4>
-                <div class="d-flex justify-content-center align-items-center my-4">
-                    <table>
-                        <tr>
-                            <td class="p-4"><label for="editUsername" class="labelStyle"> Edit Username: </label></td>
-                            <td class="p-4"><input type="text" name="editUsername" class="inputStyle"></td>
-                        </tr>
-
-                        <tr>
-                            <td class="p-4"><label for="editFullName" class="labelStyle"> Edit Full Name: </label></td>
-                            <td class="p-4"><input type="text" name="editFullName" class="inputStyle"></td>
-                        </tr>
-
-                        <tr>
-                            <td class="p-4"><label for="editAddress" class="labelStyle"> Edit Address: </label></td>
-                            <td class="p-4"><input type="text" name="editAddress" class="inputStyle"></td>
-                        </tr>
-
-                        <tr>
-                            <td class="p-4"><label for="editEmail" class="labelStyle"> Edit Email: </label></td>
-                            <td class="p-4"><input type="email" name="editEmail" class="inputStyle"></td>
-                        </tr>
-
-                        <tr>
-                            <td class="p-4"><label for="editPhoneNumber" class="labelStyle"> Edit Phone Number: <br>
-                            (xxx-xxx-xxxx) </label></td>
-                            <td class="p-4"><input type="tel" name="editPhoneNumber" class="inputStyle"
-                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></td>
-                        </tr>
-
-                    </table>
-                </div>
-
-                <div class="container d-flex justify-content-center align-items-center">
-                    <div class="mx-5 mt-3 mb-5">
-                        <input type="hidden" name="user_id" value="$userId">
-                        <button name="editButton" type="submit" class="editButton p-2">Edit</button>
-                    </div>
-                </div>
-            </form>
-            DELIMITER;
-            echo $rowHTML;
-        }
-
-    } else {
-        echo 'No users found.';
-    }
-
-    mysqli_free_result($result);
-    mysqli_close($mysqli);
-}
-
 // If the user clicks on the editButton, the updating will take place
 function editUserInformation()
 {
@@ -562,47 +492,12 @@ function editUserInformation()
     }
 }
 
-
-function viewCurrentInformation()
-{
-    // Connect to the database
-    $mysqli = db_connect();
-    if (!$mysqli) {
-        return;
-    }
-
-    // If there is something in the users table
-    $query = "SELECT * FROM users";
-    $result = mysqli_query($mysqli, $query);
-
-    if (mysqli_num_rows($result) > 0) {
-
-        while ($row = mysqli_fetch_assoc($result)) {
-
-            $userId = $row['user_id'];
-
-            $rowHTML = <<<DELIMITER
-            <form method="GET" action="viewUserInfo.php">
-                    <input type="hidden" name="user_id" value="$userId">
-                    <button name="viewInfo" type="submit" class="viewAllInfoButtons p-3">View Your Information </button>
-            </form>
-            DELIMITER;
-            echo $rowHTML;
-        }
-
-    } else {
-        echo 'No users found.';
-    }
-    mysqli_free_result($result);
-    mysqli_close($mysqli);
-}
-
-
 function viewUserInformation()
 {
 
     if (isset($_GET['viewInfo'])) {
-        $userId = $_GET['user_id'];
+        // Retrieve the user_id from the session
+        $userId = $_SESSION['user_id'];
 
         // Connect to the database
         $mysqli = db_connect();
@@ -674,44 +569,11 @@ function viewUserInformation()
     mysqli_close($mysqli);
 }
 
-// Delete User button inside the viewAllInfo.php
-function deleteUser()
-{
-    // Connect to the database
-    $mysqli = db_connect();
-    if (!$mysqli) {
-        return;
-    }
 
-    // If there is something in the users table
-    $query = "SELECT * FROM users";
-    $result = mysqli_query($mysqli, $query);
-
-    if (mysqli_num_rows($result) > 0) {
-
-        while ($row = mysqli_fetch_assoc($result)) {
-
-            $userId = $row['user_id'];
-
-            $rowHTML = <<<DELIMITER
-        <form method="GET" action="index.php">
-                <input type="hidden" name="user_id" value="$userId">
-                <button type="submit" name="deleteUserButton" class="viewAllInfoButtons p-3"> Delete Your
-                Account</button>
-        </form>
-        DELIMITER;
-            echo $rowHTML;
-        }
-
-    }
-    mysqli_free_result($result);
-    mysqli_close($mysqli);
-
-}
 
 // Function using the delete method
-
 function deleteUserFinal() {
+
     if (isset($_GET['deleteUserButton'])) {
         $userId = $_GET['user_id'];
 
@@ -728,13 +590,14 @@ function deleteUserFinal() {
         $result = $user->deleteUser($userId);
 
         if ($result) {
-            echo '<h2 class="p-3">Success: Book Deleted successfully! <br> Head back to Library Page </h2>';
-
+            header("Location: deletedPage.php");
+            $_SESSION['deletedAccount'] = '<h2 class="p-3">Your Account has been deleted</h2>';
+           
             mysqli_close($mysqli);
             exit();
         } else {
             // Redirect back to the same page or display an error message
-            header("Location: index.php");
+            header("Location: viewAllInfo.php");
             exit();
         }
     }

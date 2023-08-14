@@ -75,6 +75,8 @@ class User
         mysqli_stmt_close($stmt);
         return $result;
     }
+
+    
 }
 
 

@@ -31,12 +31,8 @@ require './functions.php';
                 attribution="https://www.flaticon.com/free-icons/home"></button>
     </form>
 
-   
-
     <div class="container d-flex justify-content-center align-items-center">
         <div class="mt-5 mb-5 mx-5">
-
-        
 
             <!-- If the button is clicked, the information will be updated and the message will show -->
             <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -44,8 +40,49 @@ require './functions.php';
             }
             ?>
 
-            <!-- The form where the user can make the edits -->
-            <?php viewEditForm(); ?>
+            <form method="POST" class="editForm">
+                <h1 class="py-5"> Edit your profile: </h1>
+                <h4> Please note that Password can't be updated! </h4>
+                <div class="d-flex justify-content-center align-items-center my-4">
+                    <table>
+                        <tr>
+                            <td class="p-4"><label for="editUsername" class="labelStyle"> Edit Username: </label></td>
+                            <td class="p-4"><input type="text" name="editUsername" class="inputStyle"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"><label for="editFullName" class="labelStyle"> Edit Full Name: </label></td>
+                            <td class="p-4"><input type="text" name="editFullName" class="inputStyle"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"><label for="editAddress" class="labelStyle"> Edit Address: </label></td>
+                            <td class="p-4"><input type="text" name="editAddress" class="inputStyle"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"><label for="editEmail" class="labelStyle"> Edit Email: </label></td>
+                            <td class="p-4"><input type="email" name="editEmail" class="inputStyle"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"><label for="editPhoneNumber" class="labelStyle"> Edit Phone Number: <br>
+                                    (xxx-xxx-xxxx) </label></td>
+                            <td class="p-4"><input type="tel" name="editPhoneNumber" class="inputStyle"
+                                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="container d-flex justify-content-center align-items-center">
+                    <div class="mx-5 mt-3 mb-5">
+                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
+                        <button name="editButton" type="submit" class="editButton p-2">Edit</button>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
 

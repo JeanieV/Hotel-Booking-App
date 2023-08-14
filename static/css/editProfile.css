@@ -89,3 +89,14 @@ p {
     color: #E1E7E0;
     border-color: #E1E7E0;
 }
+
+.tranBack {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.logOutStyle {
+    width: 70px;
+    height: 70px;
+}

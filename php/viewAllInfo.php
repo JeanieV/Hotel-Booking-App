@@ -32,9 +32,14 @@ require './functions.php';
 
     <div class="d-flex justify-content-center align-items-center my-5">
         <div class="row">
+            
             <!-- Button which will get the userId -->
             <div class="col-sm-6">
-                <?php viewCurrentInformation(); ?>
+
+                <form method="GET" action="viewUserInfo.php">
+                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
+                    <button name="viewInfo" type="submit" class="viewAllInfoButtons p-3">View Your Information </button>
+                </form>
             </div>
 
             <!-- Go to Edit Page -->
@@ -52,14 +57,23 @@ require './functions.php';
         <div class="row">
             <!-- Delete Button -->
             <div class="col-sm-6">
-                <?php deleteUser(); ?>
-
+                <form method="GET" action="viewAllInfo.php">
+                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
+                    <button type="submit" name="deleteUserButton" class="viewAllInfoButtons p-3"> Delete Your
+                        Account</button>
+                </form>
                 <?php deleteUserFinal(); ?>
+            </div>
+
+            <!-- Add new user button -->
+            <div class="col-sm-6">
+                <form method="POST">
+                    <button type="submit" name="newUserButton" class="viewAllInfoButtons p-3"> Add New User</button>
+                </form>
             </div>
         </div>
     </div>
 
-    
 
 </body>
 
