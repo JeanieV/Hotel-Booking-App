@@ -72,6 +72,11 @@ if (isset($_POST['goToEditPage'])) {
     header("Location: ./editProfile.php");
 }
 
+// Go to confirmBooking.php
+if(isset($_POST['bookButton'])){
+    header("Location: ./confirmBooking.php");
+}
+
 // Database connection
 function db_connect()
 {
@@ -482,7 +487,7 @@ function editUserInformation()
             $_SESSION['username'] = $username;
             $_SESSION['fullname'] = $fullname;
 
-            echo '<h2 class="p-3">Success: User information updated successfully! <br> Head back to the Hotel Page</h2>';
+            echo '<h2 class="p-3">Success: User information updated successfully! <br> Head back to the Information Page</h2>';
             mysqli_close($mysqli);
             exit();
         } else {
@@ -602,5 +607,12 @@ function deleteUserFinal() {
         }
     }
 }
+
+
+// ---------------------------------------------------------
+// Bookings
+// ---------------------------------------------------------
+
+
 
 ?>

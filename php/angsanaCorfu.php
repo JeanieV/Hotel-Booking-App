@@ -102,7 +102,7 @@ if (isset($_SESSION['username'])) {
 
                         <!-- Return Home Button -->
                         <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                class="homeButton mx-3 mt-3" src="../static/img/home.png" alt="Back to Home Page"
+                                class="homeButton mx-3 mt-3 mb-4" src="../static/img/home.png" alt="Back to Home Page"
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
@@ -119,6 +119,11 @@ if (isset($_SESSION['username'])) {
                         </div>
 
                         <?php showInformation(); ?>
+
+                        <div class="d-flex justify-content-center align-items-center">
+                            <button type="submit" name="bookButton" class="extraInfoButtons p-2 my-5"> Book </button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>

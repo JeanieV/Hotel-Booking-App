@@ -1,0 +1,47 @@
+body {
+    background-color: #E1E7E0;
+}
+
+/* Home Button */
+.tranBack {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.homeButton {
+    width: 80px;
+    height: 80px;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
+h2 {
+    font-size: 50px;
+    text-align: center;
+    color: #001F3D;
+}
+
+h3 {
+    font-size: 35px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
+h4{
+    font-size: 28px;
+    text-align: center;
+    color: #E1E7E0; 
+}
+
+
+p {
+    font-size: 27px;
+    color: #E1E7E0;
+    text-align: center;
+}
+
