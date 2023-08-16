@@ -6,6 +6,12 @@ if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
 }
 
+// Immediately storing the hotel_id in a session variable
+if (isset($_GET['hotel_id'])) {
+    $hotelId = $_GET['hotel_id'];
+    $_SESSION['hotel_id'] = $hotelId;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -107,7 +113,13 @@ if (isset($_SESSION['username'])) {
         <div class="row">
             <div class="col-sm-12">
                 <div class="mt-3 mb-5 mx-5 hotelView p-5">
-                    <form method="POST">
+
+                <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        addBooking();
+                    }
+                    ?>
+
+                    <form method="POST" action="royalSenses.php">
 
                         <!-- Return Home Button -->
                         <button type="submit" name="returntoHotelPage" class="tranBack"><img
@@ -115,7 +127,7 @@ if (isset($_SESSION['username'])) {
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                                <?php echo "<h1 class='mb-5'> Welcome to Royal Senses, $username! </h1>" ?>
+                        <?php echo "<h1 class='mb-5'> Welcome to Royal Senses, $username! </h1>" ?>
 
                         <p> The hotel will be located in the picturesque Rethymno region on the northern part of the
                             island, which has the best weather and attractions that Crete has to offer, including the
@@ -125,13 +137,37 @@ if (isset($_SESSION['username'])) {
                             hotel rooms.</p>
 
                         <!-- Date Output -->
-                        <div class="my-3">
-                            <?php displayDate(); ?>
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <table>
+                                <tr>
+                                    <td class="p-4"><label for="checkIn" class="labelStyle"> Check-In Date: </label>
+                                    </td>
+                                    <td class="p-4"><input type="date" name="checkIn" class="inputStyle"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4"><label for="checkOut" class="labelStyle"> Check-Out Date:
+                                        </label>
+                                    </td>
+                                    <td class="p-4"><input type="date" name="checkOut" class="inputStyle"></td>
+                                </tr>
+                            </table>
                         </div>
+
+                        <?php
+                        // Display error message if set
+                        if (isset($_SESSION['dateMessage'])) {
+                            echo '<div class="container d-flex justify-content-center align-items-center">';
+                            echo '<p class="text-danger">' . $_SESSION['dateMessage'] . '</p>';
+                            echo '</div>';
+                            unset($_SESSION['dateMessage']);
+                        }
+                        ?>
 
                         <?php showInformation(); ?>
 
                         <div class="d-flex justify-content-center align-items-center">
+                            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
+                            <input type="hidden" name="hotel_id" value="<?php echo $_SESSION['hotel_id'] ?>">
                             <button type="submit" name="bookButton" class="extraInfoButtons p-2 my-5"> Book </button>
                         </div>
                     </form>

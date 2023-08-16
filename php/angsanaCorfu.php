@@ -6,6 +6,12 @@ if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
 }
 
+// Immediately storing the hotel_id in a session variable
+if (isset($_GET['hotel_id'])) {
+    $hotelId = $_GET['hotel_id'];
+    $_SESSION['hotel_id'] = $hotelId;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -98,7 +104,13 @@ if (isset($_SESSION['username'])) {
         <div class="row">
             <div class="col-sm-12">
                 <div class="mt-3 mb-5 mx-5 hotelView p-5">
-                    <form method="POST">
+
+                <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        addBooking();
+                    }
+                    ?>
+
+                    <form method="POST" action="angsanaCorfu.php">
 
                         <!-- Return Home Button -->
                         <button type="submit" name="returntoHotelPage" class="tranBack"><img
@@ -114,16 +126,39 @@ if (isset($_SESSION['username'])) {
                             beach resort offering a unique blend of Greek and Asian hospitality.</p>
 
                         <!-- Date Output -->
-                        <div class="my-3">
-                            <?php displayDate(); ?>
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <table>
+                                <tr>
+                                    <td class="p-4"><label for="checkIn" class="labelStyle"> Check-In Date: </label>
+                                    </td>
+                                    <td class="p-4"><input type="date" name="checkIn" class="inputStyle"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4"><label for="checkOut" class="labelStyle"> Check-Out Date:
+                                        </label>
+                                    </td>
+                                    <td class="p-4"><input type="date" name="checkOut" class="inputStyle"></td>
+                                </tr>
+                            </table>
                         </div>
+
+                        <?php
+                        // Display error message if set
+                        if (isset($_SESSION['dateMessage'])) {
+                            echo '<div class="container d-flex justify-content-center align-items-center">';
+                            echo '<p class="text-danger">' . $_SESSION['dateMessage'] . '</p>';
+                            echo '</div>';
+                            unset($_SESSION['dateMessage']);
+                        }
+                        ?>
 
                         <?php showInformation(); ?>
 
                         <div class="d-flex justify-content-center align-items-center">
+                            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
+                            <input type="hidden" name="hotel_id" value="<?php echo $_SESSION['hotel_id'] ?>">
                             <button type="submit" name="bookButton" class="extraInfoButtons p-2 my-5"> Book </button>
                         </div>
-                        
                     </form>
                 </div>
             </div>

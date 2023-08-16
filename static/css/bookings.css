@@ -33,7 +33,7 @@ h3 {
 }
 
 h4{
-    font-size: 28px;
+    font-size: 25px;
     text-align: center;
     color: #E1E7E0; 
 }
@@ -45,3 +45,24 @@ p {
     text-align: center;
 }
 
+.space{
+    width: 12vw;
+}
+
+.bookCover{
+    width: 200px;
+    height: 210px;
+}
+
+.bookView {
+    background-color: #08392B;
+    border-radius: 35px;
+    width: 90vw;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+    font-size: 30px;
+    color: #E1E7E0;
+}

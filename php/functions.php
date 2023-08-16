@@ -72,9 +72,9 @@ if (isset($_POST['goToEditPage'])) {
     header("Location: ./editProfile.php");
 }
 
-// Go to confirmBooking.php
-if(isset($_POST['bookButton'])){
-    header("Location: ./confirmBooking.php");
+// // Go to confirmBooking.php
+if (isset($_POST['bookingsButton'])) {
+    header("Location: ./viewBookings.php");
 }
 
 // Database connection
@@ -227,8 +227,8 @@ function login()
 // Function to show the information inside the hotel table.
 function showInformation()
 {
-    if (isset($_GET['hotel_id'])) {
-        $hotelId = $_GET['hotel_id'];
+    if (isset($_SESSION['hotel_id'])) {
+        $hotelId = $_SESSION['hotel_id'];
 
         // Connect to the database
         $mysqli = db_connect();
@@ -246,7 +246,7 @@ function showInformation()
         if ($hotelData) {
 
             $information = <<<DELIMETER
-            <div class="container d-flex justify-content-center align-items-center">
+            <div class="container d-flex justify-content-center align-items-center mt-5">
             <table class="informationTable">
                 <tr>
                     <td class="p-4"> <h3> Price per night: </h3> </td>
@@ -292,145 +292,6 @@ function showInformation()
         echo 'Invalid request.';
     }
 }
-
-
-// ---------------------------------------------------------
-// Date Selectors
-// ---------------------------------------------------------
-
-// The date selectors on the Hotel Page
-$formSubmitted = false;
-
-function confirmDateHotelPage()
-{
-    global $formSubmitted;
-
-    if (isset($_POST['dateConfirmHotelPage'])) {
-
-        // Getting the answer from the user
-        $startDate = $_POST['checkIn'];
-        $endDate = $_POST['checkOut'];
-
-        // Setting it to a DateTime 
-        $startDateTime = new DateTime($startDate);
-        $endDateTime = new DateTime($endDate);
-
-        // Doing the calculation for difference in time
-        $interval = $startDateTime->diff($endDateTime);
-
-        // Making a table for the output if the startDate > endDate
-        $output1 = <<<DELIMETER
-        <div class="container d-flex justify-content-center align-items-center">
-            <div class="output p-4">
-                <h2>You cannot Check-Out before you Check-In </h2>
-                <br> 
-                <h2>Kindly choose again</h2>
-                <br>
-            </div>
-        </div>
-        DELIMETER;
-
-        // Making a table for the output if the startDate < endDate
-        $output2 = <<<DELIMETER
-        <div class="container d-flex justify-content-center align-items-center">
-            <div class="output p-4">
-                <h2>You chose to stay for {$interval->days} days. </h2>
-                <br>
-        
-            <table>
-                <tr>
-                    <td class="p-4"><h2><label for="checkIn"> Check-In Date: </label></h2></td>
-                    <td class="p-4"><h2>$startDate</h2></td>
-                </tr>
-                <tr>
-                    <td class="p-4"><h2><label for="checkOut"> Check-Out Date:</label></h2></td>
-                    <td class="p-4"><h2>$endDate</h2></td>
-                </tr>
-            </table>
-            </div>
-        </div>
-        DELIMETER;
-
-        // Making a table for the output if the startDate = endDate
-        $output3 = <<<DELIMETER
-        <div class="container d-flex justify-content-center align-items-center">
-            <div class="output p-4">
-                <h2>You cannot stay for less than one day </h2>
-                <br> 
-                <h2>Kindly choose again</h2>
-                <br>
-            </div>
-        </div>
-        DELIMETER;
-
-
-        $_SESSION['days'] = $interval->days;
-
-        if ($startDate > $endDate) {
-            $_SESSION['daysOutput'] = $output1;
-
-        } elseif ($startDate < $endDate) {
-            $_SESSION['daysOutput'] = $output2;
-
-        } elseif ($startDate == $endDate) {
-            $_SESSION['daysOutput'] = $output3;
-        }
-
-        $formSubmitted = true;
-    }
-}
-
-// Display the Check-in and Check-out dates
-function displayDate()
-{
-    global $formSubmitted;
-
-    // Check In & Out
-    $checkDates = <<<DELIMETER
-     <div class="container d-flex justify-content-center align-items-center">
-         <table>
-             <tr>
-                 <td class="p-4"><label for="checkIn" class="labelStyle"> Check-In Date: </label>
-                 </td>
-                 <td class="p-4"><input type="date" name="checkIn" class="inputStyle"></td>
-             </tr>
-             <tr>
-                 <td class="p-4"><label for="checkOut" class="labelStyle"> Check-Out Date:
-                     </label>
-                 </td>
-                 <td class="p-4"><input type="date" name="checkOut" class="inputStyle"></td>
-             </tr>
-         </table>
-     </div>
- 
-     <div class="container d-flex justify-content-center align-items-center">
-         <button type="submit" name="dateConfirmHotelPage" class="dateConfirmHotelPage p-2 mt-3 mb-5">
-             Confirm Date </button>
-     </div>
-    DELIMETER;
-    echo $checkDates;
-
-    if ($formSubmitted && isset($_SESSION['daysOutput']) && !empty($_SESSION['daysOutput'])) {
-        echo "{$_SESSION['daysOutput']}";
-
-        $clearButton = <<<DELIMETER
-        <div class="container d-flex justify-content-center align-items-center">
-            <form method="POST">
-                <button type="submit" name="clearDateHotelPage" class="dateConfirmHotelPage p-2 my-3">Clear</button>
-            </form>
-        </div>
-        DELIMETER;
-        echo $clearButton;
-    }
-
-    if (isset($_POST['clearDateHotelPage'])) {
-        unset($_SESSION['daysOutput']);
-    }
-}
-
-// Calling the Calculation function to prevent the user from clicking clear button twice before it is cleared
-confirmDateHotelPage();
-
 
 // ---------------------------------------------------------
 // CRUD Operations
@@ -577,7 +438,8 @@ function viewUserInformation()
 
 
 // Function using the delete method
-function deleteUserFinal() {
+function deleteUserFinal()
+{
 
     if (isset($_GET['deleteUserButton'])) {
         $userId = $_GET['user_id'];
@@ -597,7 +459,7 @@ function deleteUserFinal() {
         if ($result) {
             header("Location: deletedPage.php");
             $_SESSION['deletedAccount'] = '<h2 class="p-3">Your Account has been deleted</h2>';
-           
+
             mysqli_close($mysqli);
             exit();
         } else {
@@ -613,6 +475,268 @@ function deleteUserFinal() {
 // Bookings
 // ---------------------------------------------------------
 
+function addBooking()
+{
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
 
+    if (isset($_POST['bookButton'])) {
+        // Making sure that checkIn and checkOut dates are not empty
+        if (empty($_POST['checkIn']) || empty($_POST['checkOut'])) {
+            $_SESSION['dateMessage'] = 'Please select both Check-In and Check-Out dates.';
+
+        } else {
+            // Making sure that the variables are stored
+            $userId = $_SESSION['user_id'];
+            $hotelId = $_SESSION['hotel_id'];
+            $checkInDate = $_POST['checkIn'];
+            $checkOutDate = $_POST['checkOut'];
+
+            // Validate the interval of days
+            if (strtotime($checkInDate) >= strtotime($checkOutDate)) {
+                $_SESSION['dateMessage'] = 'Check-In date must be before Check-Out date.';
+
+            } else {
+
+                if (anotherBooking($userId, $checkInDate, $checkOutDate)) {
+                    $_SESSION['dateMessage'] = 'You already have a booking for the selected dates.';
+                } else {
+                    // Check if the selected hotel is available for the selected dates
+                    if (hotelIsAvailable($hotelId, $checkInDate, $checkOutDate)) {
+
+                        $hotelInstance = new Hotel($mysqli);
+                        $pricePerNightData = $hotelInstance->calculateCost($hotelId);
+                        $pricePerNight = $pricePerNightData['pricePerNight'];
+
+                        // Calculate the number of days
+                        $startDateTime = new DateTime($checkInDate);
+                        $endDateTime = new DateTime($checkOutDate);
+                        $interval = $startDateTime->diff($endDateTime);
+                        $numberOfDays = $interval->days;
+
+                        // Calculate total cost
+                        $totalCost = $numberOfDays * $pricePerNight;
+
+                        $cancelled = 1;
+                        $completed = 0;
+
+                        // Insert the booking information into the booking table
+                        $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                        $stmt = mysqli_prepare($mysqli, $query);
+
+                        // Bind the parameters to the statement
+                        mysqli_stmt_bind_param($stmt, "iissiii", $userId, $hotelId, $checkInDate, $checkOutDate, $totalCost, $cancelled, $completed);
+
+                        // If the booking has successfully been added to the database
+                        if (mysqli_stmt_execute($stmt)) {
+                            mysqli_stmt_close($stmt); // Close the first prepared statement
+
+                            header("Location: ./confirmBooking.php");
+                            exit(); // Terminate script execution
+                        } else {
+                            echo 'Error creating booking: ' . mysqli_error($mysqli);
+                        }
+
+                        // Close the statement
+                        mysqli_stmt_close($stmt);
+
+                    } else {
+                        $_SESSION['dateMessage'] = 'The hotel is unavailable on those dates.';
+                    }
+                }
+            }
+        }
+    }
+
+    // Close the database connection
+    mysqli_close($mysqli);
+}
+
+
+
+// View all the bookings of the user
+function viewBookings($userId)
+{
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // Use the SQL JOIN to fetch booking information along with associated user and hotel details
+    $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+              FROM booking b
+              INNER JOIN users u ON b.user_id = u.user_id
+              INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+              WHERE b.user_id = ?";
+
+    $stmt = mysqli_prepare($mysqli, $query);
+    mysqli_stmt_bind_param($stmt, "i", $userId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if (mysqli_num_rows($result) > 0) {
+        $heading = <<<DELIMITER
+            <table>
+            <tr>
+                <th> Image </th>
+                <th> Hotel Name </th>
+                <th> User Full Name </th>
+                <th> Check In Date </th>
+                <th> Check Out Date </th>
+                <th> Total Cost </th>
+            </tr>
+        DELIMITER;
+        $rows = '';
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $userId = $_SESSION['user_id'];
+
+
+            $rowHTML = <<<DELIMITER
+                <tr>
+                    <td class="space p-3"><img src="../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCover"></td>
+                    <td class="space p-3"> <h4> {$row['name']} </h4></td>
+                    <td class="space p-3"> <h4> {$row['fullname']} </h4></td>
+                    <td class="space p-3"> <h4> {$row['checkInDate']} </h4></td>
+                    <td class="space p-3"> <h4> {$row['checkOutDate']} </h4></td>
+                    <td class="space p-3"> <h4> R {$row['totalCost']} </h4></td>
+                </tr>
+            DELIMITER;
+            $rows .= $rowHTML;
+        }
+
+        $table = <<<DELIMITER
+            {$heading}
+            {$rows}
+            </table>
+        DELIMITER;
+        echo $table;
+    } else {
+        echo '<h4> No booking found. </h4>';
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+
+}
+
+// If there is another booking at the time for the same user
+function anotherBooking($userId, $checkInDate, $checkOutDate)
+{
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    $query = "SELECT * FROM booking WHERE user_id = ? AND checkInDate <= ? AND checkOutDate >= ?";
+    $stmt = mysqli_prepare($mysqli, $query);
+    mysqli_stmt_bind_param($stmt, "iss", $userId, $checkOutDate, $checkInDate);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    $alreadyABooking = mysqli_num_rows($result) > 0;
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+
+    return $alreadyABooking;
+}
+
+// Check whether the hotel is available and show a message when the hotel is unavailable
+function hotelIsAvailable($hotelId, $checkInDate, $checkOutDate)
+{
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    $query = "SELECT * FROM booking WHERE hotel_id = ? AND checkInDate <= ? AND checkOutDate >= ?";
+    $stmt = mysqli_prepare($mysqli, $query);
+    mysqli_stmt_bind_param($stmt, "iss", $hotelId, $checkOutDate, $checkInDate);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    $isAvailable = mysqli_num_rows($result) == 0;
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+
+    return $isAvailable;
+}
+
+// This is where the user can still choose another hotel instead
+function confirmBooking()
+{
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // Use the SQL JOIN to fetch booking information along with associated user and hotel details
+    $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+              FROM booking b
+              INNER JOIN users u ON b.user_id = u.user_id
+              INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+              WHERE b.user_id = ?";
+
+    $stmt = mysqli_prepare($mysqli, $query);
+    mysqli_stmt_bind_param($stmt, "i", $userId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if (mysqli_num_rows($result) > 0) {
+        $heading = <<<DELIMITER
+            <table>
+            <tr>
+                <th> Image </th>
+                <th> Hotel Name </th>
+                <th> User Full Name </th>
+                <th> Check In Date </th>
+                <th> Check Out Date </th>
+                <th> Total Cost </th>
+            </tr>
+        DELIMITER;
+        $rows = '';
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $userId = $_SESSION['user_id'];
+
+
+            $rowHTML = <<<DELIMITER
+                <tr>
+                    <td class="space p-3"><img src="../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCover"></td>
+                    <td class="space p-3"> <h4> {$row['name']} </h4></td>
+                    <td class="space p-3"> <h4> {$row['fullname']} </h4></td>
+                    <td class="space p-3"> <h4> {$row['checkInDate']} </h4></td>
+                    <td class="space p-3"> <h4> {$row['checkOutDate']} </h4></td>
+                    <td class="space p-3"> <h4> R {$row['totalCost']} </h4></td>
+                </tr>
+            DELIMITER;
+            $rows .= $rowHTML;
+        }
+
+        $table = <<<DELIMITER
+            {$heading}
+            {$rows}
+            </table>
+        DELIMITER;
+        echo $table;
+    } else {
+        echo '<h4> No booking found. </h4>';
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+
+}
 
 ?>
