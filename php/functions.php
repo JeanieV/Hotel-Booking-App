@@ -77,6 +77,11 @@ if (isset($_POST['bookingsButton'])) {
     header("Location: ./viewBookings.php");
 }
 
+// Go to the payment page
+if(isset($_POST['confirmFinalBooking'])){
+    header("Location: ./payment.php");
+}
+
 // Database connection
 function db_connect()
 {
@@ -250,34 +255,31 @@ function showInformation()
             <table class="informationTable">
                 <tr>
                     <td class="p-4"> <h3> Price per night: </h3> </td>
-                </tr>
-                <tr>
                     <td class="p-3"> <p> R {$hotelData['pricePerNight']} </p> </td>
                 </tr>
                 <tr>
                     <td class="p-4"> <h3> Features: </h3> </td>
-                </tr>
-                <tr>
                     <td class="features p-3"> <p> {$hotelData['features']} </p> </td>
                 </tr>
                 <tr>
-                    <td class="p-4"> <h3> Sleeps: </h3> </td>
-                </tr>
-                <tr>
+                    <td class="p-4 text-center"> <img class="sleeps p-2"
+                    src="../static/img/bed.png" alt="Sleeps" title="Sleeps"
+                    attribution="https://www.flaticon.com/free-icons/bed"> </td>
                     <td class="features p-3"> <p> {$hotelData['beds']} people </p> </td>
                 </tr>
                 <tr>
-                    <td class="p-4"> <h3> Type: </h3> </td>
-                </tr>
-                <tr>
+                <td class="p-4 text-center"> <img class="sleeps p-2"
+                src="../static/img/hotel.png" alt="Type" title="Type"
+                attribution="https://www.flaticon.com/free-icons/hotel"> </td>
                     <td class="features p-3"> <p> {$hotelData['type']} </p> </td>
                 </tr>
                 <tr>
-                    <td class="p-4"> <h3> Rating: </h3> </td>
-                </tr>
-                <tr>
+                <td class="p-4 text-center"> <img class="sleeps p-2"
+                src="../static/img/star.png" alt="Rating" title="Rating"
+                attribution="https://www.flaticon.com/free-icons/star"> </td>
                     <td class="features p-3"> <p> {$hotelData['rating']} star</p> </td>
                 </tr>
+                
             </table>
             </div>
             DELIMETER;
@@ -520,7 +522,7 @@ function addBooking()
                         // Calculate total cost
                         $totalCost = $numberOfDays * $pricePerNight;
 
-                        $cancelled = 1;
+                        $cancelled = 0;
                         $completed = 0;
 
                         // Insert the booking information into the booking table
@@ -534,8 +536,17 @@ function addBooking()
                         if (mysqli_stmt_execute($stmt)) {
                             mysqli_stmt_close($stmt); // Close the first prepared statement
 
+                            // Check if the checkInDate is the same as the current date
+                            $currentDate = new DateTime();
+                            $checkInDateTime = new DateTime($checkInDate);
+
+                            if ($checkInDateTime->format('Y-m-d') <= $currentDate->format('Y-m-d')) {
+                                $bookingInstance = new Booking($mysqli);
+                                $bookingInstance->completedBooking(mysqli_insert_id($mysqli));
+                            }
+
                             header("Location: ./confirmBooking.php");
-                            exit(); // Terminate script execution
+                            exit();
                         } else {
                             echo 'Error creating booking: ' . mysqli_error($mysqli);
                         }
@@ -571,7 +582,7 @@ function viewBookings($userId)
               FROM booking b
               INNER JOIN users u ON b.user_id = u.user_id
               INNER JOIN hotels h ON b.hotel_id = h.hotel_id
-              WHERE b.user_id = ?";
+              WHERE b.user_id = ? AND b.cancelled = 0";
 
     $stmt = mysqli_prepare($mysqli, $query);
     mysqli_stmt_bind_param($stmt, "i", $userId);
@@ -582,7 +593,7 @@ function viewBookings($userId)
         $heading = <<<DELIMITER
             <table>
             <tr>
-                <th> Image </th>
+                <th> </th>
                 <th> Hotel Name </th>
                 <th> User Full Name </th>
                 <th> Check In Date </th>
@@ -595,16 +606,23 @@ function viewBookings($userId)
         while ($row = mysqli_fetch_assoc($result)) {
 
             $userId = $_SESSION['user_id'];
+            $bookingId = $row['bookingNo'];
 
 
             $rowHTML = <<<DELIMITER
                 <tr>
-                    <td class="space p-3"><img src="../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCover"></td>
-                    <td class="space p-3"> <h4> {$row['name']} </h4></td>
-                    <td class="space p-3"> <h4> {$row['fullname']} </h4></td>
-                    <td class="space p-3"> <h4> {$row['checkInDate']} </h4></td>
-                    <td class="space p-3"> <h4> {$row['checkOutDate']} </h4></td>
-                    <td class="space p-3"> <h4> R {$row['totalCost']} </h4></td>
+                    <td class="p-3"><img src="../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCover"></td>
+                    <td class="name p-3"> <h4> {$row['name']} </h4></td>
+                    <td class="name p-3"> <h4> {$row['fullname']} </h4></td>
+                    <td class="name p-2"> <h4> {$row['checkInDate']} </h4></td>
+                    <td class="name p-2"> <h4> {$row['checkOutDate']} </h4></td>
+                    <td class="name p-3"> <h4> R {$row['totalCost']} </h4></td>
+                    <form method="POST">
+                    <input type="hidden" name="bookingNo" value="$bookingId">
+                            <td class="p-2"><button type="submit" name="clearBookingButton" class="tranBack"><img class="homeButton mx-3 mt-3"
+                                src="../static/img/bin.gif" alt="Delete Booking" title="Delete Booking"
+                                attribution="https://www.flaticon.com/free-animated-icons/document"></button></td>
+                    </form>
                 </tr>
             DELIMITER;
             $rows .= $rowHTML;
@@ -625,6 +643,41 @@ function viewBookings($userId)
 
 }
 
+function deleteBookingforUser()
+{
+
+    // If there is a rental_id present
+    if (isset($_POST['clearBookingButton'])) {
+        $_SESSION['bookingNumber'] = $_POST['bookingNo'];
+        $bookingId = $_SESSION['bookingNumber'];
+
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Create a new instance of the User class
+        $bookingInstance = new Booking($mysqli);
+
+        // Call the method from the User class
+        $result = $bookingInstance->cancelBooking($bookingId);
+
+        if ($result) {
+            header("Location: viewBookings.php");
+
+            mysqli_close($mysqli);
+            exit();
+        } else {
+            echo "<h4> You can't delete a booking that is less than 2 days away </h4>";
+            exit();
+        }
+    }
+}
+
+
+
 // If there is another booking at the time for the same user
 function anotherBooking($userId, $checkInDate, $checkOutDate)
 {
@@ -634,7 +687,7 @@ function anotherBooking($userId, $checkInDate, $checkOutDate)
         return;
     }
 
-    $query = "SELECT * FROM booking WHERE user_id = ? AND checkInDate <= ? AND checkOutDate >= ?";
+    $query = "SELECT * FROM booking WHERE user_id = ? AND cancelled = 0 AND checkInDate <= ? AND checkOutDate >= ?";
     $stmt = mysqli_prepare($mysqli, $query);
     mysqli_stmt_bind_param($stmt, "iss", $userId, $checkOutDate, $checkInDate);
     mysqli_stmt_execute($stmt);
@@ -657,7 +710,7 @@ function hotelIsAvailable($hotelId, $checkInDate, $checkOutDate)
         return;
     }
 
-    $query = "SELECT * FROM booking WHERE hotel_id = ? AND checkInDate <= ? AND checkOutDate >= ?";
+    $query = "SELECT * FROM booking WHERE hotel_id = ? AND cancelled = 0 AND checkInDate <= ? AND checkOutDate >= ?";
     $stmt = mysqli_prepare($mysqli, $query);
     mysqli_stmt_bind_param($stmt, "iss", $hotelId, $checkOutDate, $checkInDate);
     mysqli_stmt_execute($stmt);
@@ -672,71 +725,76 @@ function hotelIsAvailable($hotelId, $checkInDate, $checkOutDate)
 }
 
 // This is where the user can still choose another hotel instead
-function confirmBooking()
+function confirmBooking($userId, $hotelId)
 {
-    // Connect to the database
-    $mysqli = db_connect();
-    if (!$mysqli) {
-        return;
-    }
 
-    // Use the SQL JOIN to fetch booking information along with associated user and hotel details
-    $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
-              FROM booking b
-              INNER JOIN users u ON b.user_id = u.user_id
-              INNER JOIN hotels h ON b.hotel_id = h.hotel_id
-              WHERE b.user_id = ?";
-
-    $stmt = mysqli_prepare($mysqli, $query);
-    mysqli_stmt_bind_param($stmt, "i", $userId);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    if (mysqli_num_rows($result) > 0) {
-        $heading = <<<DELIMITER
-            <table>
-            <tr>
-                <th> Image </th>
-                <th> Hotel Name </th>
-                <th> User Full Name </th>
-                <th> Check In Date </th>
-                <th> Check Out Date </th>
-                <th> Total Cost </th>
-            </tr>
-        DELIMITER;
-        $rows = '';
-
+     // Connect to the database
+     $mysqli = db_connect();
+     if (!$mysqli) {
+         return;
+     }
+ 
+     // Use the SQL JOIN to fetch booking information along with associated user and hotel details
+     $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+               FROM booking b
+               INNER JOIN users u ON b.user_id = u.user_id
+               INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+               WHERE b.user_id = ? AND b.hotel_id = ?";
+ 
+     $stmt = mysqli_prepare($mysqli, $query);
+     mysqli_stmt_bind_param($stmt, "ii", $userId, $hotelId);
+     mysqli_stmt_execute($stmt);
+     $result = mysqli_stmt_get_result($stmt);
+ 
+     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
+           
+            $information = <<<DELIMETER
 
-            $userId = $_SESSION['user_id'];
+            <h2 class="mb-5"> Your Booking Summary </h2>
 
+            <img src='../static/img/{$row['thumbnail']}' alt='Book Thumbnail' class='hotelImage'>
 
-            $rowHTML = <<<DELIMITER
+            <div class="d-flex justify-content-center align-items-center my-5">
+            <table class="summaryTable my-5 p-5">
                 <tr>
-                    <td class="space p-3"><img src="../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCover"></td>
-                    <td class="space p-3"> <h4> {$row['name']} </h4></td>
-                    <td class="space p-3"> <h4> {$row['fullname']} </h4></td>
-                    <td class="space p-3"> <h4> {$row['checkInDate']} </h4></td>
-                    <td class="space p-3"> <h4> {$row['checkOutDate']} </h4></td>
-                    <td class="space p-3"> <h4> R {$row['totalCost']} </h4></td>
+                    <td class="p-5"> <h4> Hotel Name: </h4> </td>
+                    <td class="p-5"> <h5> {$row['name']} </h5> </td>
                 </tr>
-            DELIMITER;
-            $rows .= $rowHTML;
-        }
-
-        $table = <<<DELIMITER
-            {$heading}
-            {$rows}
+                <tr>
+                    <td class="p-5"> <h4> User Full Name: </h4></td>
+                    <td class="p-5"> <h5> {$row['fullname']} </h5> </td>
+                </tr>
+                <tr>
+                    <td class="p-5"> <h4> Check In Date: </h4></td>
+                    <td class="p-5"> <h5> {$row['checkInDate']} </h5> </td>
+                </tr>
+                <tr>
+                    <td class="p-5"> <h4> Check Out Date: </h4></td>
+                    <td class="p-5"> <h5> {$row['checkOutDate']} </h5> </td>
+                </tr>
+                <tr>
+                    <td class="p-5"> <h4> Total Cost: </h4></td>
+                    <td class="p-5"> <h5> R {$row['totalCost']} </h5> </td>
+                </tr>
             </table>
-        DELIMITER;
-        echo $table;
-    } else {
-        echo '<h4> No booking found. </h4>';
-    }
+            </div>
 
-    mysqli_free_result($result);
-    mysqli_close($mysqli);
-
+            <div class="d-flex justify-content-center align-items-center my-5">
+            <form method="POST">
+                <button type="submit" name="confirmFinalBooking" class="editButton p-2"> Confirm Booking </button>
+            </form>
+            </div>
+            DELIMETER;
+            echo $information;
+        }
+     } else {
+         echo '<h4> No booking found. </h4>';
+     }
+ 
+     mysqli_free_result($result);
+     mysqli_close($mysqli);
 }
+
 
 ?>

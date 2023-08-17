@@ -11,7 +11,8 @@ class Hotel
         $this->mysqli = $mysqli;
     }
 
-    public function calculateCost($hotelId){
+    public function calculateCost($hotelId)
+    {
         $query = "SELECT pricePerNight FROM hotels WHERE hotel_id=?";
         $stmt = mysqli_prepare($this->mysqli, $query);
         mysqli_stmt_bind_param($stmt, "i", $hotelId);
@@ -43,7 +44,7 @@ class Hotel
         return $hotelData;
     }
 
-    
+
 }
 
 // User Class
@@ -118,7 +119,72 @@ class Booking
         return $result;
     }
 
-    
+
+    public function cancelBooking($bookingId)
+    {
+        // Find out if the cancellation is more than 2 days away
+        $query = "SELECT checkInDate FROM booking WHERE bookingNo = ?";
+
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $bookingId);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $checkInDate);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Calculate the difference between check-in date and current date
+        $currentDate = new DateTime();
+        $checkInDateTime = new DateTime($checkInDate);
+        $interval = $currentDate->diff($checkInDateTime);
+
+        // Check if the difference is more than 2 days (48 hours)
+        if ($interval->days > 2 || ($interval->days === 2 && $interval->h >= 0)) {
+            // The booking can be canceled
+            $updateQuery = "UPDATE booking SET cancelled = 1 WHERE bookingNo = ?";
+
+            $updateStmt = mysqli_prepare($this->mysqli, $updateQuery);
+            mysqli_stmt_bind_param($updateStmt, "i", $bookingId);
+            $result = mysqli_stmt_execute($updateStmt);
+            mysqli_stmt_close($updateStmt);
+
+            return $result;
+        } else {
+            // The booking cannot be canceled
+            return false;
+        }
+    }
+
+    public function completedBooking($bookingId)
+    {
+        // Fetch the checkInDate from the database
+        $query = "SELECT checkInDate FROM booking WHERE bookingNo = ?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $bookingId);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $checkInDate);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Convert the checkInDate to a DateTime object
+        $checkInDateTime = new DateTime($checkInDate);
+        $currentDateTime = new DateTime();
+
+        // Compare the checkInDate with the current date
+        if ($checkInDateTime <= $currentDateTime) {
+            // The booking is completed
+            $updateQuery = "UPDATE booking SET completed = 1 WHERE bookingNo = ?";
+
+            $updateStmt = mysqli_prepare($this->mysqli, $updateQuery);
+            mysqli_stmt_bind_param($updateStmt, "i", $bookingId);
+            $result = mysqli_stmt_execute($updateStmt);
+            mysqli_stmt_close($updateStmt);
+
+            return $result;
+        } else {
+            // The booking is not yet completed
+            return false;
+        }
+    }
 }
 
 

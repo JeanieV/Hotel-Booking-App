@@ -162,8 +162,8 @@ if (isset($_GET['hotel_id'])) {
                             unset($_SESSION['dateMessage']);
                         }
                         ?>
-
-                        <?php showInformation(); ?>
+                        
+                            <?php showInformation(); ?>
 
                         <div class="d-flex justify-content-center align-items-center">
                             <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">

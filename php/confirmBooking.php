@@ -33,10 +33,21 @@ require './functions.php';
     <div class="container d-flex justify-content-center align-items-center">
         <div class="mt-5 mb-5 mx-5">
 
-            <form method="POST" class="bookView p-5">
 
-            
-                
+
+            <form method="POST" class="bookView p-5">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="mt-5 mb-5 mx-5">
+                        <?php
+                        if (isset($_SESSION['user_id']) && isset($_SESSION['hotel_id'])) {
+                            $userId = $_SESSION['user_id'];
+                            $hotelId = $_SESSION['hotel_id'];
+                            confirmBooking($userId, $hotelId);
+                        }
+
+                        ?>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
