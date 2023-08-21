@@ -2,6 +2,9 @@
 session_start();
 require './functions.php';
 
+if(isset($_POST['receiptButton'])){
+    generateReceipt();
+}
 
 ?>
 
@@ -34,7 +37,7 @@ require './functions.php';
     <div class="container d-flex justify-content-center align-items-center">
         <div class="mt-5 mb-5 mx-5">
 
-            <form method="POST" class="bookView p-5">
+            <form method="POST" class="bookView p-2">
 
                 <div class="d-flex justify-content-center align-items-center">
                         <?php
@@ -50,41 +53,3 @@ require './functions.php';
 </body>
 
 </html>
-
-
-<!-- $filename = "order.csv"; // Name of the output file
-    $data = [
-        $_SESSION['order']->get_user()->get_name() . " is ordering:",
-        "A pizza with " . $_SESSION['order']->get_ingredient()->get_name() . " as the 1 ingredient",
-        "R" . $_SESSION['order']->get_ingredient()->get_price(),
-        "Start Date:",
-        "R" . $_SESSION['order']->get_deliveryStartDay(),
-        "End Date:",
-        "R" . $_SESSION['order']->get_deliveryEndDay(),
-    ];
-// Create the file and write the content
-    $file = fopen($filename, 'w'); // Open the file for writing
-
-    // Write each string to the file
-    foreach ($data as $string) {
-        fwrite($file, $string . PHP_EOL); // Append a new line after each string
-    }
-
-    fclose($file); // Close the file
-
-    // Set headers to trigger the file download
-    header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename="' . $filename . '"');
-    header('Content-Length: ' . filesize($filename));
-
-    // Flush the output buffer
-    ob_flush();
-    flush();
-// Read and output the file contents
-    readfile($filename);
-
-    // Clean up
-    unlink($filename); // Delete the temporary file
-    session_destroy();
-
-    exit(); -->

@@ -2,7 +2,6 @@
 session_start();
 require './classes.php';
 
-
 // Sign Up a new user
 if (isset($_POST['newUserButton'])) {
     header("Location: ./signUp.php");
@@ -78,7 +77,7 @@ if (isset($_POST['bookingsButton'])) {
 }
 
 // Go to the payment page
-if(isset($_POST['confirmFinalBooking'])){
+if (isset($_POST['confirmFinalBooking'])) {
     header("Location: ./payment.php");
 }
 
@@ -608,20 +607,33 @@ function viewBookings($userId)
             $userId = $_SESSION['user_id'];
             $bookingId = $row['bookingNo'];
 
+            $booking = [
+                'bookingNo' => $bookingId,
+                'hotelName' => $row['name'],
+                'userFullName' => $row['fullname'],
+                'checkInStartDate' => $row['checkInDate'],
+                'checkOutEndDate' => $row['checkOutDate'],
+                'totalCost' => $row['totalCost']
+            ];
+
+            $_SESSION['bookings'][$bookingId] = $booking; // Store each booking in the array
 
             $rowHTML = <<<DELIMITER
                 <tr>
                     <td class="p-3"><img src="../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCover"></td>
-                    <td class="name p-3"> <h4> {$row['name']} </h4></td>
-                    <td class="name p-3"> <h4> {$row['fullname']} </h4></td>
-                    <td class="name p-2"> <h4> {$row['checkInDate']} </h4></td>
-                    <td class="name p-2"> <h4> {$row['checkOutDate']} </h4></td>
-                    <td class="name p-3"> <h4> R {$row['totalCost']} </h4></td>
+                    <td class="name p-3"> <h4> {$booking['hotelName']} </h4></td>
+                    <td class="name p-3"> <h4> {$booking['userFullName']} </h4></td>
+                    <td class="name p-2"> <h4> {$booking['checkInStartDate']} </h4></td>
+                    <td class="name p-2"> <h4> {$booking['checkOutEndDate']} </h4></td>
+                    <td class="name p-3"> <h4> R {$booking['totalCost']} </h4></td>
                     <form method="POST">
                     <input type="hidden" name="bookingNo" value="$bookingId">
-                            <td class="p-2"><button type="submit" name="clearBookingButton" class="tranBack"><img class="homeButton mx-3 mt-3"
+                            <td class="p-2"><button type="submit" name="clearBookingButton" class="tranBack"><img class="homeButton"
                                 src="../static/img/bin.gif" alt="Delete Booking" title="Delete Booking"
                                 attribution="https://www.flaticon.com/free-animated-icons/document"></button></td>
+                            <td class="p-2"><button type="submit" name="receiptButton" class="tranBack"><img class="homeButton"
+                                src="../static/img/receipt.gif" alt="Receipt" title="Receipt"
+                                attribution="https://www.flaticon.com/free-animated-icons/invoice"></button></td>
                     </form>
                 </tr>
             DELIMITER;
@@ -641,6 +653,53 @@ function viewBookings($userId)
     mysqli_free_result($result);
     mysqli_close($mysqli);
 
+}
+
+// Function for generating the receipt with the booking information
+function generateReceipt()
+{
+
+    $filename = "receipt.txt";
+
+    $bookingId = $_POST['bookingNo']; // Retrieve the booking number from the button click
+    $booking = $_SESSION['bookings'][$bookingId]; // Retrieve the specific booking information
+
+    $data = [
+        "Thank you for booking, " . $_SESSION['fullname'],
+        "",
+        "Hotel Name: " . $booking['hotelName'],
+        "User Full Name: " . $booking['userFullName'],
+        "Check In Date: " . $booking['checkInStartDate'],
+        "Check Out Date: " . $booking['checkOutEndDate'],
+        "Total Cost: R " . $booking['totalCost'],
+        "",
+        "We hope you enjoy your stay at " . $booking['hotelName']
+    ];
+
+    $file = fopen($filename, 'w');
+
+    foreach ($data as $string) {
+        fwrite($file, $string . PHP_EOL);
+    }
+
+    fclose($file);
+
+    // Set headres to trigger the file download
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Content-Length: ' . filesize($filename));
+
+    // Flush the output buffer
+    ob_flush();
+    flush();
+
+    // Read and output the file contents
+    readfile($filename);
+
+    // Clean up
+    unlink($filename);
+
+    exit();
 }
 
 function deleteBookingforUser()
@@ -670,7 +729,7 @@ function deleteBookingforUser()
             mysqli_close($mysqli);
             exit();
         } else {
-            echo "<h4> You can't delete a booking that is less than 2 days away </h4>";
+            echo "<h6> You can't delete this booking, it's less than 2 days away! </h6>";
             exit();
         }
     }
@@ -724,31 +783,38 @@ function hotelIsAvailable($hotelId, $checkInDate, $checkOutDate)
     return $isAvailable;
 }
 
+
 // This is where the user can still choose another hotel instead
 function confirmBooking($userId, $hotelId)
 {
 
-     // Connect to the database
-     $mysqli = db_connect();
-     if (!$mysqli) {
-         return;
-     }
- 
-     // Use the SQL JOIN to fetch booking information along with associated user and hotel details
-     $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // Use the SQL JOIN to fetch booking information along with associated user and hotel details
+    $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
                FROM booking b
                INNER JOIN users u ON b.user_id = u.user_id
                INNER JOIN hotels h ON b.hotel_id = h.hotel_id
                WHERE b.user_id = ? AND b.hotel_id = ?";
- 
-     $stmt = mysqli_prepare($mysqli, $query);
-     mysqli_stmt_bind_param($stmt, "ii", $userId, $hotelId);
-     mysqli_stmt_execute($stmt);
-     $result = mysqli_stmt_get_result($stmt);
- 
-     if (mysqli_num_rows($result) > 0) {
+
+    $stmt = mysqli_prepare($mysqli, $query);
+    mysqli_stmt_bind_param($stmt, "ii", $userId, $hotelId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-           
+
+            $_SESSION['hotelName'] = $row['name'];
+            $_SESSION['userFullName'] = $row['fullname'];
+            $_SESSION['checkInStartDate'] = $row['checkInDate'];
+            $_SESSION['checkOutEndDate'] = $row['checkOutDate'];
+            $_SESSION['totalCost'] = $row['totalCost'];
+
             $information = <<<DELIMETER
 
             <h2 class="mb-5"> Your Booking Summary </h2>
@@ -759,23 +825,23 @@ function confirmBooking($userId, $hotelId)
             <table class="summaryTable my-5 p-5">
                 <tr>
                     <td class="p-5"> <h4> Hotel Name: </h4> </td>
-                    <td class="p-5"> <h5> {$row['name']} </h5> </td>
+                    <td class="p-5"> <h5> {$_SESSION['hotelName']} </h5> </td>
                 </tr>
                 <tr>
                     <td class="p-5"> <h4> User Full Name: </h4></td>
-                    <td class="p-5"> <h5> {$row['fullname']} </h5> </td>
+                    <td class="p-5"> <h5> {$_SESSION['userFullName']} </h5> </td>
                 </tr>
                 <tr>
                     <td class="p-5"> <h4> Check In Date: </h4></td>
-                    <td class="p-5"> <h5> {$row['checkInDate']} </h5> </td>
+                    <td class="p-5"> <h5> {$_SESSION['checkInStartDate']} </h5> </td>
                 </tr>
                 <tr>
                     <td class="p-5"> <h4> Check Out Date: </h4></td>
-                    <td class="p-5"> <h5> {$row['checkOutDate']} </h5> </td>
+                    <td class="p-5"> <h5> {$_SESSION['checkOutEndDate']} </h5> </td>
                 </tr>
                 <tr>
                     <td class="p-5"> <h4> Total Cost: </h4></td>
-                    <td class="p-5"> <h5> R {$row['totalCost']} </h5> </td>
+                    <td class="p-5"> <h5> R {$_SESSION['totalCost']} </h5> </td>
                 </tr>
             </table>
             </div>
@@ -783,18 +849,62 @@ function confirmBooking($userId, $hotelId)
             <div class="d-flex justify-content-center align-items-center my-5">
             <form method="POST">
                 <button type="submit" name="confirmFinalBooking" class="editButton p-2"> Confirm Booking </button>
+                <button type="submit" name="receiptButton" class="editButton p-2 my-5"> Generate Receipt </button>
             </form>
             </div>
             DELIMETER;
             echo $information;
         }
-     } else {
-         echo '<h4> No booking found. </h4>';
-     }
- 
-     mysqli_free_result($result);
-     mysqli_close($mysqli);
+    } else {
+        echo '<h4> No booking found. </h4>';
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
 }
 
 
+function generateReceiptforIndividual()
+{
+
+    $filename = "receipt.txt";
+
+    $data = [
+        "Thank you for booking, " . $_SESSION['fullname'],
+        "",
+        "Hotel Name: " . $_SESSION['hotelName'],
+        "User Full Name: " . $_SESSION['userFullName'],
+        "Check In Date: " . $_SESSION['checkInStartDate'],
+        "Check Out Date: " . $_SESSION['checkOutEndDate'],
+        "Total Cost: R " . $_SESSION['totalCost'],
+        "",
+        "We hope you enjoy your stay at " . $_SESSION['hotelName']
+    ];
+
+    $file = fopen($filename, 'w');
+
+    foreach ($data as $string) {
+        fwrite($file, $string . PHP_EOL);
+    }
+
+    fclose($file);
+
+    // Set headres to trigger the file download
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Content-Length: ' . filesize($filename));
+
+    // Flush the output buffer
+    ob_flush();
+    flush();
+
+    // Read and output the file contents
+    readfile($filename);
+
+    // Clean up
+    unlink($filename);
+
+
+    exit();
+}
 ?>

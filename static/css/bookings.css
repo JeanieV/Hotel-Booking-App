@@ -45,6 +45,12 @@ h5 {
     color: #001F3D;
 }
 
+h6{
+    font-size: 20px;
+    text-align: center;
+    color: #001F3D;
+}
+
 p {
     font-size: 27px;
     color: #E1E7E0;
@@ -72,7 +78,7 @@ p {
 .bookView {
     background-color: #E1E7E0;
     border-radius: 35px;
-    width: 90vw;
+    width: 95vw;
     text-align: center;
 }
 
