@@ -76,10 +76,7 @@ if (isset($_POST['bookingsButton'])) {
     header("Location: ./viewBookings.php");
 }
 
-// Go to the payment page
-if (isset($_POST['confirmFinalBooking'])) {
-    header("Location: ./payment.php");
-}
+
 
 // Database connection
 function db_connect()
@@ -228,6 +225,8 @@ function login()
 // Hotel Information
 // ---------------------------------------------------------
 
+
+
 // Function to show the information inside the hotel table.
 function showInformation()
 {
@@ -242,41 +241,41 @@ function showInformation()
         }
 
         // Create an instance of the Hotel class
-        $hotel = new Hotel($mysqli);
+        $hotel = new Hotel($mysqli, $hotelId);
 
         // Fetch hotel information using the provided hotel ID
-        $hotelData = $hotel->viewHotelsById($hotelId);
+        $targetHotelData = $hotel->viewHotelsById();
 
-        if ($hotelData) {
+        if ($targetHotelData) {
 
             $information = <<<DELIMETER
             <div class="container d-flex justify-content-center align-items-center mt-5">
             <table class="informationTable">
                 <tr>
                     <td class="p-4"> <h3> Price per night: </h3> </td>
-                    <td class="p-3"> <p> R {$hotelData['pricePerNight']} </p> </td>
+                    <td class="p-3"> <p> R {$targetHotelData['pricePerNight']} </p> </td>
                 </tr>
                 <tr>
                     <td class="p-4"> <h3> Features: </h3> </td>
-                    <td class="features p-3"> <p> {$hotelData['features']} </p> </td>
+                    <td class="features p-3"> <p> {$targetHotelData['features']} </p> </td>
                 </tr>
                 <tr>
                     <td class="p-4 text-center"> <img class="sleeps p-2"
                     src="../static/img/bed.png" alt="Sleeps" title="Sleeps"
                     attribution="https://www.flaticon.com/free-icons/bed"> </td>
-                    <td class="features p-3"> <p> {$hotelData['beds']} people </p> </td>
+                    <td class="features p-3"> <p> {$targetHotelData['beds']} people </p> </td>
                 </tr>
                 <tr>
                 <td class="p-4 text-center"> <img class="sleeps p-2"
                 src="../static/img/hotel.png" alt="Type" title="Type"
                 attribution="https://www.flaticon.com/free-icons/hotel"> </td>
-                    <td class="features p-3"> <p> {$hotelData['type']} </p> </td>
+                    <td class="features p-3"> <p> {$targetHotelData['type']} </p> </td>
                 </tr>
                 <tr>
                 <td class="p-4 text-center"> <img class="sleeps p-2"
                 src="../static/img/star.png" alt="Rating" title="Rating"
                 attribution="https://www.flaticon.com/free-icons/star"> </td>
-                    <td class="features p-3"> <p> {$hotelData['rating']} star</p> </td>
+                    <td class="features p-3"> <p> {$targetHotelData['rating']} star</p> </td>
                 </tr>
                 
             </table>
@@ -293,6 +292,104 @@ function showInformation()
         echo 'Invalid request.';
     }
 }
+
+// Function to compare similar hotels based on the price per night using cards
+function cardComparedHotels()
+{
+    if (isset($_GET['hotel_id'])) {
+        $hotelId = $_GET['hotel_id'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Create an instance of the Hotel class
+        $hotel = new Hotel($mysqli, $hotelId);
+
+        // Fetch hotel information using the provided hotel ID
+        $relatedHotels = $hotel->getRelatedHotels(5000);
+
+        $targetHotelData = $hotel->viewHotelsById();
+
+        $start = <<<DELIMETER
+        <div class="row">
+        DELIMETER;
+        echo $start;
+
+        // A card for each hotel where the price per night difference is more or less than R 3000
+        foreach ($relatedHotels as $relatedHotel) {
+
+            // Getting the price per night for 2 variables
+            $relatedHotelCost = $relatedHotel->calculateCost();
+
+            // Calculating the price difference between the hotels
+            $priceDifference = abs($relatedHotelCost['pricePerNight'] - $targetHotelData['pricePerNight']);
+
+            if ($priceDifference < 5000) {
+                $thumbnail = $relatedHotel->viewHotelsById()['thumbnail'];
+                $name = $relatedHotel->viewHotelsById()['name'];
+                $price = $relatedHotel->viewHotelsById()['pricePerNight'];
+                $hotelId = $relatedHotel->viewHotelsById()['hotel_id'];
+
+                // Determine the correct file path based on hotel ID
+                $phpFile = determinePhpFile($hotelId);
+
+                $compare = <<<DELIMETER
+                <div class="col-sm-6">
+                    <div class="card mt-3 mb-5">
+                        <img class="card-img-top hotelImage" src="../static/img/{$thumbnail}" alt="Hotel image">
+                        
+                            <div class="card-img-overlay">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <div class="background">
+                                        <h5 class="card-title p-2"> {$name} </h5>
+                                        <h5 class="card-title p-2"> R {$price} per night </h5>
+                                    </div>
+                                </div>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <form method="GET" action="{$phpFile}">
+                                    <input type="hidden" name="hotel_id" value="{$hotelId}">
+                                    <button type="submit" class="viewMoreButton p-2 mt-3" name="compareShowHotel"> View More </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                DELIMETER;
+                echo $compare;
+            }
+        }
+
+        $end = <<<DELIMETER
+        </div>
+        DELIMETER;
+        echo $end;
+    }
+}
+
+// Creating an array to find the correct php file based on the Hotel Id
+function determinePhpFile($hotelId)
+{
+
+    $hotelPhpFiles = array(
+        '1' => 'marbellaElix.php',
+        '2' => 'royalSenses.php',
+        '3' => 'theView.php',
+        '4' => 'angsanaCorfu.php',
+        '5' => 'theRooster.php',
+        '6' => 'destinoPacha.php',
+
+    );
+
+    if (array_key_exists($hotelId, $hotelPhpFiles)) {
+        return $hotelPhpFiles[$hotelId];
+    } else {
+        return 'hotel.php';
+    }
+}
+
 
 // ---------------------------------------------------------
 // CRUD Operations
@@ -508,8 +605,8 @@ function addBooking()
                     // Check if the selected hotel is available for the selected dates
                     if (hotelIsAvailable($hotelId, $checkInDate, $checkOutDate)) {
 
-                        $hotelInstance = new Hotel($mysqli);
-                        $pricePerNightData = $hotelInstance->calculateCost($hotelId);
+                        $hotelInstance = new Hotel($mysqli, $hotelId);
+                        $pricePerNightData = $hotelInstance->calculateCost();
                         $pricePerNight = $pricePerNightData['pricePerNight'];
 
                         // Calculate the number of days
@@ -521,37 +618,26 @@ function addBooking()
                         // Calculate total cost
                         $totalCost = $numberOfDays * $pricePerNight;
 
-                        $cancelled = 0;
-                        $completed = 0;
+                        // Check if the checkInDate is the same as the current date
+                        $currentDate = new DateTime();
+                        $checkInDateTime = new DateTime($checkInDate);
 
-                        // Insert the booking information into the booking table
-                        $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                        $stmt = mysqli_prepare($mysqli, $query);
-
-                        // Bind the parameters to the statement
-                        mysqli_stmt_bind_param($stmt, "iissiii", $userId, $hotelId, $checkInDate, $checkOutDate, $totalCost, $cancelled, $completed);
-
-                        // If the booking has successfully been added to the database
-                        if (mysqli_stmt_execute($stmt)) {
-                            mysqli_stmt_close($stmt); // Close the first prepared statement
-
-                            // Check if the checkInDate is the same as the current date
-                            $currentDate = new DateTime();
-                            $checkInDateTime = new DateTime($checkInDate);
-
-                            if ($checkInDateTime->format('Y-m-d') <= $currentDate->format('Y-m-d')) {
-                                $bookingInstance = new Booking($mysqli);
-                                $bookingInstance->completedBooking(mysqli_insert_id($mysqli));
-                            }
-
-                            header("Location: ./confirmBooking.php");
-                            exit();
-                        } else {
-                            echo 'Error creating booking: ' . mysqli_error($mysqli);
+                        if ($checkInDateTime->format('Y-m-d') <= $currentDate->format('Y-m-d')) {
+                            $bookingInstance = new Booking($mysqli);
+                            $bookingInstance->completedBooking(mysqli_insert_id($mysqli));
                         }
 
-                        // Close the statement
-                        mysqli_stmt_close($stmt);
+                        // Store the booking information in session variables
+                        $_SESSION['bookingInfo'] = array(
+                            'userId' => $userId,
+                            'hotelId' => $hotelId,
+                            'checkInDate' => $checkInDate,
+                            'checkOutDate' => $checkOutDate,
+                            'totalCost' => $totalCost,
+                        );
+
+                        header("Location: ./confirmBooking.php");
+                        exit();
 
                     } else {
                         $_SESSION['dateMessage'] = 'The hotel is unavailable on those dates.';
@@ -783,6 +869,52 @@ function hotelIsAvailable($hotelId, $checkInDate, $checkOutDate)
     return $isAvailable;
 }
 
+function confirmFinalBooking()
+{
+
+    if (isset($_POST['confirmFinalBooking'])) {
+        $bookingInfo = $_SESSION['bookingInfo'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        if (isset($_POST['confirmFinalBooking'])) {
+            $bookingInfo = $_SESSION['bookingInfo'];
+
+            // Connect to the database
+            $mysqli = db_connect();
+            if (!$mysqli) {
+                return;
+            }
+
+            $cancelled = 0;
+            $completed = 0;
+
+            // Insert the booking information into the booking table
+            $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmt = mysqli_prepare($mysqli, $query);
+            mysqli_stmt_bind_param($stmt, "iissiii", $bookingInfo['userId'], $bookingInfo['hotelId'], $bookingInfo['checkInDate'], $bookingInfo['checkOutDate'], $bookingInfo['totalCost'], $cancelled, $completed);
+
+            if (mysqli_stmt_execute($stmt)) {
+                // Clear the booking information from session
+                unset($_SESSION['bookingInfo']);
+                header("Location: ./payment.php");
+                exit();
+            } else {
+                echo 'Error creating booking: ' . mysqli_error($mysqli);
+            }
+
+            // Close the statement and database connection
+            mysqli_stmt_close($stmt);
+            mysqli_close($mysqli);
+        }
+    }
+}
+
+
 
 // This is where the user can still choose another hotel instead
 function confirmBooking($userId, $hotelId)
@@ -794,72 +926,60 @@ function confirmBooking($userId, $hotelId)
         return;
     }
 
-    // Use the SQL JOIN to fetch booking information along with associated user and hotel details
-    $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
-               FROM booking b
-               INNER JOIN users u ON b.user_id = u.user_id
-               INNER JOIN hotels h ON b.hotel_id = h.hotel_id
-               WHERE b.user_id = ? AND b.hotel_id = ?";
+    if (isset($_SESSION['bookingInfo'])) {
+        $bookingInfo = $_SESSION['bookingInfo'];
+        $fullname = $_SESSION['fullname'];
 
-    $stmt = mysqli_prepare($mysqli, $query);
-    mysqli_stmt_bind_param($stmt, "ii", $userId, $hotelId);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+        $hotel = new Hotel($mysqli, $hotelId);
 
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
+        // Fetch hotel information using the provided hotel ID
+        $targetHotelData = $hotel->viewHotelsById();
 
-            $_SESSION['hotelName'] = $row['name'];
-            $_SESSION['userFullName'] = $row['fullname'];
-            $_SESSION['checkInStartDate'] = $row['checkInDate'];
-            $_SESSION['checkOutEndDate'] = $row['checkOutDate'];
-            $_SESSION['totalCost'] = $row['totalCost'];
+        if ($targetHotelData) {
+
+            $_SESSION['name'] =  $targetHotelData['name'];
 
             $information = <<<DELIMETER
-
-            <h2 class="mb-5"> Your Booking Summary </h2>
-
-            <img src='../static/img/{$row['thumbnail']}' alt='Book Thumbnail' class='hotelImage'>
-
-            <div class="d-flex justify-content-center align-items-center my-5">
-            <table class="summaryTable my-5 p-5">
-                <tr>
-                    <td class="p-5"> <h4> Hotel Name: </h4> </td>
-                    <td class="p-5"> <h5> {$_SESSION['hotelName']} </h5> </td>
-                </tr>
-                <tr>
-                    <td class="p-5"> <h4> User Full Name: </h4></td>
-                    <td class="p-5"> <h5> {$_SESSION['userFullName']} </h5> </td>
-                </tr>
-                <tr>
-                    <td class="p-5"> <h4> Check In Date: </h4></td>
-                    <td class="p-5"> <h5> {$_SESSION['checkInStartDate']} </h5> </td>
-                </tr>
-                <tr>
-                    <td class="p-5"> <h4> Check Out Date: </h4></td>
-                    <td class="p-5"> <h5> {$_SESSION['checkOutEndDate']} </h5> </td>
-                </tr>
-                <tr>
-                    <td class="p-5"> <h4> Total Cost: </h4></td>
-                    <td class="p-5"> <h5> R {$_SESSION['totalCost']} </h5> </td>
-                </tr>
-            </table>
+        <h2 class="mb-5"> Your Booking Summary </h2>
+        <img src='../static/img/{$targetHotelData['thumbnail']}' alt='Book Thumbnail' class='hotelImage'>
+        <div class="d-flex justify-content-center align-items-center my-5">
+        <table class="summaryTable my-5 p-5">
+            <tr>
+                <td class="p-5"> <h4> Hotel Name: </h4> </td>
+                <td class="p-5"> <h5> {$targetHotelData['name']} </h5> </td>
+            </tr>
+            <tr>
+                <td class="p-5"> <h4> User Full Name: </h4></td>
+                <td class="p-5"> <h5> {$fullname} </h5> </td>
+            </tr>
+            <tr>
+                <td class="p-5"> <h4> Check In Date: </h4></td>
+                <td class="p-5"> <h5> {$bookingInfo['checkInDate']} </h5> </td>
+            </tr>
+            <tr>
+                <td class="p-5"> <h4> Check Out Date: </h4></td>
+                <td class="p-5"> <h5> {$bookingInfo['checkOutDate']} </h5> </td>
+            </tr>
+            <tr>
+                <td class="p-5"> <h4> Total Cost: </h4></td>
+                <td class="p-5"> <h5> R {$bookingInfo['totalCost']} </h5> </td>
+            </tr>
+        </table>
+        </div>
+        <form method="POST">
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" name="confirmFinalBooking" class="editButton p-3 my-3 mx-5"> Confirm Booking </button>
+                <button type="submit" name="receiptButton" class="editButton p-3 my-3 mx-5"> Generate Receipt </button>
             </div>
+        </form>
+        DELIMETER;
 
-            <div class="d-flex justify-content-center align-items-center my-5">
-            <form method="POST">
-                <button type="submit" name="confirmFinalBooking" class="editButton p-2"> Confirm Booking </button>
-                <button type="submit" name="receiptButton" class="editButton p-2 my-5"> Generate Receipt </button>
-            </form>
-            </div>
-            DELIMETER;
             echo $information;
         }
     } else {
-        echo '<h4> No booking found. </h4>';
+        echo '<h4> Booking information not found. Please go back and book again. </h4>';
     }
 
-    mysqli_free_result($result);
     mysqli_close($mysqli);
 }
 
@@ -872,13 +992,13 @@ function generateReceiptforIndividual()
     $data = [
         "Thank you for booking, " . $_SESSION['fullname'],
         "",
-        "Hotel Name: " . $_SESSION['hotelName'],
-        "User Full Name: " . $_SESSION['userFullName'],
-        "Check In Date: " . $_SESSION['checkInStartDate'],
-        "Check Out Date: " . $_SESSION['checkOutEndDate'],
-        "Total Cost: R " . $_SESSION['totalCost'],
+        "Hotel Name: " . $_SESSION['name'],
+        "User Full Name: " . $_SESSION['fullname'],
+        "Check In Date: " . $_SESSION['bookingInfo']['checkInDate'],
+        "Check Out Date: " . $_SESSION['bookingInfo']['checkOutDate'],
+        "Total Cost: R " . $_SESSION['bookingInfo']['totalCost'],
         "",
-        "We hope you enjoy your stay at " . $_SESSION['hotelName']
+        "We hope you enjoy your stay at " . $_SESSION['name']
     ];
 
     $file = fopen($filename, 'w');
@@ -903,8 +1023,9 @@ function generateReceiptforIndividual()
 
     // Clean up
     unlink($filename);
-
-
     exit();
 }
+
+
+
 ?>

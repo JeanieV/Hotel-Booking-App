@@ -48,7 +48,9 @@ if(isset($_POST['receiptButton'])){
                             confirmBooking($userId, $hotelId);
                         }
 
+                        
                         ?>
+                        <?php confirmFinalBooking(); ?>
                     </div>
                 </div>
             </form>

@@ -27,7 +27,7 @@ if (isset($_SESSION['fullname'])) {
 <body>
 
     <!-- Our Hotles -->
-    <form method="POST">
+    <form method="POST" action="hotel.php">
         <div class="container-fluid">
 
             <!-- Return Home Button -->

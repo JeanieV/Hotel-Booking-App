@@ -101,6 +101,14 @@ th {
     width: 15vw;
 }
 
+.editButton:hover {
+    font-size: 23px;
+    background-color: #001F3D;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 15vw;
+}
+
 .logOutStyle {
     width: 70px;
     height: 70px;

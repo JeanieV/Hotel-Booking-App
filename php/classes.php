@@ -4,18 +4,21 @@ session_start();
 // Hotel class
 class Hotel
 {
+    private $hotelId;
     private $mysqli;
 
-    public function __construct($mysqli)
+    public function __construct($mysqli, $hotelId)
     {
         $this->mysqli = $mysqli;
+        $this->hotelId = $hotelId;
     }
 
-    public function calculateCost($hotelId)
+
+    public function calculateCost()
     {
         $query = "SELECT pricePerNight FROM hotels WHERE hotel_id=?";
         $stmt = mysqli_prepare($this->mysqli, $query);
-        mysqli_stmt_bind_param($stmt, "i", $hotelId);
+        mysqli_stmt_bind_param($stmt, "i", $this->hotelId);
         mysqli_stmt_execute($stmt);
 
         $result = mysqli_stmt_get_result($stmt);
@@ -28,12 +31,12 @@ class Hotel
 
 
     // Method to select everything from the hotels table
-    public function viewHotelsById($hotelId)
+    public function viewHotelsById()
     {
 
         $query = "SELECT * FROM hotels WHERE hotel_id=?";
         $stmt = mysqli_prepare($this->mysqli, $query);
-        mysqli_stmt_bind_param($stmt, "i", $hotelId);
+        mysqli_stmt_bind_param($stmt, "i", $this->hotelId);
         mysqli_stmt_execute($stmt);
 
         $result = mysqli_stmt_get_result($stmt);
@@ -44,6 +47,46 @@ class Hotel
         return $hotelData;
     }
 
+    public static function compareHotels(Hotel $hotel1, Hotel $hotel2)
+    {
+        $hotel1Cost = $hotel1->calculateCost();
+        $hotel2Cost = $hotel2->calculateCost();
+
+        if ($hotel1Cost < $hotel2Cost) {
+            return $hotel1;
+        } else {
+            return $hotel2;
+        }
+    }
+
+    public function getRelatedHotels($priceDifferenceThreshold)
+{
+    // Fetch the current hotel's information
+    $currentHotel = $this->viewHotelsById();
+
+    // Calculate the price range within which related hotels should fall
+    $minPrice = $currentHotel['pricePerNight'] - $priceDifferenceThreshold;
+    $maxPrice = $currentHotel['pricePerNight'] + $priceDifferenceThreshold;
+
+    $relatedHotels = array();
+
+    // Query for related hotels within the specified price range
+    $query = "SELECT * FROM hotels WHERE pricePerNight >= ? AND pricePerNight <= ? AND hotel_id != ?";
+    $stmt = mysqli_prepare($this->mysqli, $query);
+    mysqli_stmt_bind_param($stmt, "iii", $minPrice, $maxPrice, $this->hotelId);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $relatedHotel = new Hotel($this->mysqli, $row['hotel_id']);
+        $relatedHotels[] = $relatedHotel;
+    }
+
+    mysqli_stmt_close($stmt);
+
+    return $relatedHotels;
+}
 
 }
 

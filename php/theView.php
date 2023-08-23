@@ -119,11 +119,11 @@ if (isset($_GET['hotel_id'])) {
                     }
                     ?>
 
-                    <form method="POST" action="theView.php">
+                    <form method="POST">
 
                         <!-- Return Home Button -->
                         <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                class="homeButton mx-3 mt-3 mb-4" src="../static/img/home.png" alt="Back to Home Page"
+                                class="homeButton mx-3 mt-1 mb-2" src="../static/img/home.png" alt="Back to Home Page"
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
@@ -172,13 +172,26 @@ if (isset($_GET['hotel_id'])) {
                         <div class="d-flex justify-content-center align-items-center">
                             <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
                             <input type="hidden" name="hotel_id" value="<?php echo $_SESSION['hotel_id'] ?>">
-                            <button type="submit" name="bookButton" class="extraInfoButtons p-2 my-5"> Book </button>
+                            <button type="submit" name="bookButton" class="extraInfoButtons p-2 mt-5 mb-2"> Book
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="container-fluid">
+        <div class="mt-3 mb-5 mx-5 hotelView p-5">
+
+            <?php echo "<h4 class='mb-5'> $username, compare your hotel with another! </h4>" ?>
+
+
+            <?php cardComparedHotels(); ?>
+
+        </div>
+    </div> 
+
 </body>
 
 </html>
