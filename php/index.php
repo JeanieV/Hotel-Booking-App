@@ -18,10 +18,16 @@ if (isset($_POST['viewMoreButton'])) {
     $displayMessage = true;
 }
 
-// Check if the Member Login form is submitted
+// Check if the User Login form is submitted
 if (isset($_POST['logInButton']) && isset($_POST['email']) && isset($_POST['password'])) {
-    login(); // Process Member Login
+    login(); 
 }
+
+// Check if the Staff Login form is submitted
+if (isset($_POST['employeeButton']) && isset($_POST['id'])) {
+    employeeLogin();
+}
+
 
 
 ?>

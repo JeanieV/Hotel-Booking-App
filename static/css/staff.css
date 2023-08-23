@@ -1,0 +1,48 @@
+body {
+    background-image: url('../img/background_3D.jpg');
+}
+
+.tranBack {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.home{
+ background-color: #E1E7E0;
+ color: black;
+ font-size: 25px;
+}
+
+.homeButton {
+    width: 80px;
+    height: 80px;
+}
+
+h1 {
+    font-size: 60px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
+h2 {
+    font-size: 50px;
+    text-align: center;
+    color: #08392B;
+}
+
+.infoButtons{
+    font-size: 30px;
+    background-color: #08392B;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 15vw;
+}
+
+.infoButtons:hover {
+    font-size: 30px;
+    background-color: #001F3D;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 15vw;
+}

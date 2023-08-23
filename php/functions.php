@@ -1065,5 +1065,49 @@ function generateReceiptforIndividual()
 }
 
 
+// ---------------------------------------------------------
+// CMS Employee Section
+// ---------------------------------------------------------
 
+
+function employeeLogin()
+{
+    if (isset($_POST['id'])) {
+        $id = $_POST['id'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Check if the email and password match in the database
+        $query = "SELECT * FROM staff WHERE employee_number = ?";
+
+        // Prepare the statement to bind the parameters (email and password)
+        $stmt = mysqli_prepare($mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        // If there is information in the table, find the username that match
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            // Make sure that the user_id, username and fullname is known
+            $_SESSION['staff_id'] = $row['staff_id'];
+            $_SESSION['staffFullName'] = $row['fullname'];
+
+            mysqli_stmt_close($stmt);
+            mysqli_close($mysqli);
+            header("Location: ./staff.php");
+            exit();
+        } else {
+            // User does not exist or wrong password, redirect to signUp.php
+            mysqli_stmt_close($stmt);
+            mysqli_close($mysqli);
+            header("Location: ./index.php");
+            exit();
+        }
+    }
+}
 ?>
