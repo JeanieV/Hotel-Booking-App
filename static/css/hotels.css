@@ -102,6 +102,7 @@ p {
     text-align: center;
 }
 
+
 .labelStyle {
     color: #08392B;
     font-size: 25px;
@@ -220,8 +221,12 @@ h5 {
     position: relative;
     top: 0;
     left: 0;
-    width: 50px; /* Adjust the width as needed */
-    z-index: 1; /* Ensure the image appears above the card content */
+    width: 50px; 
+    z-index: 1; 
+}
+
+.small-image{
+    width: 50px;
 }
 
 .corner-background{
@@ -232,4 +237,11 @@ h5 {
 .infoBackground{
     background-color: #E1E7E0;
     width: 30vw;
+    text-align: center;
+    border-radius: 30px;
 }
+
+table td {
+    padding: 8px 12px;
+}
+

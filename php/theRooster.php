@@ -180,35 +180,52 @@ if (isset($_GET['hotel_id'])) {
         <?php echo "<h4 class='mb-5'> $username, compare your hotel with another! </h4>" ?>
 
         <div class="d-flex justify-content-center align-items-center">
-            <div class="infoBackground p-2 mb-4">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p> <img src="../static/img/expensive.png" class="corner-image" alt="Hotel image"
-                                attribution="https://www.flaticon.com/free-icons/expensive"> = Expensive </p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p> <img src="../static/img/best-price.png" class="corner-image" alt="Hotel image"
-                                attribution="https://www.flaticon.com/free-icons/best-price"> = Cheaper</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p> <img src="../static/img/best-rating.png" class="corner-image" alt="Hotel image"
-                                attribution="https://www.flaticon.com/free-icons/expertise"> = Best Rating</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p> <img src="../static/img/bad-rating.png" class="corner-image" alt="Hotel image"
-                                attribution="https://www.flaticon.com/free-icons/thumbs-down"> = Poor Rating</p>
-                    </div>
-                </div>
 
+            <div class="infoBackground p-3 mb-4 d-flex justify-content-center align-items-center">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="../static/img/expensive.png" class="small-image" alt="Hotel image"
+                                attribution="https://www.flaticon.com/free-icons/expensive">
+                        </td>
+                        <td>
+                            <p> More Expensive </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../static/img/best-price.png" class="small-image" alt="Hotel image"
+                                attribution="https://www.flaticon.com/free-icons/best-price">
+                        </td>
+                        <td>
+                            <p> Cheaper</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../static/img/best-rating.png" class="small-image" alt="Hotel image"
+                                attribution="https://www.flaticon.com/free-icons/expertise">
+                        </td>
+                        <td>
+                            <p> Better Rating</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../static/img/bad-rating.png" class="small-image" alt="Hotel image"
+                                attribution="https://www.flaticon.com/free-icons/thumbs-down">
+                        </td>
+                        <td>
+                            <p> Poorer Rating</p>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
 
         <?php cardComparedHotels(); ?>
 
     </div>
-
 </body>
 
 </html>

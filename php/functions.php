@@ -1036,7 +1036,7 @@ function generateReceiptforIndividual()
         "Check Out Date: " . $_SESSION['bookingInfo']['checkOutDate'],
         "Total Cost: R " . $_SESSION['bookingInfo']['totalCost'],
         "",
-        "We hope you enjoy your stay at " . $_SESSION['name']
+        "We hope you enjoy your stay at " . $_SESSION['name'] . "!"
     ];
 
     $file = fopen($filename, 'w');
