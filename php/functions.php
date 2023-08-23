@@ -296,6 +296,7 @@ function showInformation()
 // Function to compare similar hotels based on the price per night using cards
 function cardComparedHotels()
 {
+    // Get the hotel_id from the button
     if (isset($_GET['hotel_id'])) {
         $hotelId = $_GET['hotel_id'];
 
@@ -318,7 +319,7 @@ function cardComparedHotels()
         DELIMETER;
         echo $start;
 
-        // A card for each hotel where the price per night difference is more or less than R 3000
+        // A card for each hotel where the price per night difference is more or less than R 5000
         foreach ($relatedHotels as $relatedHotel) {
 
             // Getting the price per night for 2 variables
@@ -336,29 +337,65 @@ function cardComparedHotels()
                 // Determine the correct file path based on hotel ID
                 $phpFile = determinePhpFile($hotelId);
 
+                // Compare the price per night using the compareHotels method from Hotel Class
+                $betterPrice = Hotel::compareHotels($hotel, $relatedHotel);
+
+                // Compare ratings
+                $targetRating = $hotel->viewHotelsById()['rating'];
+                $relatedRating = $relatedHotel->viewHotelsById()['rating'];
+
+                // Conditional Styling
+                $priceClass = '';
+                $ratingClass = '';
+
+                if ($betterPrice === $hotel) {
+                    $priceClass = 'expensive-price'; // Apply a class for more expensive price
+                    $priceImage = '<img src="../static/img/expensive.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/expensive">';
+                } else {
+                    $priceClass = 'cheaper-price'; // Apply a class for cheaper price
+                    $priceImage = '<img src="../static/img/best-price.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/best-price">'; 
+                }
+
+                if ($relatedRating > $targetRating) {
+                    $ratingClass = 'better-rating'; // Apply a class for better rating
+                    $ratingImage = '<img src="../static/img/best-rating.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/expertise">';
+                } elseif ($relatedRating < $targetRating) {
+                    $ratingClass = 'worse-rating'; // Apply a class for worse rating
+                    $ratingImage = '<img src="../static/img/bad-rating.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/thumbs-down">';
+                }
+
                 $compare = <<<DELIMETER
                 <div class="col-sm-6">
-                    <div class="card mt-3 mb-5">
-                        <img class="card-img-top hotelImage" src="../static/img/{$thumbnail}" alt="Hotel image">
-                        
+                    <div class="container mt-3 mb-5">
+                        <div class="card img-fluid">
+                            <img class="card-img-top hotelImage" src="../static/img/{$thumbnail}" alt="Hotel image">
+                            
                             <div class="card-img-overlay">
+                                <div class="corner-background p-1 mb-3">
+                                    $priceImage
+                                    $ratingImage
+                                </div>
+                                
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <div class="background">
+                                    <div class="background {$priceClass} {$ratingClass}">
                                         <h5 class="card-title p-2"> {$name} </h5>
                                         <h5 class="card-title p-2"> R {$price} per night </h5>
                                     </div>
                                 </div>
-                            <div class="d-flex justify-content-center align-items-center">
-                                <form method="GET" action="{$phpFile}">
-                                    <input type="hidden" name="hotel_id" value="{$hotelId}">
-                                    <button type="submit" class="viewMoreButton p-2 mt-3" name="compareShowHotel"> View More </button>
-                                </form>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <form method="GET" action="{$phpFile}">
+                                        <input type="hidden" name="hotel_id" value="{$hotelId}">
+                                        <button type="submit" class="viewMoreButton p-2 mt-3" name="compareShowHotel"> View More </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>               
                 DELIMETER;
+
                 echo $compare;
+
             }
         }
 
@@ -368,6 +405,7 @@ function cardComparedHotels()
         echo $end;
     }
 }
+
 
 // Creating an array to find the correct php file based on the Hotel Id
 function determinePhpFile($hotelId)
@@ -573,7 +611,8 @@ function deleteUserFinal()
 // Bookings
 // ---------------------------------------------------------
 
-function addBooking()
+// Make sure that the info the user selected is known
+function addTemporaryBooking()
 {
     // Connect to the database
     $mysqli = db_connect();
@@ -650,7 +689,6 @@ function addBooking()
     // Close the database connection
     mysqli_close($mysqli);
 }
-
 
 
 // View all the bookings of the user
@@ -869,52 +907,6 @@ function hotelIsAvailable($hotelId, $checkInDate, $checkOutDate)
     return $isAvailable;
 }
 
-function confirmFinalBooking()
-{
-
-    if (isset($_POST['confirmFinalBooking'])) {
-        $bookingInfo = $_SESSION['bookingInfo'];
-
-        // Connect to the database
-        $mysqli = db_connect();
-        if (!$mysqli) {
-            return;
-        }
-
-        if (isset($_POST['confirmFinalBooking'])) {
-            $bookingInfo = $_SESSION['bookingInfo'];
-
-            // Connect to the database
-            $mysqli = db_connect();
-            if (!$mysqli) {
-                return;
-            }
-
-            $cancelled = 0;
-            $completed = 0;
-
-            // Insert the booking information into the booking table
-            $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            $stmt = mysqli_prepare($mysqli, $query);
-            mysqli_stmt_bind_param($stmt, "iissiii", $bookingInfo['userId'], $bookingInfo['hotelId'], $bookingInfo['checkInDate'], $bookingInfo['checkOutDate'], $bookingInfo['totalCost'], $cancelled, $completed);
-
-            if (mysqli_stmt_execute($stmt)) {
-                // Clear the booking information from session
-                unset($_SESSION['bookingInfo']);
-                header("Location: ./payment.php");
-                exit();
-            } else {
-                echo 'Error creating booking: ' . mysqli_error($mysqli);
-            }
-
-            // Close the statement and database connection
-            mysqli_stmt_close($stmt);
-            mysqli_close($mysqli);
-        }
-    }
-}
-
-
 
 // This is where the user can still choose another hotel instead
 function confirmBooking($userId, $hotelId)
@@ -937,7 +929,7 @@ function confirmBooking($userId, $hotelId)
 
         if ($targetHotelData) {
 
-            $_SESSION['name'] =  $targetHotelData['name'];
+            $_SESSION['name'] = $targetHotelData['name'];
 
             $information = <<<DELIMETER
         <h2 class="mb-5"> Your Booking Summary </h2>
@@ -981,6 +973,52 @@ function confirmBooking($userId, $hotelId)
     }
 
     mysqli_close($mysqli);
+}
+
+
+function confirmFinalBooking()
+{
+
+    if (isset($_POST['confirmFinalBooking'])) {
+        $bookingInfo = $_SESSION['bookingInfo'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        if (isset($_POST['confirmFinalBooking'])) {
+            $bookingInfo = $_SESSION['bookingInfo'];
+
+            // Connect to the database
+            $mysqli = db_connect();
+            if (!$mysqli) {
+                return;
+            }
+
+            $cancelled = 0;
+            $completed = 0;
+
+            // Insert the booking information into the booking table
+            $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmt = mysqli_prepare($mysqli, $query);
+            mysqli_stmt_bind_param($stmt, "iissiii", $bookingInfo['userId'], $bookingInfo['hotelId'], $bookingInfo['checkInDate'], $bookingInfo['checkOutDate'], $bookingInfo['totalCost'], $cancelled, $completed);
+
+            if (mysqli_stmt_execute($stmt)) {
+                // Clear the booking information from session
+                unset($_SESSION['bookingInfo']);
+                header("Location: ./payment.php");
+                exit();
+            } else {
+                echo 'Error creating booking: ' . mysqli_error($mysqli);
+            }
+
+            // Close the statement and database connection
+            mysqli_stmt_close($stmt);
+            mysqli_close($mysqli);
+        }
+    }
 }
 
 

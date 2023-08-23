@@ -59,14 +59,14 @@ class Hotel
         }
     }
 
-    public function getRelatedHotels($priceDifferenceThreshold)
+    public function getRelatedHotels($priceDifference)
 {
     // Fetch the current hotel's information
     $currentHotel = $this->viewHotelsById();
 
     // Calculate the price range within which related hotels should fall
-    $minPrice = $currentHotel['pricePerNight'] - $priceDifferenceThreshold;
-    $maxPrice = $currentHotel['pricePerNight'] + $priceDifferenceThreshold;
+    $minPrice = $currentHotel['pricePerNight'] - $priceDifference;
+    $maxPrice = $currentHotel['pricePerNight'] + $priceDifference;
 
     $relatedHotels = array();
 
