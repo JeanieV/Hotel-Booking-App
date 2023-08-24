@@ -8,10 +8,19 @@ body {
     outline: none;
 }
 
-.home{
- background-color: #E1E7E0;
- color: black;
- font-size: 25px;
+.home {
+    background-color: #E1E7E0;
+    color: black;
+    font-size: 25px;
+}
+
+.sort {
+    background-color: #FF8300;
+    color: black;
+    font-size: 25px;
+    border-color: #FF8300;
+    width: 15vw;
+    border-radius: 20px;
 }
 
 .homeButton {
@@ -31,12 +40,19 @@ h2 {
     color: #08392B;
 }
 
-.infoButtons{
+h3 {
     font-size: 30px;
-    background-color: #08392B;
-    color: #E1E7E0;
-    border-color: #E1E7E0;
+    text-align: center;
+    color: #08392B;
+}
+
+.infoButtons {
+    font-size: 30px;
+    background-color: #FF8300;
+    color: black;
+    border-color: #FF8300;
     width: 15vw;
+    border-radius: 20px;
 }
 
 .infoButtons:hover {
@@ -46,3 +62,35 @@ h2 {
     border-color: #E1E7E0;
     width: 15vw;
 }
+
+.staffView {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 90vw;
+}
+
+
+p {
+    font-size: 20px;
+    text-align: center;
+    color: #08392B;
+}
+
+.background {
+    background-color: #E1E7E0;
+    width: max-content;
+}
+
+th {
+    text-align: center;
+    font-size: 30px;
+    color: #FF8300;
+    padding: 20px;
+}
+
+.name {
+    width: 25vw;
+}
+
+
+

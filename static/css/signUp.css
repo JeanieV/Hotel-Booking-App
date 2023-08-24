@@ -58,3 +58,9 @@ h2 {
     height: 80px;
     border-radius: 30px;
 }
+
+p{
+    font-size: 20px;
+    text-align: center;
+    color: #08392B; 
+}

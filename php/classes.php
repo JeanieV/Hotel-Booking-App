@@ -60,33 +60,33 @@ class Hotel
     }
 
     public function getRelatedHotels($priceDifference)
-{
-    // Fetch the current hotel's information
-    $currentHotel = $this->viewHotelsById();
+    {
+        // Fetch the current hotel's information
+        $currentHotel = $this->viewHotelsById();
 
-    // Calculate the price range within which related hotels should fall
-    $minPrice = $currentHotel['pricePerNight'] - $priceDifference;
-    $maxPrice = $currentHotel['pricePerNight'] + $priceDifference;
+        // Calculate the price range within which related hotels should fall
+        $minPrice = $currentHotel['pricePerNight'] - $priceDifference;
+        $maxPrice = $currentHotel['pricePerNight'] + $priceDifference;
 
-    $relatedHotels = array();
+        $relatedHotels = array();
 
-    // Query for related hotels within the specified price range
-    $query = "SELECT * FROM hotels WHERE pricePerNight >= ? AND pricePerNight <= ? AND hotel_id != ?";
-    $stmt = mysqli_prepare($this->mysqli, $query);
-    mysqli_stmt_bind_param($stmt, "iii", $minPrice, $maxPrice, $this->hotelId);
-    mysqli_stmt_execute($stmt);
+        // Query for related hotels within the specified price range
+        $query = "SELECT * FROM hotels WHERE pricePerNight >= ? AND pricePerNight <= ? AND hotel_id != ?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "iii", $minPrice, $maxPrice, $this->hotelId);
+        mysqli_stmt_execute($stmt);
 
-    $result = mysqli_stmt_get_result($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $relatedHotel = new Hotel($this->mysqli, $row['hotel_id']);
-        $relatedHotels[] = $relatedHotel;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $relatedHotel = new Hotel($this->mysqli, $row['hotel_id']);
+            $relatedHotels[] = $relatedHotel;
+        }
+
+        mysqli_stmt_close($stmt);
+
+        return $relatedHotels;
     }
-
-    mysqli_stmt_close($stmt);
-
-    return $relatedHotels;
-}
 
 }
 
@@ -231,5 +231,24 @@ class Booking
 }
 
 
+class Staff
+{
+    private $mysqli;
 
+    public function __construct($mysqli)
+    {
+        $this->mysqli = $mysqli;
+    }
+
+    // Method to update the user information
+    public function addStaff($employee_number, $role, $fullname)
+    {
+        $query = "INSERT INTO staff (employee_number, role, fullname) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "sss", $employee_number, $role, $fullname);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+}
 ?>

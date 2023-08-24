@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 if (isset($_SESSION['staffFullName'])) {
     $staffFullName = $_SESSION['staffFullName'];
@@ -22,7 +22,7 @@ if (isset($_SESSION['staffFullName'])) {
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/staff.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/staff.css'>
 </head>
 
 <body>
@@ -35,24 +35,27 @@ if (isset($_SESSION['staffFullName'])) {
     <?php echo "<h1> Greetings, $staffFullName! </h1>"; ?>
 
     <div class="d-flex justify-content-center align-items-center my-5">
+        <div class="background p-3">
+            <?php echo "<h3> You have the role: {$_SESSION['role']} </h3>"; ?>
+        </div>
+    </div>
 
-        
 
+    <div class="d-flex justify-content-center align-items-center my-5">
         <div class="row">
 
-            <!-- Button which will get the userId -->
+            <!-- Staff can View User Information -->
             <div class="col-sm-6">
-
                 <form method="GET" action="staff_ViewUser.php">
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
                     <button name="staffViewInfo" type="submit" class="infoButtons p-3">Users </button>
                 </form>
             </div>
 
-            <!-- Go to Edit Page -->
+            <!-- Staff can View Hotel Information -->
             <div class="col-sm-6">
                 <form method="POST" action="staff_ViewHotel.php">
-                    <button type="submit" name="goToEditPage" class="infoButtons p-3"> Hotel</button>
+                    <button type="submit" name="staffViewHotels" class="infoButtons p-3"> Hotel</button>
                 </form>
             </div>
         </div>
@@ -67,7 +70,20 @@ if (isset($_SESSION['staffFullName'])) {
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
                     <button type="submit" name="deleteUserButton" class="infoButtons p-3"> Bookings </button>
                 </form>
-                <?php deleteUserFinal(); ?>
+            </div>
+
+            <div class="col-sm-6">
+                <?php
+                // If the employee is Admin, then they can add a new employee.
+                if ($_SESSION['role'] === "Admin") {
+                    $button = <<<DELIMETER
+                    <form method="POST" action="staff_SignUp.php">
+                        <button type="submit" name="addEmployee" class="infoButtons p-3"> Add Employee </button>
+                    </form>'
+                    DELIMETER;
+                    echo $button;
+                }
+                ?>
             </div>
 
         </div>

@@ -18,7 +18,12 @@ if (isset($_POST['logOutButton'])) {
 
 // Return to homepage
 if (isset($_POST['returnHome'])) {
-    header("Location: ./index.php");
+    header("Location: ../index.php");
+}
+
+// Return to staff page
+if (isset($_POST['returnStaffHome'])) {
+    header("Location: ./staff/staff.php");
 }
 
 // Return to Hotel Page after clicking on viewing a Hotel
@@ -353,7 +358,7 @@ function cardComparedHotels()
                     $priceImage = '<img src="../static/img/expensive.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/expensive">';
                 } else {
                     $priceClass = 'cheaper-price'; // Apply a class for cheaper price
-                    $priceImage = '<img src="../static/img/best-price.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/best-price">'; 
+                    $priceImage = '<img src="../static/img/best-price.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/best-price">';
                 }
 
                 if ($relatedRating > $targetRating) {
@@ -1096,10 +1101,11 @@ function employeeLogin()
             // Make sure that the user_id, username and fullname is known
             $_SESSION['staff_id'] = $row['staff_id'];
             $_SESSION['staffFullName'] = $row['fullname'];
+            $_SESSION['role'] = $row['role'];
 
             mysqli_stmt_close($stmt);
             mysqli_close($mysqli);
-            header("Location: ./staff.php");
+            header("Location: ./staff/staff.php");
             exit();
         } else {
             // User does not exist or wrong password, redirect to signUp.php
@@ -1110,4 +1116,204 @@ function employeeLogin()
         }
     }
 }
+
+// Add new employee to the system
+function addNewEmployee()
+{
+    // If the sign-up button is clicked
+    if (isset($_POST['employeeSignUpButton'])) {
+
+        // Store the input fields as variables
+        $employee_number = $_POST['employee_number'];
+        $fullname = $_POST['employeeFullname'];
+        $role = $_POST['employee-role'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Check if employee with the same number already exists
+        $checkQuery = "SELECT employee_number FROM staff WHERE employee_number = ?";
+        $checkStmt = mysqli_prepare($mysqli, $checkQuery);
+        mysqli_stmt_bind_param($checkStmt, "s", $employee_number);
+        mysqli_stmt_execute($checkStmt);
+        mysqli_stmt_store_result($checkStmt);
+
+        // If an employee with the same number exists
+        if (mysqli_stmt_num_rows($checkStmt) > 0) {
+            $_SESSION['addEmployee'] = "Employee_number already exists.";
+            header("Location: ./staff/staff_SignUp.php");
+            mysqli_stmt_close($checkStmt);
+            mysqli_close($mysqli);
+            exit();
+        }
+
+        // Close the check statement
+        mysqli_stmt_close($checkStmt);
+
+        // Create a new instance of the Staff class
+        $staff = new Staff($mysqli);
+
+        // Call the method from the Staff class to add employee
+        $result = $staff->addStaff($employee_number, $role, $fullname);
+
+        // If the new employee has been added
+        if ($result) {
+            echo '<h2 class="p-3">Success: Employee added successfully! <br> Head back to Staff Page </h2>';
+            mysqli_close($mysqli);
+            exit();
+        } else {
+            // Failed to add employee
+            $_SESSION['addEmployee'] = "New Employee has not been added";
+            header("Location: ./staff/staff_SignUp.php");
+            mysqli_close($mysqli);
+            exit();
+        }
+    }
+}
+
+// Function so that the employees can view the users on the system
+function staffViewUsers()
+{
+
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // Check if the sort button was clicked
+    if (isset($_POST['sortUsersA-Username'])) {
+
+        $query = "SELECT * FROM users ORDER BY username";
+
+    } elseif (isset($_POST['sortUsersA-Number'])) {
+
+        $query = "SELECT * FROM users ORDER BY phoneNumber";
+
+    } else {
+        
+        $query = "SELECT * FROM users";
+
+    }
+
+    $result = mysqli_query($mysqli, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        $heading = <<<DELIMITER
+                            <table>
+                            <tr>
+                                <th> Username </th>
+                                <th> Full Name </th>
+                                <th> Address </th>
+                                <th> Password </th>
+                                <th> Email </th>
+                                <th> Phone Number </th>
+                            </tr>
+                        DELIMITER;
+        $rows = '';
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $rowHTML = <<<DELIMITER
+                            <tr>
+                                <td class="name p-4"> <p> {$row['username']} </p> </td>
+                                <td class="name p-4"> <p> {$row['fullname']} </p> </td> 
+                                <td class="name p-4"> <p> {$row['address']} </p> </td>
+                                <td class="name p-4"> <p> {$row['password']} </p> </td>
+                                <td class="name p-4"> <p> {$row['email']} </p> </td>
+                                <td class="name p-4"> <p> {$row['phoneNumber']} </p> </td>
+                            </tr>
+                            DELIMITER;
+            $rows .= $rowHTML;
+        }
+
+        $table = <<<DELIMITER
+                        {$heading}
+                        {$rows}
+                        </table>
+                        DELIMITER;
+        echo $table;
+
+    } else {
+        echo 'No users found.';
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+}
+
+// Function so that the employees can view the hotels on the system
+function staffViewHotels()
+{
+
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // Check if the sort button was clicked
+    if (isset($_POST['sortUsersA-name'])) {
+
+        $query = "SELECT * FROM hotels ORDER BY name";
+
+    } elseif (isset($_POST['sortUsersA-price'])) {
+
+        $query = "SELECT * FROM hotels ORDER BY pricePerNight";
+
+    } else {
+        
+        $query = "SELECT * FROM hotels";
+
+    }
+
+    $result = mysqli_query($mysqli, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        $heading = <<<DELIMITER
+                            <table>
+                            <tr>
+                            <th> </th>
+                            <th> Hotel Name </th>
+                            <th> User Full Name </th>
+                            <th> Check In Date </th>
+                            <th> Check Out Date </th>
+                            <th> Total Cost </th>
+                            </tr>
+                        DELIMITER;
+        $rows = '';
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $rowHTML = <<<DELIMITER
+                            <tr>
+                                <td class="name p-4"> <p> {$row['username']} </p> </td>
+                                <td class="name p-4"> <p> {$row['fullname']} </p> </td> 
+                                <td class="name p-4"> <p> {$row['address']} </p> </td>
+                                <td class="name p-4"> <p> {$row['password']} </p> </td>
+                                <td class="name p-4"> <p> {$row['email']} </p> </td>
+                                <td class="name p-4"> <p> {$row['phoneNumber']} </p> </td>
+                            </tr>
+                            DELIMITER;
+            $rows .= $rowHTML;
+        }
+
+        $table = <<<DELIMITER
+                        {$heading}
+                        {$rows}
+                        </table>
+                        DELIMITER;
+        echo $table;
+
+    } else {
+        echo 'No users found.';
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+}
+
 ?>
