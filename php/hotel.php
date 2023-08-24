@@ -72,7 +72,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="marbellaElix.php" method="GET">
+                                    <form action="hotel_MarbellaElix.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="1">
                                         <button type="submit" name="marbellaElixButton" class="viewMoreButton p-2"> View
                                             More
@@ -102,7 +102,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="royalSenses.php" method="GET">
+                                    <form action="hotel_RoyalSenses.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="2">
                                         <button type="submit" name="royalSensesButton" class="viewMoreButton p-2"> View
                                             More
@@ -135,7 +135,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="theView.php" method="GET">
+                                    <form action="hotel_TheView.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="3">
                                         <button type="submit" name="theViewButton" class="viewMoreButton p-2"> View More
                                         </button>
@@ -164,7 +164,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="angsanaCorfu.php" method="GET">
+                                    <form action="hotel_AngsanaCorfu.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="4">
                                         <button type="submit" name="angsanaButton" class="viewMoreButton p-2"> View More
                                         </button>
@@ -193,7 +193,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="theRooster.php" method="GET">
+                                    <form action="hotel_TheRooster.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="5">
                                         <button type="submit" name="theRoosterButton" class="viewMoreButton p-2"> View
                                             More
@@ -224,7 +224,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="destinoPacha.php" method="GET">
+                                    <form action="hotel_DestinoPacha.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="6">
                                         <button type="submit" name="destinoButton" class="viewMoreButton p-2"> View More
                                         </button>

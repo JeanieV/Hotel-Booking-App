@@ -36,7 +36,7 @@ require './functions.php';
             <!-- Button which will get the userId -->
             <div class="col-sm-6">
 
-                <form method="GET" action="viewUserInfo.php">
+                <form method="GET" action="user_ViewUserInfo.php">
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
                     <button name="viewInfo" type="submit" class="viewAllInfoButtons p-3">View Your Information </button>
                 </form>
@@ -57,7 +57,7 @@ require './functions.php';
         <div class="row">
             <!-- Delete Button -->
             <div class="col-sm-6">
-                <form method="GET" action="viewAllInfo.php">
+                <form method="GET" action="user_ViewAllInfo.php">
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
                     <button type="submit" name="deleteUserButton" class="viewAllInfoButtons p-3"> Delete Your
                         Account</button>

@@ -4,7 +4,7 @@ require './classes.php';
 
 // Sign Up a new user
 if (isset($_POST['newUserButton'])) {
-    header("Location: ./signUp.php");
+    header("Location: ./user_SignUp.php");
 }
 
 // Logout
@@ -28,52 +28,52 @@ if (isset($_POST['returntoHotelPage'])) {
 
 // Edit Profile Button
 if (isset($_POST['editProfileButton'])) {
-    header("Location: ./viewAllInfo.php");
+    header("Location: ./user_ViewAllInfo.php");
 }
 
 // View Marbella Elix
 if (isset($_POST['marbellaElixButton'])) {
-    header("Location: ./marbellaElix.php");
+    header("Location: ./hotel_MarbellaElix.php");
 }
 
 // View Royal Senses
 if (isset($_POST['royalSensesButton'])) {
-    header("Location: ./royalSenses.php");
+    header("Location: ./hotel_RoyalSenses.php");
 }
 
 // View The View
 if (isset($_POST['theViewButton'])) {
-    header("Location: ./theView.php");
+    header("Location: ./hotel_TheView.php");
 }
 
 // View Angsana Corfu
 if (isset($_POST['angsanaButton'])) {
-    header("Location: ./angsanaCorfu.php");
+    header("Location: ./hotel_AngsanaCorfu.php");
 }
 
 // View The Rooster
 if (isset($_POST['theRoosterButton'])) {
-    header("Location: ./theRooster.php");
+    header("Location: ./hotel_TheRooster.php");
 }
 
 // View The Rooster
 if (isset($_POST['destinoButton'])) {
-    header("Location: ./destinoPacha.php");
+    header("Location: ./hotel_DestinoPacha.php");
 }
 
 // Return to the editProfile.php
 if (isset($_POST['returnToViewAllInfo'])) {
-    header("Location: ./viewAllInfo.php");
+    header("Location: ./user_ViewAllInfo.php");
 }
 
 // Go to edit Page
 if (isset($_POST['goToEditPage'])) {
-    header("Location: ./editProfile.php");
+    header("Location: ./user_EditProfile.php");
 }
 
 // // Go to confirmBooking.php
 if (isset($_POST['bookingsButton'])) {
-    header("Location: ./viewBookings.php");
+    header("Location: ./user_ViewBookings.php");
 }
 
 
@@ -215,7 +215,7 @@ function login()
             // User does not exist or wrong password, redirect to signUp.php
             mysqli_stmt_close($stmt);
             mysqli_close($mysqli);
-            header("Location: ./signUp.php");
+            header("Location: ./user_SignUp.php");
             exit();
         }
     }
@@ -412,12 +412,12 @@ function determinePhpFile($hotelId)
 {
 
     $hotelPhpFiles = array(
-        '1' => 'marbellaElix.php',
-        '2' => 'royalSenses.php',
-        '3' => 'theView.php',
-        '4' => 'angsanaCorfu.php',
-        '5' => 'theRooster.php',
-        '6' => 'destinoPacha.php',
+        '1' => 'hotel_MarbellaElix.php',
+        '2' => 'hotel_RoyalSenses.php',
+        '3' => 'hotel_TheView.php',
+        '4' => 'hotel_AngsanaCorfu.php',
+        '5' => 'hotel_TheRooster.php',
+        '6' => 'hotel_DestinoPacha.php',
 
     );
 
@@ -593,14 +593,14 @@ function deleteUserFinal()
         $result = $user->deleteUser($userId);
 
         if ($result) {
-            header("Location: deletedPage.php");
+            header("Location: user_DeletedPage.php");
             $_SESSION['deletedAccount'] = '<h2 class="p-3">Your Account has been deleted</h2>';
 
             mysqli_close($mysqli);
             exit();
         } else {
             // Redirect back to the same page or display an error message
-            header("Location: viewAllInfo.php");
+            header("Location: user_ViewAllInfo.php");
             exit();
         }
     }
@@ -675,7 +675,7 @@ function addTemporaryBooking()
                             'totalCost' => $totalCost,
                         );
 
-                        header("Location: ./confirmBooking.php");
+                        header("Location: ./user_ConfirmBooking.php");
                         exit();
 
                     } else {
@@ -848,7 +848,7 @@ function deleteBookingforUser()
         $result = $bookingInstance->cancelBooking($bookingId);
 
         if ($result) {
-            header("Location: viewBookings.php");
+            header("Location: user_ViewBookings.php");
 
             mysqli_close($mysqli);
             exit();

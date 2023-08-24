@@ -43,15 +43,15 @@ if (isset($_SESSION['staffFullName'])) {
             <!-- Button which will get the userId -->
             <div class="col-sm-6">
 
-                <form method="GET" action="viewUserInfo.php">
+                <form method="GET" action="staff_ViewUser.php">
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
-                    <button name="viewInfo" type="submit" class="infoButtons p-3">Users </button>
+                    <button name="staffViewInfo" type="submit" class="infoButtons p-3">Users </button>
                 </form>
             </div>
 
             <!-- Go to Edit Page -->
             <div class="col-sm-6">
-                <form method="POST">
+                <form method="POST" action="staff_ViewHotel.php">
                     <button type="submit" name="goToEditPage" class="infoButtons p-3"> Hotel</button>
                 </form>
             </div>
@@ -63,7 +63,7 @@ if (isset($_SESSION['staffFullName'])) {
         <div class="row">
             <!-- Delete Button -->
             <div class="col-sm-6">
-                <form method="GET" action="viewAllInfo.php">
+                <form method="GET" action="staff_ViewBooking.php">
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
                     <button type="submit" name="deleteUserButton" class="infoButtons p-3"> Bookings </button>
                 </form>
