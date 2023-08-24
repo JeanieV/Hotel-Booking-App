@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -11,6 +11,7 @@ if (isset($_GET['hotel_id'])) {
     $hotelId = $_GET['hotel_id'];
     $_SESSION['hotel_id'] = $hotelId;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +20,7 @@ if (isset($_GET['hotel_id'])) {
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Destino Pacha</title>
+    <title>Royal Senses</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -27,7 +28,7 @@ if (isset($_GET['hotel_id'])) {
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/hotels.css'>
 </head>
 
 <body>
@@ -43,65 +44,56 @@ if (isset($_GET['hotel_id'])) {
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="3"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="4"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="5"></button>
-            <button type="button" data-bs-target="#carousel" data-bs-slide-to="6"></button>
         </div>
 
         <!-- Slideshow -->
         <div class="carousel-inner">
 
-            <!-- Destino 1 -->
+            <!-- Royal 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/destino1.jpeg" alt="Destino Pacha" class="destinoImage"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha6.jpeg">
+                    <img src="../../static/img/royal1.jpg" alt="Royal Senses" class="royalImage"
+                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
 
-            <!-- Destino 2 -->
+            <!-- Royal 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/destino2.jpeg" alt="Destino Pacha" class="destinoImage"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha2.jpeg">
+                    <img src="../../static/img/royal2.jpg" alt="Royal Senses" class="royalImage"
+                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
 
-            <!-- Destino 3 -->
+            <!-- Royal 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/destino3.jpeg" alt="Destino Pacha" class="destinoImage"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha7.jpeg">
+                    <img src="../../static/img/royal3.jpg" alt="Royal Senses" class="royalImage"
+                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
 
-            <!-- Destino 4 -->
+            <!-- Royal 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/destino4.jpg" alt="Destino Pacha" class="destinoImage"
-                        attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/310534652.jpg?k=717880fda40f503e21bd3cc76ba6c302c16c8d5a15dc10e7e46abae012d12ddd&o=&hp=1">
+                    <img src="../../static/img/royal4.jpg" alt="Royal Senses" class="royalImage"
+                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
 
-            <!-- Destino 5 -->
+            <!-- Royal 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/destino5.jpg" alt="Destino Pacha" class="destinoImage"
-                        attribution="https://www.nichetravelguides.com/wp-content/uploads/2020/12/Oniro-1.jpg">
+                    <img src="../../static/img/royal5.jpg" alt="Royal Senses" class="royalImage"
+                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
 
-            <!-- Destino 6 -->
+            <!-- Royal 6 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/destino6.jpg" alt="Destino Pacha" class="destinoImage"
-                        attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/310534660.jpg?k=2946da1c3163a1e103cc5e5a6928c93566d8521c2b43aada0d22e09e8a4c2cc5&o=&hp=1">
-                </picture>
-            </div>
-
-            <!-- Destino 7 -->
-            <div class="carousel-item d-flex justify-content-center align-items-center">
-                <picture>
-                    <img src="../static/img/destino7.jpg" alt="Destino Pacha" class="destinoImage"
-                        attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/343096454.jpg?k=cf75813e6c18bcbc5375c0bceac14697e2b62194f3095d1efb02027697a267c2&o=&hp=1">
+                    <img src="../../static/img/royal6.jpg" alt="Royal Senses" class="royalImage"
+                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
                 </picture>
             </div>
 
@@ -131,17 +123,18 @@ if (isset($_GET['hotel_id'])) {
 
                         <!-- Return Home Button -->
                         <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                class="homeButton mx-3 mt-1 mb-2" src="../static/img/home.png" alt="Back to Home Page"
+                                class="homeButton mx-3 mt-1 mb-2" src="../../static/img/home.png" alt="Back to Home Page"
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <?php echo "<h1 class='mb-5'> Welcome to Destino Pacha, $username! </h1>" ?>
+                        <?php echo "<h1 class='mb-5'> Welcome to Royal Senses, $username! </h1>" ?>
 
-                        <p> Destino Pacha Mykonos is located in one of the most beautiful parts of the island,
-                            overlooking the turquoise waters of the Aegean. It offers 34 rooms, with six spacious suites
-                            and combines traditional Cycladic architecture with modern touches, typical of the Pacha
-                            group. The elegant floors and the prevailing white are complemented by natural wood, stone
-                            and linen fabrics.</p>
+                        <p> The hotel will be located in the picturesque Rethymno region on the northern part of the
+                            island, which has the best weather and attractions that Crete has to offer, including the
+                            Melidoni Cave and Knossos Palace. A perfect natural haven for families or friends who want
+                            to celebrate togetherness, the hotel balances this joyful feeling with quiet relaxation and
+                            the use of ample calm spots that include private beaches and pools, as well as spacious
+                            hotel rooms.</p>
 
                         <!-- Date Output -->
                         <div class="container d-flex justify-content-center align-items-center">
@@ -193,7 +186,7 @@ if (isset($_GET['hotel_id'])) {
                 <table>
                     <tr>
                         <td>
-                            <img src="../static/img/expensive.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/expensive.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expensive">
                         </td>
                         <td>
@@ -202,7 +195,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-price.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-price.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/best-price">
                         </td>
                         <td>
@@ -211,7 +204,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expertise">
                         </td>
                         <td>
@@ -220,7 +213,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/bad-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/bad-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/thumbs-down">
                         </td>
                         <td>

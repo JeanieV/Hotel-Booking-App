@@ -26,7 +26,7 @@ require '../functions.php';
     <!-- Return Home Button -->
     <form method="POST">
         <button type="submit" name="returnStaffHome" class="tranBack"><img class="homeButton mx-3 mt-3"
-                src="../static/img/home1.gif" alt="Back to Home Page" title="Back to Home Page"
+                src="../../static/img/home1.gif" alt="Back to Home Page" title="Back to Home Page"
                 attribution="https://www.flaticon.com/free-animated-icons/home"></button>
     </form>
 

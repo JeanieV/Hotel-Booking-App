@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -20,7 +20,7 @@ if (isset($_GET['hotel_id'])) {
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Angsana Corfu</title>
+    <title>The View</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -28,7 +28,7 @@ if (isset($_GET['hotel_id'])) {
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/hotels.css'>
 </head>
 
 <body>
@@ -43,48 +43,57 @@ if (isset($_GET['hotel_id'])) {
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="2"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="3"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="4"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="5"></button>
         </div>
 
         <!-- Slideshow -->
         <div class="carousel-inner">
 
-            <!-- Angsana 1 -->
+            <!-- View 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/angsana1.jpg" alt="Angsana Corfu" class="angsanaImage"
-                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
+                    <img src="../../static/img/view1.jpg" alt="The View" class="viewImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Exterior.jpg">
                 </picture>
             </div>
 
-            <!-- Angsana 2 -->
+            <!-- View 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/angsana2.jpg" alt="Angsana Corfu" class="angsanaImage"
-                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
+                    <img src="../../static/img/view2.jpg" alt="The View" class="viewImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Living-Room.jpg">
                 </picture>
             </div>
 
-            <!-- Angsana 3 -->
+            <!-- View 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/angsana3.jpg" alt="Angsana Corfu" class="angsanaImage"
-                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
+                    <img src="../../static/img/view3.jpg" alt="The View" class="viewImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/02/AriaHotels_TheView_Master-Bedroom.jpg">
                 </picture>
             </div>
 
-            <!-- Angsana 4 -->
+            <!-- View 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/angsana4.jpg" alt="Angsana Corfu" class="angsanaImage"
-                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
+                    <img src="../../static/img/view4.jpg" alt="The View" class="viewImage"
+                        attribution="https://www.discovergreece.com/sites/default/files/styles/default/public/2019-12/basilicas_of_saint_stephen_in_kos-edited-1.jpg?itok=-CBg8mZL">
                 </picture>
             </div>
 
-            <!-- Angsana 5 -->
+            <!-- View 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/angsana5.jpg" alt="Angsana Corfu" class="angsanaImage"
-                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
+                    <img src="../../static/img/view5.webp" alt="The View" class="viewImage"
+                        attribution="https://images.trvl-media.com/lodging/4000000/3680000/3673200/3673167/e4d700fc.jpg?impolicy=resizecrop&rw=1200&ra=fit">
+                </picture>
+            </div>
+
+            <!-- View 6 -->
+            <div class="carousel-item d-flex justify-content-center align-items-center">
+                <picture>
+                    <img src="../../static/img/view6.avif" alt="The View" class="viewImage"
+                        attribution="https://images.trvl-media.com/lodging/4000000/3680000/3673200/3673167/3f996764.jpg?impolicy=resizecrop&rw=1200&ra=fit">
                 </picture>
             </div>
 
@@ -114,16 +123,22 @@ if (isset($_GET['hotel_id'])) {
 
                         <!-- Return Home Button -->
                         <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                class="homeButton mx-3 mt-1 mb-2" src="../static/img/home.png" alt="Back to Home Page"
+                                class="homeButton mx-3 mt-1 mb-2" src="../../static/img/home.png" alt="Back to Home Page"
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <?php echo "<h1 class='mb-5'> Welcome to Angsana Corfu, $username! </h1>" ?>
 
-                        <p> Set on an idyllic lush green hilltop overlooking the turquoise waters of the historical
-                            Benitses Bay, lies Angsana Corfu –Banyan Tree’s first and much-anticipated resort in Europe.
-                            It identifies as a Mediterranean sanctuary of extraordinary beauty, a luxurious spa and
-                            beach resort offering a unique blend of Greek and Asian hospitality.</p>
+                        <?php echo "<h1 class='mb-5'> Welcome to The View, $username! </h1>" ?>
+
+                        <p class="p-2 my-4"> The View is a tranquil retreat for a relaxing self-catering holiday –
+                            only
+                            five minutes away
+                            of the vibrant Mykonos Town with its unmatched shopping, dining and nightlife. The View
+                            are
+                            located above the charming beach of Agios Stefanos and
+                            combine modern architecture with classic Cycladic styling elements, all offering
+                            stunning
+                            views of the Aegean.</p>
 
                         <!-- Date Output -->
                         <div class="container d-flex justify-content-center align-items-center">
@@ -175,7 +190,7 @@ if (isset($_GET['hotel_id'])) {
                 <table>
                     <tr>
                         <td>
-                            <img src="../static/img/expensive.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/expensive.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expensive">
                         </td>
                         <td>
@@ -184,7 +199,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-price.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-price.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/best-price">
                         </td>
                         <td>
@@ -193,7 +208,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expertise">
                         </td>
                         <td>
@@ -202,7 +217,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/bad-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/bad-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/thumbs-down">
                         </td>
                         <td>
@@ -218,6 +233,5 @@ if (isset($_GET['hotel_id'])) {
     </div>
 
 </body>
-
 
 </html>

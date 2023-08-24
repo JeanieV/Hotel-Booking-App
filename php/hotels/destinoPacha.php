@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -11,9 +11,6 @@ if (isset($_GET['hotel_id'])) {
     $hotelId = $_GET['hotel_id'];
     $_SESSION['hotel_id'] = $hotelId;
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +19,7 @@ if (isset($_GET['hotel_id'])) {
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Marbella Elix</title>
+    <title>Destino Pacha</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -30,7 +27,7 @@ if (isset($_GET['hotel_id'])) {
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/hotels.css'>
 </head>
 
 <body>
@@ -46,56 +43,65 @@ if (isset($_GET['hotel_id'])) {
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="3"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="4"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="5"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="6"></button>
         </div>
 
         <!-- Slideshow -->
         <div class="carousel-inner">
 
-            <!-- Marbella 1 -->
+            <!-- Destino 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/marbella4.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix2.jpg">
+                    <img src="../../static/img/destino1.jpeg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha6.jpeg">
                 </picture>
             </div>
 
-            <!-- Marbella 2 -->
+            <!-- Destino 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/marbella2.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix19-0357.jpg">
+                    <img src="../../static/img/destino2.jpeg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha2.jpeg">
                 </picture>
             </div>
 
-            <!-- Marbella 3 -->
+            <!-- Destino 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/marbella3.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbella-elix-4.jpg">
+                    <img src="../../static/img/destino3.jpeg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2021/04/destino-pacha7.jpeg">
                 </picture>
             </div>
 
-            <!-- Marbella 4 -->
+            <!-- Destino 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/marbella1.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/Greece-Hotel-Openings-2021-MarBella-Elix-17.jpg">
+                    <img src="../../static/img/destino4.jpg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/310534652.jpg?k=717880fda40f503e21bd3cc76ba6c302c16c8d5a15dc10e7e46abae012d12ddd&o=&hp=1">
                 </picture>
             </div>
 
-            <!-- Marbella 5 -->
+            <!-- Destino 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/marbella5.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix20-2037.jpg">
+                    <img src="../../static/img/destino5.jpg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://www.nichetravelguides.com/wp-content/uploads/2020/12/Oniro-1.jpg">
                 </picture>
             </div>
 
-            <!-- Marbella 6 -->
+            <!-- Destino 6 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/marbella6.jpg" alt="Marbella Elix"
-                        attribution="https://www.thehoteltrotter.com/greece-hotel-openings-2021-marbella-elix/">
+                    <img src="../../static/img/destino6.jpg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/310534660.jpg?k=2946da1c3163a1e103cc5e5a6928c93566d8521c2b43aada0d22e09e8a4c2cc5&o=&hp=1">
+                </picture>
+            </div>
+
+            <!-- Destino 7 -->
+            <div class="carousel-item d-flex justify-content-center align-items-center">
+                <picture>
+                    <img src="../../static/img/destino7.jpg" alt="Destino Pacha" class="destinoImage"
+                        attribution="https://cf.bstatic.com/xdata/images/hotel/max1024x768/343096454.jpg?k=cf75813e6c18bcbc5375c0bceac14697e2b62194f3095d1efb02027697a267c2&o=&hp=1">
                 </picture>
             </div>
 
@@ -116,7 +122,7 @@ if (isset($_GET['hotel_id'])) {
             <div class="col-sm-12">
                 <div class="mt-3 mb-5 mx-5 hotelView p-5">
 
-                    <?php if (isset($_POST['bookButton'])) {
+                    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         addTemporaryBooking();
                     }
                     ?>
@@ -125,18 +131,17 @@ if (isset($_GET['hotel_id'])) {
 
                         <!-- Return Home Button -->
                         <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                class="homeButton mx-3 mt-1 mb-2" src="../static/img/home.png" alt="Back to Home Page"
+                                class="homeButton mx-3 mt-1 mb-2" src="../../static/img/home.png" alt="Back to Home Page"
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <?php echo "<h1 class='mb-5'> Welcome to Marbella Elix, $username! </h1>" ?>
+                        <?php echo "<h1 class='mb-5'> Welcome to Destino Pacha, $username! </h1>" ?>
 
-                        <p> Located above the beautiful Karavostasi Beach in the Parga region, looking west towards
-                            Corfu and Paxos. As the third hotel to join the Marbella Collection portfolio and the
-                            brand’s first property outside of the island of Corfu, Marbella Elix sits in unspoilt
-                            surroundings where the mountains meet the Ionian Sea. The existing seaside hotel of the
-                            place was renovated and turned into a modern resort with t146 spacious and contemporary
-                            guest rooms and suites, all featuring stunning views of this beautiful golden coastline.</p>
+                        <p> Destino Pacha Mykonos is located in one of the most beautiful parts of the island,
+                            overlooking the turquoise waters of the Aegean. It offers 34 rooms, with six spacious suites
+                            and combines traditional Cycladic architecture with modern touches, typical of the Pacha
+                            group. The elegant floors and the prevailing white are complemented by natural wood, stone
+                            and linen fabrics.</p>
 
                         <!-- Date Output -->
                         <div class="container d-flex justify-content-center align-items-center">
@@ -188,7 +193,7 @@ if (isset($_GET['hotel_id'])) {
                 <table>
                     <tr>
                         <td>
-                            <img src="../static/img/expensive.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/expensive.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expensive">
                         </td>
                         <td>
@@ -197,7 +202,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-price.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-price.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/best-price">
                         </td>
                         <td>
@@ -206,7 +211,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expertise">
                         </td>
                         <td>
@@ -215,7 +220,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/bad-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/bad-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/thumbs-down">
                         </td>
                         <td>

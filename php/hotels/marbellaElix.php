@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -12,6 +12,8 @@ if (isset($_GET['hotel_id'])) {
     $_SESSION['hotel_id'] = $hotelId;
 }
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +22,7 @@ if (isset($_GET['hotel_id'])) {
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Royal Senses</title>
+    <title>Marbella Elix</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -28,7 +30,7 @@ if (isset($_GET['hotel_id'])) {
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/hotels.css'>
 </head>
 
 <body>
@@ -49,51 +51,51 @@ if (isset($_GET['hotel_id'])) {
         <!-- Slideshow -->
         <div class="carousel-inner">
 
-            <!-- Royal 1 -->
+            <!-- Marbella 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/royal1.jpg" alt="Royal Senses" class="royalImage"
-                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
+                    <img src="../../static/img/marbella4.jpg" alt="Marbella Elix"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix2.jpg">
                 </picture>
             </div>
 
-            <!-- Royal 2 -->
+            <!-- Marbella 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/royal2.jpg" alt="Royal Senses" class="royalImage"
-                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
+                    <img src="../../static/img/marbella2.jpg" alt="Marbella Elix"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix19-0357.jpg">
                 </picture>
             </div>
 
-            <!-- Royal 3 -->
+            <!-- Marbella 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/royal3.jpg" alt="Royal Senses" class="royalImage"
-                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
+                    <img src="../../static/img/marbella3.jpg" alt="Marbella Elix"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbella-elix-4.jpg">
                 </picture>
             </div>
 
-            <!-- Royal 4 -->
+            <!-- Marbella 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/royal4.jpg" alt="Royal Senses" class="royalImage"
-                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
+                    <img src="../../static/img/marbella1.jpg" alt="Marbella Elix"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/Greece-Hotel-Openings-2021-MarBella-Elix-17.jpg">
                 </picture>
             </div>
 
-            <!-- Royal 5 -->
+            <!-- Marbella 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/royal5.jpg" alt="Royal Senses" class="royalImage"
-                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
+                    <img src="../../static/img/marbella5.jpg" alt="Marbella Elix"
+                        attribution="https://www.thehoteltrotter.com/wp-content/uploads/2020/11/marbellaelix20-2037.jpg">
                 </picture>
             </div>
 
-            <!-- Royal 6 -->
+            <!-- Marbella 6 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/royal6.jpg" alt="Royal Senses" class="royalImage"
-                        attribution="https://www.thehoteltrotter.com/the-royal-senses-resort-crete-welcomes-its-first-hilton-hotel/">
+                    <img src="../../static/img/marbella6.jpg" alt="Marbella Elix"
+                        attribution="https://www.thehoteltrotter.com/greece-hotel-openings-2021-marbella-elix/">
                 </picture>
             </div>
 
@@ -114,7 +116,7 @@ if (isset($_GET['hotel_id'])) {
             <div class="col-sm-12">
                 <div class="mt-3 mb-5 mx-5 hotelView p-5">
 
-                    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    <?php if (isset($_POST['bookButton'])) {
                         addTemporaryBooking();
                     }
                     ?>
@@ -123,18 +125,18 @@ if (isset($_GET['hotel_id'])) {
 
                         <!-- Return Home Button -->
                         <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                class="homeButton mx-3 mt-1 mb-2" src="../static/img/home.png" alt="Back to Home Page"
+                                class="homeButton mx-3 mt-1 mb-2" src="../../static/img/home.png" alt="Back to Home Page"
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <?php echo "<h1 class='mb-5'> Welcome to Royal Senses, $username! </h1>" ?>
+                        <?php echo "<h1 class='mb-5'> Welcome to Marbella Elix, $username! </h1>" ?>
 
-                        <p> The hotel will be located in the picturesque Rethymno region on the northern part of the
-                            island, which has the best weather and attractions that Crete has to offer, including the
-                            Melidoni Cave and Knossos Palace. A perfect natural haven for families or friends who want
-                            to celebrate togetherness, the hotel balances this joyful feeling with quiet relaxation and
-                            the use of ample calm spots that include private beaches and pools, as well as spacious
-                            hotel rooms.</p>
+                        <p> Located above the beautiful Karavostasi Beach in the Parga region, looking west towards
+                            Corfu and Paxos. As the third hotel to join the Marbella Collection portfolio and the
+                            brand’s first property outside of the island of Corfu, Marbella Elix sits in unspoilt
+                            surroundings where the mountains meet the Ionian Sea. The existing seaside hotel of the
+                            place was renovated and turned into a modern resort with t146 spacious and contemporary
+                            guest rooms and suites, all featuring stunning views of this beautiful golden coastline.</p>
 
                         <!-- Date Output -->
                         <div class="container d-flex justify-content-center align-items-center">
@@ -186,7 +188,7 @@ if (isset($_GET['hotel_id'])) {
                 <table>
                     <tr>
                         <td>
-                            <img src="../static/img/expensive.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/expensive.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expensive">
                         </td>
                         <td>
@@ -195,7 +197,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-price.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-price.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/best-price">
                         </td>
                         <td>
@@ -204,7 +206,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expertise">
                         </td>
                         <td>
@@ -213,7 +215,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/bad-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/bad-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/thumbs-down">
                         </td>
                         <td>

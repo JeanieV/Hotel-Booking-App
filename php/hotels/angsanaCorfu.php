@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -11,6 +11,7 @@ if (isset($_GET['hotel_id'])) {
     $hotelId = $_GET['hotel_id'];
     $_SESSION['hotel_id'] = $hotelId;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +20,7 @@ if (isset($_GET['hotel_id'])) {
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>The Rooster</title>
+    <title>Angsana Corfu</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -27,7 +28,7 @@ if (isset($_GET['hotel_id'])) {
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/hotels.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/hotels.css'>
 </head>
 
 <body>
@@ -42,57 +43,48 @@ if (isset($_GET['hotel_id'])) {
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="2"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="3"></button>
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="4"></button>
-            <button type="button" data-bs-target="#carousel" data-bs-slide-to="5"></button>
         </div>
 
         <!-- Slideshow -->
         <div class="carousel-inner">
 
-            <!-- Rooster 1 -->
+            <!-- Angsana 1 -->
             <div class="carousel-item active d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/rooster1.jpg" alt="The Rooster" class="roosterImage"
-                        attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
+                    <img src="../../static/img/angsana1.jpg" alt="Angsana Corfu" class="angsanaImage"
+                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
                 </picture>
             </div>
 
-            <!-- Rooster 2 -->
+            <!-- Angsana 2 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/rooster2.jpg" alt="The Rooster" class="roosterImage"
-                        attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
+                    <img src="../../static/img/angsana2.jpg" alt="Angsana Corfu" class="angsanaImage"
+                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
                 </picture>
             </div>
 
-            <!-- Rooster 3 -->
+            <!-- Angsana 3 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/rooster3.jpg" alt="The Rooster" class="roosterImage"
-                        attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
+                    <img src="../../static/img/angsana3.jpg" alt="Angsana Corfu" class="angsanaImage"
+                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
                 </picture>
             </div>
 
-            <!-- Rooster 4 -->
+            <!-- Angsana 4 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/rooster4.jpg" alt="The Rooster" class="roosterImage"
-                        attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
+                    <img src="../../static/img/angsana4.jpg" alt="Angsana Corfu" class="angsanaImage"
+                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
                 </picture>
             </div>
 
-            <!-- Rooster 5 -->
+            <!-- Angsana 5 -->
             <div class="carousel-item d-flex justify-content-center align-items-center">
                 <picture>
-                    <img src="../static/img/rooster5.jpg" alt="The Rooster" class="roosterImage"
-                        attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
-                </picture>
-            </div>
-
-            <!-- Rooster 6 -->
-            <div class="carousel-item d-flex justify-content-center align-items-center">
-                <picture>
-                    <img src="../static/img/rooster6.jpg" alt="The Rooster" class="roosterImage"
-                        attribution="https://www.thehoteltrotter.com/the-rooster-hotel-antiparos-is-among-the-best-new-hotels-in-greece-for-2021/">
+                    <img src="../../static/img/angsana5.jpg" alt="Angsana Corfu" class="angsanaImage"
+                        attribution="https://www.thehoteltrotter.com/angsana-corfu-europes-first-and-much-anticipated-banyan-tree-resort/">
                 </picture>
             </div>
 
@@ -122,18 +114,16 @@ if (isset($_GET['hotel_id'])) {
 
                         <!-- Return Home Button -->
                         <button type="submit" name="returntoHotelPage" class="tranBack"><img
-                                class="homeButton mx-3 mt-1 mb-2" src="../static/img/home.png" alt="Back to Home Page"
+                                class="homeButton mx-3 mt-1 mb-2" src="../../static/img/home.png" alt="Back to Home Page"
                                 title="Back to Home Page"
                                 attribution="https://www.flaticon.com/free-icons/home"></button>
 
-                        <?php echo "<h1 class='mb-5'> Welcome to The Rooster, $username! </h1>" ?>
+                        <?php echo "<h1 class='mb-5'> Welcome to Angsana Corfu, $username! </h1>" ?>
 
-                        <p> Conceived as a wellness and lifestyle resort to embrace Slow Living, The Rooster is designed
-                            with unpretentious aesthetic luxury in mind, paired with excellent service, providing a
-                            holistic experience for a mindfulness escape. Nestled between the sandy, unspoilt beaches of
-                            the Aegean coastline and the dramatic landscape of the Cyclades, amidst open fields and the
-                            mystical caves of Antiparos island, The Rooster celebrates privacy in complete harmony with
-                            nature.</p>
+                        <p> Set on an idyllic lush green hilltop overlooking the turquoise waters of the historical
+                            Benitses Bay, lies Angsana Corfu –Banyan Tree’s first and much-anticipated resort in Europe.
+                            It identifies as a Mediterranean sanctuary of extraordinary beauty, a luxurious spa and
+                            beach resort offering a unique blend of Greek and Asian hospitality.</p>
 
                         <!-- Date Output -->
                         <div class="container d-flex justify-content-center align-items-center">
@@ -185,7 +175,7 @@ if (isset($_GET['hotel_id'])) {
                 <table>
                     <tr>
                         <td>
-                            <img src="../static/img/expensive.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/expensive.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expensive">
                         </td>
                         <td>
@@ -194,7 +184,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-price.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-price.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/best-price">
                         </td>
                         <td>
@@ -203,7 +193,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/best-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/best-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/expertise">
                         </td>
                         <td>
@@ -212,7 +202,7 @@ if (isset($_GET['hotel_id'])) {
                     </tr>
                     <tr>
                         <td>
-                            <img src="../static/img/bad-rating.png" class="small-image" alt="Hotel image"
+                            <img src="../../static/img/bad-rating.png" class="small-image" alt="Hotel image"
                                 attribution="https://www.flaticon.com/free-icons/thumbs-down">
                         </td>
                         <td>
@@ -226,6 +216,8 @@ if (isset($_GET['hotel_id'])) {
         <?php cardComparedHotels(); ?>
 
     </div>
+
 </body>
+
 
 </html>

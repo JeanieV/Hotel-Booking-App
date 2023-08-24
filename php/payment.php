@@ -41,7 +41,7 @@ if (isset($_SESSION['username'])) {
                 ?>
 
                 <!-- Go back to the index page -->
-                <button type="submit" name="logOutButton" class="tranBack"><img class="logOutStyle mx-3 mt-3"
+                <button type="submit" name="logOutButtonFinal" class="tranBack"><img class="logOutStyle mx-3 mt-3"
                         src="../static/img/logout.png" alt="Log Out as User" title="Log Out as User"
                         attribution="https://www.flaticon.com/free-icons/logout"></button>
             </form>

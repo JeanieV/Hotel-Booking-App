@@ -1,14 +1,274 @@
 <?php
 session_start();
-require './classes.php';
+
+// Hotel class
+class Hotel
+{
+    private $hotelId;
+    private $mysqli;
+
+    public function __construct($mysqli, $hotelId)
+    {
+        $this->mysqli = $mysqli;
+        $this->hotelId = $hotelId;
+    }
+
+
+    public function calculateCost()
+    {
+        $query = "SELECT pricePerNight FROM hotels WHERE hotel_id=?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $this->hotelId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+        $hotelData = mysqli_fetch_assoc($result);
+
+        mysqli_stmt_close($stmt);
+
+        return $hotelData;
+    }
+
+
+    // Method to select everything from the hotels table
+    public function viewHotelsById()
+    {
+
+        $query = "SELECT * FROM hotels WHERE hotel_id=?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $this->hotelId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+        $hotelData = mysqli_fetch_assoc($result);
+
+        mysqli_stmt_close($stmt);
+
+        return $hotelData;
+    }
+
+    public static function compareHotels(Hotel $hotel1, Hotel $hotel2)
+    {
+        $hotel1Cost = $hotel1->calculateCost();
+        $hotel2Cost = $hotel2->calculateCost();
+
+        if ($hotel1Cost < $hotel2Cost) {
+            return $hotel1;
+        } else {
+            return $hotel2;
+        }
+    }
+
+    public function getRelatedHotels($priceDifference)
+    {
+        // Fetch the current hotel's information
+        $currentHotel = $this->viewHotelsById();
+
+        // Calculate the price range within which related hotels should fall
+        $minPrice = $currentHotel['pricePerNight'] - $priceDifference;
+        $maxPrice = $currentHotel['pricePerNight'] + $priceDifference;
+
+        $relatedHotels = array();
+
+        // Query for related hotels within the specified price range
+        $query = "SELECT * FROM hotels WHERE pricePerNight >= ? AND pricePerNight <= ? AND hotel_id != ?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "iii", $minPrice, $maxPrice, $this->hotelId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $relatedHotel = new Hotel($this->mysqli, $row['hotel_id']);
+            $relatedHotels[] = $relatedHotel;
+        }
+
+        mysqli_stmt_close($stmt);
+
+        return $relatedHotels;
+    }
+
+}
+
+// User Class
+class User
+{
+    private $mysqli;
+
+    public function __construct($mysqli)
+    {
+        $this->mysqli = $mysqli;
+    }
+
+    // Method to update the user information
+    public function editUser($userId, $username, $fullname, $address, $email, $phoneNumber)
+    {
+        $query = "UPDATE users SET username = ?, fullname = ?, address = ?, email = ?, phoneNumber = ? WHERE user_id = ?";
+
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "sssssi", $username, $fullname, $address, $email, $phoneNumber, $userId);
+        $result = mysqli_stmt_execute($stmt);
+
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+    // Method to make sure that only the information is changed that the user interacted with.
+    public function getUserData($userId)
+    {
+        $query = "SELECT * FROM users WHERE user_id = ?";
+
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+        $userData = mysqli_fetch_assoc($result);
+
+        mysqli_stmt_close($stmt);
+
+        return $userData;
+    }
+
+    public function deleteUser($userId)
+    {
+        $query = "DELETE FROM users WHERE user_id=?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+}
+
+class Booking
+{
+
+    private $mysqli;
+
+    public function __construct($mysqli)
+    {
+        $this->mysqli = $mysqli;
+    }
+
+    public function addBooking($userId, $hotelId, $checkInDate, $checkOutDate, $totalCost, $cancelled, $completed)
+    {
+        $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "iiddiii", $userId, $hotelId, $checkInDate, $checkOutDate, $totalCost, $cancelled, $completed);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+
+    public function cancelBooking($bookingId)
+    {
+        // Find out if the cancellation is more than 2 days away
+        $query = "SELECT checkInDate FROM booking WHERE bookingNo = ?";
+
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $bookingId);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $checkInDate);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Calculate the difference between check-in date and current date
+        $currentDate = new DateTime();
+        $checkInDateTime = new DateTime($checkInDate);
+        $interval = $currentDate->diff($checkInDateTime);
+
+        // Check if the difference is more than 2 days (48 hours)
+        if ($interval->days > 2 || ($interval->days === 2 && $interval->h >= 0)) {
+            // The booking can be canceled
+            $updateQuery = "UPDATE booking SET cancelled = 1 WHERE bookingNo = ?";
+
+            $updateStmt = mysqli_prepare($this->mysqli, $updateQuery);
+            mysqli_stmt_bind_param($updateStmt, "i", $bookingId);
+            $result = mysqli_stmt_execute($updateStmt);
+            mysqli_stmt_close($updateStmt);
+
+            return $result;
+        } else {
+            // The booking cannot be canceled
+            return false;
+        }
+    }
+
+    public function completedBooking($bookingId)
+    {
+        // Fetch the checkInDate from the database
+        $query = "SELECT checkInDate FROM booking WHERE bookingNo = ?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $bookingId);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $checkInDate);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Convert the checkInDate to a DateTime object
+        $checkInDateTime = new DateTime($checkInDate);
+        $currentDateTime = new DateTime();
+
+        // Compare the checkInDate with the current date
+        if ($checkInDateTime <= $currentDateTime) {
+            // The booking is completed
+            $updateQuery = "UPDATE booking SET completed = 1 WHERE bookingNo = ?";
+
+            $updateStmt = mysqli_prepare($this->mysqli, $updateQuery);
+            mysqli_stmt_bind_param($updateStmt, "i", $bookingId);
+            $result = mysqli_stmt_execute($updateStmt);
+            mysqli_stmt_close($updateStmt);
+
+            return $result;
+        } else {
+            // The booking is not yet completed
+            return false;
+        }
+    }
+}
+
+
+class Staff
+{
+    private $mysqli;
+
+    public function __construct($mysqli)
+    {
+        $this->mysqli = $mysqli;
+    }
+
+    // Method to update the user information
+    public function addStaff($employee_number, $role, $fullname)
+    {
+        $query = "INSERT INTO staff (employee_number, role, fullname) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "sss", $employee_number, $role, $fullname);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+}
+
 
 // Sign Up a new user
 if (isset($_POST['newUserButton'])) {
-    header("Location: ./user_SignUp.php");
+    header("Location: ../users/signUp.php");
 }
 
 // Logout
 if (isset($_POST['logOutButton'])) {
+    session_unset();
+    session_destroy();
+
+    header("Location: ../index.php");
+    exit();
+}
+
+// Final LogoutButton
+if (isset($_POST['logOutButtonFinal'])) {
     session_unset();
     session_destroy();
 
@@ -21,64 +281,67 @@ if (isset($_POST['returnHome'])) {
     header("Location: ../index.php");
 }
 
+if (isset($_POST['staffReturnHome'])) {
+    header("Location: ../index.php");
+}
 // Return to staff page
 if (isset($_POST['returnStaffHome'])) {
-    header("Location: ./staff/staff.php");
+    header("Location: ../staff/staff.php");
 }
 
 // Return to Hotel Page after clicking on viewing a Hotel
 if (isset($_POST['returntoHotelPage'])) {
-    header("Location: ./hotel.php");
+    header("Location: ../hotels/hotel.php");
 }
 
 // Edit Profile Button
 if (isset($_POST['editProfileButton'])) {
-    header("Location: ./user_ViewAllInfo.php");
+    header("Location: ../users/viewAllInfo.php");
 }
 
 // View Marbella Elix
 if (isset($_POST['marbellaElixButton'])) {
-    header("Location: ./hotel_MarbellaElix.php");
+    header("Location: ../hotels/marbellaElix.php");
 }
 
 // View Royal Senses
 if (isset($_POST['royalSensesButton'])) {
-    header("Location: ./hotel_RoyalSenses.php");
+    header("Location: ./hotels/royalSenses.php");
 }
 
 // View The View
 if (isset($_POST['theViewButton'])) {
-    header("Location: ./hotel_TheView.php");
+    header("Location: ./hotels/theView.php");
 }
 
 // View Angsana Corfu
 if (isset($_POST['angsanaButton'])) {
-    header("Location: ./hotel_AngsanaCorfu.php");
+    header("Location: ./hotels/angsanaCorfu.php");
 }
 
 // View The Rooster
 if (isset($_POST['theRoosterButton'])) {
-    header("Location: ./hotel_TheRooster.php");
+    header("Location: ./hotels/theRooster.php");
 }
 
 // View The Rooster
 if (isset($_POST['destinoButton'])) {
-    header("Location: ./hotel_DestinoPacha.php");
+    header("Location: ./hotels/destinoPacha.php");
 }
 
 // Return to the editProfile.php
 if (isset($_POST['returnToViewAllInfo'])) {
-    header("Location: ./user_ViewAllInfo.php");
+    header("Location: ../users/viewAllInfo.php");
 }
 
 // Go to edit Page
 if (isset($_POST['goToEditPage'])) {
-    header("Location: ./user_EditProfile.php");
+    header("Location: ../users/editProfile.php");
 }
 
 // // Go to confirmBooking.php
 if (isset($_POST['bookingsButton'])) {
-    header("Location: ./user_ViewBookings.php");
+    header("Location: ../users/viewBookings.php");
 }
 
 
@@ -214,13 +477,13 @@ function login()
 
             mysqli_stmt_close($stmt);
             mysqli_close($mysqli);
-            header("Location: ./hotel.php");
+            header("Location: ./hotels/hotel.php");
             exit();
         } else {
             // User does not exist or wrong password, redirect to signUp.php
             mysqli_stmt_close($stmt);
             mysqli_close($mysqli);
-            header("Location: ./user_SignUp.php");
+            header("Location: ./users/signUp.php");
             exit();
         }
     }
@@ -266,19 +529,19 @@ function showInformation()
                 </tr>
                 <tr>
                     <td class="p-4 text-center"> <img class="sleeps p-2"
-                    src="../static/img/bed.png" alt="Sleeps" title="Sleeps"
+                    src="../../static/img/bed.png" alt="Sleeps" title="Sleeps"
                     attribution="https://www.flaticon.com/free-icons/bed"> </td>
                     <td class="features p-3"> <p> {$targetHotelData['beds']} people </p> </td>
                 </tr>
                 <tr>
                 <td class="p-4 text-center"> <img class="sleeps p-2"
-                src="../static/img/hotel.png" alt="Type" title="Type"
+                src="../../static/img/hotel.png" alt="Type" title="Type"
                 attribution="https://www.flaticon.com/free-icons/hotel"> </td>
                     <td class="features p-3"> <p> {$targetHotelData['type']} </p> </td>
                 </tr>
                 <tr>
                 <td class="p-4 text-center"> <img class="sleeps p-2"
-                src="../static/img/star.png" alt="Rating" title="Rating"
+                src="../../static/img/star.png" alt="Rating" title="Rating"
                 attribution="https://www.flaticon.com/free-icons/star"> </td>
                     <td class="features p-3"> <p> {$targetHotelData['rating']} star</p> </td>
                 </tr>
@@ -355,25 +618,25 @@ function cardComparedHotels()
 
                 if ($betterPrice === $hotel) {
                     $priceClass = 'expensive-price'; // Apply a class for more expensive price
-                    $priceImage = '<img src="../static/img/expensive.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/expensive">';
+                    $priceImage = '<img src="../../static/img/expensive.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/expensive">';
                 } else {
                     $priceClass = 'cheaper-price'; // Apply a class for cheaper price
-                    $priceImage = '<img src="../static/img/best-price.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/best-price">';
+                    $priceImage = '<img src="../../static/img/best-price.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/best-price">';
                 }
 
                 if ($relatedRating > $targetRating) {
                     $ratingClass = 'better-rating'; // Apply a class for better rating
-                    $ratingImage = '<img src="../static/img/best-rating.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/expertise">';
+                    $ratingImage = '<img src="../../static/img/best-rating.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/expertise">';
                 } elseif ($relatedRating < $targetRating) {
                     $ratingClass = 'worse-rating'; // Apply a class for worse rating
-                    $ratingImage = '<img src="../static/img/bad-rating.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/thumbs-down">';
+                    $ratingImage = '<img src="../../static/img/bad-rating.png" class="corner-image" alt="Hotel image" attribution="https://www.flaticon.com/free-icons/thumbs-down">';
                 }
 
                 $compare = <<<DELIMETER
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../static/img/{$thumbnail}" alt="Hotel image">
+                            <img class="card-img-top hotelImage" src="../../static/img/{$thumbnail}" alt="Hotel image">
                             
                             <div class="card-img-overlay">
                                 <div class="corner-background p-1 mb-3">
@@ -417,19 +680,19 @@ function determinePhpFile($hotelId)
 {
 
     $hotelPhpFiles = array(
-        '1' => 'hotel_MarbellaElix.php',
-        '2' => 'hotel_RoyalSenses.php',
-        '3' => 'hotel_TheView.php',
-        '4' => 'hotel_AngsanaCorfu.php',
-        '5' => 'hotel_TheRooster.php',
-        '6' => 'hotel_DestinoPacha.php',
+        '1' => '../hotels/marbellaElix.php',
+        '2' => '../hotels/royalSenses.php',
+        '3' => '../hotels/theView.php',
+        '4' => '../hotels/angsanaCorfu.php',
+        '5' => '../hotels/theRooster.php',
+        '6' => '../hotels/destinoPacha.php',
 
     );
 
     if (array_key_exists($hotelId, $hotelPhpFiles)) {
         return $hotelPhpFiles[$hotelId];
     } else {
-        return 'hotel.php';
+        return '../hotels/hotel.php';
     }
 }
 
@@ -598,14 +861,14 @@ function deleteUserFinal()
         $result = $user->deleteUser($userId);
 
         if ($result) {
-            header("Location: user_DeletedPage.php");
+            header("Location: ./deletedPage.php");
             $_SESSION['deletedAccount'] = '<h2 class="p-3">Your Account has been deleted</h2>';
 
             mysqli_close($mysqli);
             exit();
         } else {
             // Redirect back to the same page or display an error message
-            header("Location: user_ViewAllInfo.php");
+            header("Location: ./viewAllInfo.php");
             exit();
         }
     }
@@ -662,15 +925,6 @@ function addTemporaryBooking()
                         // Calculate total cost
                         $totalCost = $numberOfDays * $pricePerNight;
 
-                        // Check if the checkInDate is the same as the current date
-                        $currentDate = new DateTime();
-                        $checkInDateTime = new DateTime($checkInDate);
-
-                        if ($checkInDateTime->format('Y-m-d') <= $currentDate->format('Y-m-d')) {
-                            $bookingInstance = new Booking($mysqli);
-                            $bookingInstance->completedBooking(mysqli_insert_id($mysqli));
-                        }
-
                         // Store the booking information in session variables
                         $_SESSION['bookingInfo'] = array(
                             'userId' => $userId,
@@ -680,7 +934,7 @@ function addTemporaryBooking()
                             'totalCost' => $totalCost,
                         );
 
-                        header("Location: ./user_ConfirmBooking.php");
+                        header("Location: ../users/confirmBooking.php");
                         exit();
 
                     } else {
@@ -749,7 +1003,7 @@ function viewBookings($userId)
 
             $rowHTML = <<<DELIMITER
                 <tr>
-                    <td class="p-3"><img src="../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCover"></td>
+                    <td class="p-3"><img src="../../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCover"></td>
                     <td class="name p-3"> <h4> {$booking['hotelName']} </h4></td>
                     <td class="name p-3"> <h4> {$booking['userFullName']} </h4></td>
                     <td class="name p-2"> <h4> {$booking['checkInStartDate']} </h4></td>
@@ -758,10 +1012,10 @@ function viewBookings($userId)
                     <form method="POST">
                     <input type="hidden" name="bookingNo" value="$bookingId">
                             <td class="p-2"><button type="submit" name="clearBookingButton" class="tranBack"><img class="homeButton"
-                                src="../static/img/bin.gif" alt="Delete Booking" title="Delete Booking"
+                                src="../../static/img/bin.gif" alt="Delete Booking" title="Delete Booking"
                                 attribution="https://www.flaticon.com/free-animated-icons/document"></button></td>
                             <td class="p-2"><button type="submit" name="receiptButton" class="tranBack"><img class="homeButton"
-                                src="../static/img/receipt.gif" alt="Receipt" title="Receipt"
+                                src="../../static/img/receipt.gif" alt="Receipt" title="Receipt"
                                 attribution="https://www.flaticon.com/free-animated-icons/invoice"></button></td>
                     </form>
                 </tr>
@@ -853,7 +1107,7 @@ function deleteBookingforUser()
         $result = $bookingInstance->cancelBooking($bookingId);
 
         if ($result) {
-            header("Location: user_ViewBookings.php");
+            header("Location: ./viewBookings.php");
 
             mysqli_close($mysqli);
             exit();
@@ -938,7 +1192,7 @@ function confirmBooking($userId, $hotelId)
 
             $information = <<<DELIMETER
         <h2 class="mb-5"> Your Booking Summary </h2>
-        <img src='../static/img/{$targetHotelData['thumbnail']}' alt='Book Thumbnail' class='hotelImage'>
+        <img src='../../static/img/{$targetHotelData['thumbnail']}' alt='Book Thumbnail' class='hotelImage'>
         <div class="d-flex justify-content-center align-items-center my-5">
         <table class="summaryTable my-5 p-5">
             <tr>
@@ -983,7 +1237,6 @@ function confirmBooking($userId, $hotelId)
 
 function confirmFinalBooking()
 {
-
     if (isset($_POST['confirmFinalBooking'])) {
         $bookingInfo = $_SESSION['bookingInfo'];
 
@@ -993,38 +1246,38 @@ function confirmFinalBooking()
             return;
         }
 
-        if (isset($_POST['confirmFinalBooking'])) {
-            $bookingInfo = $_SESSION['bookingInfo'];
+        $cancelled = 0;
+        $completed = 0;
 
-            // Connect to the database
-            $mysqli = db_connect();
-            if (!$mysqli) {
-                return;
-            }
+        // Compare the checkInDate with the current date
+        $checkInDateTime = new DateTime($bookingInfo['checkInDate']);
+        $currentDateTime = new DateTime();
 
-            $cancelled = 0;
-            $completed = 0;
-
-            // Insert the booking information into the booking table
-            $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            $stmt = mysqli_prepare($mysqli, $query);
-            mysqli_stmt_bind_param($stmt, "iissiii", $bookingInfo['userId'], $bookingInfo['hotelId'], $bookingInfo['checkInDate'], $bookingInfo['checkOutDate'], $bookingInfo['totalCost'], $cancelled, $completed);
-
-            if (mysqli_stmt_execute($stmt)) {
-                // Clear the booking information from session
-                unset($_SESSION['bookingInfo']);
-                header("Location: ./payment.php");
-                exit();
-            } else {
-                echo 'Error creating booking: ' . mysqli_error($mysqli);
-            }
-
-            // Close the statement and database connection
-            mysqli_stmt_close($stmt);
-            mysqli_close($mysqli);
+        if ($checkInDateTime <= $currentDateTime) {
+            $bookingInstance = new Booking($mysqli);
+            $completed = $bookingInstance->completedBooking(mysqli_insert_id($mysqli));
         }
+
+        // Insert the booking information into the booking table
+        $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "iissiii", $bookingInfo['userId'], $bookingInfo['hotelId'], $bookingInfo['checkInDate'], $bookingInfo['checkOutDate'], $bookingInfo['totalCost'], $cancelled, $completed);
+
+        if (mysqli_stmt_execute($stmt)) {
+            // Clear the booking information from session
+            unset($_SESSION['bookingInfo']);
+            header("Location: ../payment.php");
+            exit();
+        } else {
+            echo 'Error creating booking: ' . mysqli_error($mysqli);
+        }
+
+        // Close the statement and database connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($mysqli);
     }
 }
+
 
 
 function generateReceiptforIndividual()
@@ -1194,7 +1447,7 @@ function staffViewUsers()
         $query = "SELECT * FROM users ORDER BY phoneNumber";
 
     } else {
-        
+
         $query = "SELECT * FROM users";
 
     }
@@ -1265,7 +1518,7 @@ function staffViewHotels()
         $query = "SELECT * FROM hotels ORDER BY pricePerNight";
 
     } else {
-        
+
         $query = "SELECT * FROM hotels";
 
     }

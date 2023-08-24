@@ -27,9 +27,9 @@ if (isset($_SESSION['staffFullName'])) {
 
 <body>
 
+<!-- Return Home Button -->
     <form method="POST">
-        <!-- Return Home Button -->
-        <button type="submit" name="returnHome" class="home p-3 mx-3 my-3"> Home</button>
+        <button type="submit" name="staffReturnHome" class="home p-3 mx-3 my-3"> Home</button>
     </form>
 
     <?php echo "<h1> Greetings, $staffFullName! </h1>"; ?>

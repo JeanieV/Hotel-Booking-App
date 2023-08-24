@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 
 ?>
@@ -18,14 +18,14 @@ require './functions.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/signUp.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/signUp.css'>
 </head>
 
 <body>
 
     <!-- Return Home Button -->
     <form method="POST">
-        <button type="submit" name="returnHome" class="tranBack"><img class="homeButton mx-3 mt-3" src="../static/img/home1.gif"
+        <button type="submit" name="returnHome" class="tranBack"><img class="homeButton mx-3 mt-3" src="../../static/img/home1.gif"
                 alt="Back to Home Page" title="Back to Home Page"
                 attribution="https://www.flaticon.com/free-animated-icons/home"></button>
     </form>

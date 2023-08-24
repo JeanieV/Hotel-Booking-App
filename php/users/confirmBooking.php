@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 if(isset($_POST['receiptButton'])){
     generateReceiptforIndividual();
@@ -21,7 +21,7 @@ if(isset($_POST['receiptButton'])){
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/bookings.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/bookings.css'>
 </head>
 
 <body>
@@ -29,14 +29,12 @@ if(isset($_POST['receiptButton'])){
     <!-- Return Home Button -->
     <form method="POST">
         <button type="submit" name="returntoHotelPage" class="tranBack"><img class="homeButton mx-3 mt-3"
-                src="../static/img/home.png" alt="Back to Home Page" title="Back to Home Page"
+                src="../../static/img/home.png" alt="Back to Home Page" title="Back to Home Page"
                 attribution="https://www.flaticon.com/free-icons/home"></button>
     </form>
 
     <div class="container d-flex justify-content-center align-items-center">
         <div class="mt-5 mb-5 mx-5">
-
-
 
             <form method="POST" class="bookView p-5">
                 <div class="d-flex justify-content-center align-items-center">
@@ -48,7 +46,6 @@ if(isset($_POST['receiptButton'])){
                             confirmBooking($userId, $hotelId);
                         }
 
-                        
                         ?>
                         <?php confirmFinalBooking(); ?>
                     </div>

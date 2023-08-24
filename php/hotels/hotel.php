@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 if (isset($_SESSION['fullname'])) {
     $fullname = $_SESSION['fullname'];
@@ -21,7 +21,7 @@ if (isset($_SESSION['fullname'])) {
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/home.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/home.css'>
 </head>
 
 <body>
@@ -33,7 +33,7 @@ if (isset($_SESSION['fullname'])) {
             <!-- Return Home Button -->
             <form method="POST">
                 <button type="submit" name="logOutButton" class="tranBack"><img class="logOutStyle mt-3"
-                        src="../static/img/logout.png" alt="Log Out" title="Log Out"
+                        src="../../static/img/logout.png" alt="Log Out" title="Log Out"
                         attribution="https://www.flaticon.com/free-icons/logout"></button>
             </form>
 
@@ -58,7 +58,7 @@ if (isset($_SESSION['fullname'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../static/img/marbellaElix.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../../static/img/marbellaElix.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Marbella Elix </h5>
@@ -72,7 +72,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="hotel_MarbellaElix.php" method="GET">
+                                    <form action="marbellaElix.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="1">
                                         <button type="submit" name="marbellaElixButton" class="viewMoreButton p-2"> View
                                             More
@@ -88,7 +88,7 @@ if (isset($_SESSION['fullname'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../static/img/royalSenses.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../../static/img/royalSenses.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Royal Senses </h5>
@@ -102,7 +102,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="hotel_RoyalSenses.php" method="GET">
+                                    <form action="royalSenses.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="2">
                                         <button type="submit" name="royalSensesButton" class="viewMoreButton p-2"> View
                                             More
@@ -121,7 +121,7 @@ if (isset($_SESSION['fullname'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../static/img/theView.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../../static/img/theView.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> The View </h5>
@@ -135,7 +135,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="hotel_TheView.php" method="GET">
+                                    <form action="theView.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="3">
                                         <button type="submit" name="theViewButton" class="viewMoreButton p-2"> View More
                                         </button>
@@ -150,7 +150,7 @@ if (isset($_SESSION['fullname'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../static/img/angsanaCorfu.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../../static/img/angsanaCorfu.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Angsana Corfu </h5>
@@ -164,7 +164,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="hotel_AngsanaCorfu.php" method="GET">
+                                    <form action="angsanaCorfu.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="4">
                                         <button type="submit" name="angsanaButton" class="viewMoreButton p-2"> View More
                                         </button>
@@ -179,7 +179,7 @@ if (isset($_SESSION['fullname'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../static/img/theRooster.jpg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../../static/img/theRooster.jpg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> The Rooster </h5>
@@ -193,7 +193,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="hotel_TheRooster.php" method="GET">
+                                    <form action="theRooster.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="5">
                                         <button type="submit" name="theRoosterButton" class="viewMoreButton p-2"> View
                                             More
@@ -210,7 +210,7 @@ if (isset($_SESSION['fullname'])) {
                 <div class="col-sm-6">
                     <div class="container mt-3 mb-5">
                         <div class="card img-fluid">
-                            <img class="card-img-top hotelImage" src="../static/img/destinoPacha.jpeg" alt="Card image">
+                            <img class="card-img-top hotelImage" src="../../static/img/destinoPacha.jpeg" alt="Card image">
 
                             <div class="card-img-overlay">
                                 <h5 class="card-title p-2"> Destino Pacha </h5>
@@ -224,7 +224,7 @@ if (isset($_SESSION['fullname'])) {
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <form action="hotel_DestinoPacha.php" method="GET">
+                                    <form action="destinoPacha.php" method="GET">
                                         <input type="hidden" name="hotel_id" value="6">
                                         <button type="submit" name="destinoButton" class="viewMoreButton p-2"> View More
                                         </button>
