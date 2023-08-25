@@ -10,7 +10,7 @@ require '../functions.php';
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Staff View Hotel Information</title>
+    <title>Staff View User Information</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -28,22 +28,32 @@ require '../functions.php';
         <button type="submit" name="returnStaffHome" class="home p-3 mx-3 mt-3"> Staff Page </button>
     </form>
 
+    <!-- Sort Users Alphabetically -->
+    <div class="d-flex justify-content-center align-items-center">
+        <form method="POST" action="viewUser.php">
 
-    <form method="GET" action="./staff_ViewUsers.php">
-        <input id="search" name="search" type="text" placeholder="Type here">
-        <input id="submit" type="submit" value="Search">
-    </form>
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <select name="sortUsers" class="sort-dropdown p-3 mx-3">
+                    <option class=""> Sort by: </option>
+                    <option value="sortUsersA-Username">Username</option>
+                    <option value="sortUsersA-Number">Phone Number</option>
+                </select>
+                <button type="submit" name="sortUserButton" class="sort-submit p-3">Sort</button>
+            </div>
 
-    <!-- Sort Users Alphabetically by -->
-    <div class="d-flex justify-content-center align-items-center my-5">
-        <form method="POST" action="./staff_ViewUser.php">
-            <h1> Sort by: </h1>
-            <div class="d-flex justify-content-center align-items-center my-5">
-                <button type="submit" name="sortUsersA-name" class="sort p-3 mx-3 mb-2"> Hotel Name </button>
-                <button type="submit" name="sortUsersA-price" class="sort p-3 mx-3 mb-2"> Price per Night </button>
+            <!-- Search bar -->
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <input type="text" placeholder="Search all columns" name="search" class="inputStyle">
+                <button type="submit" class="glass mx-3 p-2"><i class="fa fa-search"></i></button>
+
+            </div>
+            <div class="d-flex justify-content-center align-items-center mt-3">
+                <button type="submit" name="clearFilterButton" class="clear-filter-button"><i class="fa fa-times"></i>
+                    Clear Filter</button>
             </div>
         </form>
     </div>
+
 
     <!-- All the current information of the user will show -->
     <div class="d-flex justify-content-center align-items-center my-5">

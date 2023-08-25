@@ -344,6 +344,20 @@ if (isset($_POST['bookingsButton'])) {
     header("Location: ../users/viewBookings.php");
 }
 
+// Go to viewBooking
+if (isset($_POST['staffBookingView'])) {
+    header("Location: ../staff/viewBooking.php");
+}
+
+// Go to viewHotel
+if (isset($_POST['staffViewHotels'])) {
+    header("Location: ../staff/viewHotel.php");
+}
+
+// Go to viewUser
+if (isset($_POST['staffViewInfo'])) {
+    header("Location: ../staff/viewUser.php");
+}
 
 
 // Database connection
@@ -1397,7 +1411,7 @@ function addNewEmployee()
         // If an employee with the same number exists
         if (mysqli_stmt_num_rows($checkStmt) > 0) {
             $_SESSION['addEmployee'] = "Employee_number already exists.";
-            header("Location: ./staff/staff_SignUp.php");
+            header("Location: ./staff/signUp.php");
             mysqli_stmt_close($checkStmt);
             mysqli_close($mysqli);
             exit();
@@ -1420,7 +1434,7 @@ function addNewEmployee()
         } else {
             // Failed to add employee
             $_SESSION['addEmployee'] = "New Employee has not been added";
-            header("Location: ./staff/staff_SignUp.php");
+            header("Location: ./staff/signUp.php");
             mysqli_close($mysqli);
             exit();
         }
@@ -1430,6 +1444,87 @@ function addNewEmployee()
 // Function so that the employees can view the users on the system
 function staffViewUsers()
 {
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // When the user clicks on the sort button or the search button
+    if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
+        // Store the input value or choice
+        $sortOption = $_POST['sortUsers'];
+        $searchName = $_POST['search'];
+
+        // If statements where the sorting and searching takes place
+        if ($sortOption === 'sortUsersA-Username') {
+            $query = "SELECT * FROM users WHERE fullname LIKE '%$searchName%' ORDER BY username";
+        } elseif ($sortOption === 'sortUsersA-Number') {
+            $query = "SELECT * FROM users WHERE fullname LIKE '%$searchName%' ORDER BY phoneNumber";
+        } else {
+            $query = "SELECT * FROM users WHERE fullname LIKE '%$searchName%' 
+            OR email LIKE '%$searchName%' 
+            OR username LIKE '%$searchName%'
+            OR address LIKE '%$searchName%'
+            OR password LIKE '%$searchName%'
+            OR phoneNumber LIKE '%$searchName%'";
+        }
+    } elseif (isset($_POST['clearFilterButton'])) {
+        $query = "SELECT * FROM users";
+    } else {
+        $query = "SELECT * FROM users";
+    }
+
+    $result = mysqli_query($mysqli, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        $heading = <<<DELIMITER
+            <table>
+            <h2 class="mb-5"> User Information </h2>
+            <tr>
+                <th> Username </th>
+                <th> Full Name </th>
+                <th> Address </th>
+                <th> Password </th>
+                <th> Email </th>
+                <th> Phone Number </th>
+            </tr>
+        DELIMITER;
+        $rows = '';
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rowHTML = <<<DELIMITER
+                <tr>
+                    <td class="name p-4"> <p> {$row['username']} </p> </td>
+                    <td class="name p-4"> <p> {$row['fullname']} </p> </td> 
+                    <td class="name p-4"> <p> {$row['address']} </p> </td>
+                    <td class="name p-4"> <p> {$row['password']} </p> </td>
+                    <td class="name p-4"> <p> {$row['email']} </p> </td>
+                    <td class="name p-4"> <p> {$row['phoneNumber']} </p> </td>
+                </tr>
+            DELIMITER;
+            $rows .= $rowHTML;
+        }
+
+        $table = <<<DELIMITER
+            {$heading}
+            {$rows}
+            </table>
+        DELIMITER;
+        echo $table;
+
+    } else {
+        echo 'No users found.';
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+}
+
+
+// Function so that the employees can view the hotels on the system
+function staffViewHotels()
+{
 
     // Connect to the database
     $mysqli = db_connect();
@@ -1437,19 +1532,50 @@ function staffViewUsers()
         return;
     }
 
-    // Check if the sort button was clicked
-    if (isset($_POST['sortUsersA-Username'])) {
+    // When the user clicks on the sort button or the search button
+    if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
+        // Store the input value or choice
+        $sortOption = $_POST['sortUsers'];
+        $searchName = $_POST['search'];
 
-        $query = "SELECT * FROM users ORDER BY username";
 
-    } elseif (isset($_POST['sortUsersA-Number'])) {
+        // If statements where the sorting and searching takes place
+        if ($sortOption === 'sortUsersA-name') {
 
-        $query = "SELECT * FROM users ORDER BY phoneNumber";
+            $query = "SELECT * FROM hotels WHERE name LIKE '%$searchName%' ORDER BY name";
 
-    } else {
+        } elseif ($sortOption === 'sortUsersA-priceA') {
 
-        $query = "SELECT * FROM users";
+            $query = "SELECT * FROM hotels WHERE pricePerNight LIKE '%$searchName%' ORDER BY pricePerNight";
 
+        } elseif ($sortOption === 'sortUsersA-priceD') {
+
+            $query = "SELECT * FROM hotels WHERE pricePerNight LIKE '%$searchName%' ORDER BY pricePerNight DESC";
+
+        } elseif ($sortOption === 'sortUsersA-rating') {
+
+            $query = "SELECT * FROM hotels WHERE rating LIKE '%$searchName%' ORDER BY rating DESC";
+
+        } elseif ($sortOption === 'sortUsersA-ratingPoor') {
+
+            $query = "SELECT * FROM hotels WHERE rating LIKE '%$searchName%' ORDER BY rating";
+
+        } else {
+
+            $query = "SELECT * FROM hotels WHERE name LIKE '%$searchName%' 
+            OR pricePerNight LIKE '%$searchName%' 
+            OR features LIKE '%$searchName%'
+            OR type LIKE '%$searchName%'
+            OR beds LIKE '%$searchName%'
+            OR rating LIKE '%$searchName%'
+            OR address LIKE '%$searchName%'";
+
+        }
+    } elseif (isset($_POST['clearFilterButton'])) {
+        $query = "SELECT * FROM hotels";
+    }
+      else {
+        $query = "SELECT * FROM hotels";
     }
 
     $result = mysqli_query($mysqli, $query);
@@ -1457,13 +1583,16 @@ function staffViewUsers()
     if (mysqli_num_rows($result) > 0) {
         $heading = <<<DELIMITER
                             <table>
+                            <h2 class="my-5"> Hotel Information </h2>
                             <tr>
-                                <th> Username </th>
-                                <th> Full Name </th>
-                                <th> Address </th>
-                                <th> Password </th>
-                                <th> Email </th>
-                                <th> Phone Number </th>
+                            <th> </th>
+                            <th class="heading"> Hotel Name </th>
+                            <th class="heading"> Price Per Night </th>
+                            <th class="heading"> Features </th>
+                            <th class="heading"> Type </th>
+                            <th class="heading"> Beds </th>
+                            <th class="heading"> Rating </th>
+                            <th class="heading"> Address </th>
                             </tr>
                         DELIMITER;
         $rows = '';
@@ -1472,12 +1601,14 @@ function staffViewUsers()
 
             $rowHTML = <<<DELIMITER
                             <tr>
-                                <td class="name p-4"> <p> {$row['username']} </p> </td>
-                                <td class="name p-4"> <p> {$row['fullname']} </p> </td> 
-                                <td class="name p-4"> <p> {$row['address']} </p> </td>
-                                <td class="name p-4"> <p> {$row['password']} </p> </td>
-                                <td class="name p-4"> <p> {$row['email']} </p> </td>
-                                <td class="name p-4"> <p> {$row['phoneNumber']} </p> </td>
+                                <td class="p-3"><img src="../../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCoverHotel"></td>
+                                <td class="p-2"> <h4> {$row['name']} </h4> </td>
+                                <td class="p-2"> <h4> R {$row['pricePerNight']} </h4> </td> 
+                                <td class="name p-2"> <h4> {$row['features']} </h4> </td>
+                                <td class="p-2"> <h4> {$row['type']} </h4> </td>
+                                <td class="p-2"> <h4> {$row['beds']} </h4> </td>
+                                <td class="p-2"> <h4> {$row['rating']} </h4> </td>
+                                <td class="p-2"> <h4> {$row['address']} </h4> </td>
                             </tr>
                             DELIMITER;
             $rows .= $rowHTML;
@@ -1498,43 +1629,89 @@ function staffViewUsers()
     mysqli_close($mysqli);
 }
 
-// Function so that the employees can view the hotels on the system
-function staffViewHotels()
+function staffViewBookings()
 {
-
     // Connect to the database
     $mysqli = db_connect();
     if (!$mysqli) {
         return;
     }
 
-    // Check if the sort button was clicked
-    if (isset($_POST['sortUsersA-name'])) {
+    // When the user clicks on the sort button or the search button
+    if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
+        // Store the input value or choice
+        $sortOption = $_POST['sortUsers'];
+        $searchName = $_POST['search'];
 
-        $query = "SELECT * FROM hotels ORDER BY name";
+        // If statements where the sorting and searching takes place
+        if ($sortOption === 'sortUsersA-daysA') {
 
-    } elseif (isset($_POST['sortUsersA-price'])) {
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY DATEDIFF(checkOutDate, checkInDate) DESC";
 
-        $query = "SELECT * FROM hotels ORDER BY pricePerNight";
+        } elseif ($sortOption === 'sortUsersA-daysD') {
 
-    } else {
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY DATEDIFF(checkOutDate, checkInDate)";
 
+        } elseif ($sortOption === 'sortUsersA-totalCostA') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY totalCost";
+
+        } elseif ($sortOption === 'sortUsersA-totalCostD') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY totalCost DESC";
+
+        } else {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id WHERE name LIKE '%$searchName%' 
+            OR fullname LIKE '%$searchName%' 
+            OR checkInDate LIKE '%$searchName%'
+            OR checkOutDate LIKE '%$searchName%'
+            OR totalCost LIKE '%$searchName%'";
+        }
+    } elseif (isset($_POST['clearFilterButton'])) {
         $query = "SELECT * FROM hotels";
+    }
+     else {
 
+        $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+        FROM booking b
+        INNER JOIN users u ON b.user_id = u.user_id
+        INNER JOIN hotels h ON b.hotel_id = h.hotel_id ";
     }
 
+    // Execute the query and display the results
     $result = mysqli_query($mysqli, $query);
 
     if (mysqli_num_rows($result) > 0) {
         $heading = <<<DELIMITER
                             <table>
+                            <h2 class="mb-5"> Booking Information </h2>
                             <tr>
                             <th> </th>
                             <th> Hotel Name </th>
-                            <th> User Full Name </th>
+                            <th> User </th>
                             <th> Check In Date </th>
                             <th> Check Out Date </th>
-                            <th> Total Cost </th>
+                            <th> Total Cost</th>
                             </tr>
                         DELIMITER;
         $rows = '';
@@ -1543,12 +1720,12 @@ function staffViewHotels()
 
             $rowHTML = <<<DELIMITER
                             <tr>
-                                <td class="name p-4"> <p> {$row['username']} </p> </td>
-                                <td class="name p-4"> <p> {$row['fullname']} </p> </td> 
-                                <td class="name p-4"> <p> {$row['address']} </p> </td>
-                                <td class="name p-4"> <p> {$row['password']} </p> </td>
-                                <td class="name p-4"> <p> {$row['email']} </p> </td>
-                                <td class="name p-4"> <p> {$row['phoneNumber']} </p> </td>
+                                <td class="p-3"><img src="../../static/img/{$row['thumbnail']}" alt="Hotel Image" class="bookCover"></td>
+                                <td class="p-3"> <p> {$row['name']} </p> </td>
+                                <td class="p-3"> <p> {$row['fullname']} </p> </td> 
+                                <td class="p-3"> <p> {$row['checkInDate']} </p> </td>
+                                <td class="p-3"> <p> {$row['checkOutDate']} </p> </td>
+                                <td class="p-3"> <p> R {$row['totalCost']} </p> </td>
                             </tr>
                             DELIMITER;
             $rows .= $rowHTML;

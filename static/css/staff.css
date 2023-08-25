@@ -14,15 +14,6 @@ body {
     font-size: 25px;
 }
 
-.sort {
-    background-color: #FF8300;
-    color: black;
-    font-size: 25px;
-    border-color: #FF8300;
-    width: 15vw;
-    border-radius: 20px;
-}
-
 .homeButton {
     width: 80px;
     height: 80px;
@@ -42,6 +33,12 @@ h2 {
 
 h3 {
     font-size: 30px;
+    text-align: center;
+    color: #08392B;
+}
+
+h4 {
+    font-size: 18px;
     text-align: center;
     color: #08392B;
 }
@@ -70,6 +67,19 @@ h3 {
 }
 
 
+.staffViewH {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 95vw;
+}
+
+.staffViewB {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 90vw;
+}
+
+
 p {
     font-size: 20px;
     text-align: center;
@@ -88,9 +98,63 @@ th {
     padding: 20px;
 }
 
-.name {
-    width: 25vw;
+.heading {
+    text-align: center;
+    font-size: 25px;
+    color: #FF8300;
+
 }
 
+.name {
+    width: 20vw;
+}
 
+.bookCover {
+    width: 200px;
+    height: 210px;
+}
 
+.bookCoverHotel {
+    width: 150px;
+    height: 160px;
+}
+
+.sort-dropdown {
+    background-color: #FF8300;
+    color: black;
+    font-size: 25px;
+    border-color: #FF8300;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.sort-submit {
+    background-color: #FF8300;
+    color: black;
+    font-size: 25px;
+    border-color: #FF8300;
+    border-radius: 20px;
+}
+
+.inputStyle {
+    height: 3vw;
+    width: 25vw;
+    text-align: center;
+    font-size: 25px;
+}
+
+.glass {
+    cursor: pointer;
+    font-size: 25px;
+    background-color: #FF8300;
+    color: #E1E7E0;
+    width: 4vw;
+}
+
+.clear-filter-button {
+    cursor: pointer;
+    font-size: 20px;
+    background-color: #FF8300;
+    color: black;
+    width: 10vw;
+}
