@@ -36,7 +36,8 @@ require '../functions.php';
                 <select name="sortUsers" class="sort-dropdown p-3 mx-3">
                     <option class=""> Sort by: </option>
                     <option value="sortUsersA-Username">Username</option>
-                    <option value="sortUsersA-Number">Phone Number</option>
+                    <option value="sortUsersA-Number"> Former signed up users</option>
+                    <option value="sortUsersA-NumberD">Recently signed up users</option>
                 </select>
                 <button type="submit" name="sortUserButton" class="sort-submit p-3">Sort</button>
             </div>

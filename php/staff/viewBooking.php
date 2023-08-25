@@ -37,8 +37,10 @@ require '../functions.php';
                     <option class=""> Sort by: </option>
                     <option value="sortUsersA-daysA">Most days</option>
                     <option value="sortUsersA-daysD">Least days</option>
-                    <option value="sortUsersA-totalCostD">Most total cost</option>
-                    <option value="sortUsersA-totalCostA">Least total cost</option>
+                    <option value="sortUsersA-totalCostD">Max total cost</option>
+                    <option value="sortUsersA-totalCostA">Min total cost</option>
+                    <option value="sortUsersA-bookingsD">Most recent bookings</option>
+                    <option value="sortUsersA-bookings">Former bookings</option>
                 </select>
                 <button type="submit" name="sortBookingButton" class="sort-submit p-4">Sort</button>
             </div>

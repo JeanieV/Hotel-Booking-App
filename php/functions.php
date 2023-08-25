@@ -255,7 +255,7 @@ class Staff
 
 // Sign Up a new user
 if (isset($_POST['newUserButton'])) {
-    header("Location: ../users/signUp.php");
+    header("Location: ./users/signUserUp.php");
 }
 
 // Logout
@@ -497,7 +497,7 @@ function login()
             // User does not exist or wrong password, redirect to signUp.php
             mysqli_stmt_close($stmt);
             mysqli_close($mysqli);
-            header("Location: ./users/signUp.php");
+            header("Location: ./users/signUserUp.php");
             exit();
         }
     }
@@ -1454,20 +1454,26 @@ function staffViewUsers()
     if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
         // Store the input value or choice
         $sortOption = $_POST['sortUsers'];
-        $searchName = $_POST['search'];
+        $searching = $_POST['search'];
 
         // If statements where the sorting and searching takes place
         if ($sortOption === 'sortUsersA-Username') {
-            $query = "SELECT * FROM users WHERE fullname LIKE '%$searchName%' ORDER BY username";
+            $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY username";
+
         } elseif ($sortOption === 'sortUsersA-Number') {
-            $query = "SELECT * FROM users WHERE fullname LIKE '%$searchName%' ORDER BY phoneNumber";
+            $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY user_id";
+
+        } elseif ($sortOption === 'sortUsersA-NumberD') {
+            $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY user_id DESC";
+
         } else {
-            $query = "SELECT * FROM users WHERE fullname LIKE '%$searchName%' 
-            OR email LIKE '%$searchName%' 
-            OR username LIKE '%$searchName%'
-            OR address LIKE '%$searchName%'
-            OR password LIKE '%$searchName%'
-            OR phoneNumber LIKE '%$searchName%'";
+            $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' 
+            OR email LIKE '%$searching%' 
+            OR username LIKE '%$searching%'
+            OR address LIKE '%$searching%'
+            OR password LIKE '%$searching%'
+            OR phoneNumber LIKE '%$searching%'";
+
         }
     } elseif (isset($_POST['clearFilterButton'])) {
         $query = "SELECT * FROM users";
@@ -1536,45 +1542,44 @@ function staffViewHotels()
     if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
         // Store the input value or choice
         $sortOption = $_POST['sortUsers'];
-        $searchName = $_POST['search'];
+        $searching = $_POST['search'];
 
 
         // If statements where the sorting and searching takes place
         if ($sortOption === 'sortUsersA-name') {
 
-            $query = "SELECT * FROM hotels WHERE name LIKE '%$searchName%' ORDER BY name";
+            $query = "SELECT * FROM hotels WHERE name LIKE '%$searching%' ORDER BY name";
 
         } elseif ($sortOption === 'sortUsersA-priceA') {
 
-            $query = "SELECT * FROM hotels WHERE pricePerNight LIKE '%$searchName%' ORDER BY pricePerNight";
+            $query = "SELECT * FROM hotels WHERE pricePerNight LIKE '%$searching%' ORDER BY pricePerNight";
 
         } elseif ($sortOption === 'sortUsersA-priceD') {
 
-            $query = "SELECT * FROM hotels WHERE pricePerNight LIKE '%$searchName%' ORDER BY pricePerNight DESC";
+            $query = "SELECT * FROM hotels WHERE pricePerNight LIKE '%$searching%' ORDER BY pricePerNight DESC";
 
         } elseif ($sortOption === 'sortUsersA-rating') {
 
-            $query = "SELECT * FROM hotels WHERE rating LIKE '%$searchName%' ORDER BY rating DESC";
+            $query = "SELECT * FROM hotels WHERE rating LIKE '%$searching%' ORDER BY rating DESC";
 
         } elseif ($sortOption === 'sortUsersA-ratingPoor') {
 
-            $query = "SELECT * FROM hotels WHERE rating LIKE '%$searchName%' ORDER BY rating";
+            $query = "SELECT * FROM hotels WHERE rating LIKE '%$searching%' ORDER BY rating";
 
         } else {
 
-            $query = "SELECT * FROM hotels WHERE name LIKE '%$searchName%' 
-            OR pricePerNight LIKE '%$searchName%' 
-            OR features LIKE '%$searchName%'
-            OR type LIKE '%$searchName%'
-            OR beds LIKE '%$searchName%'
-            OR rating LIKE '%$searchName%'
-            OR address LIKE '%$searchName%'";
+            $query = "SELECT * FROM hotels WHERE name LIKE '%$searching%' 
+            OR pricePerNight LIKE '%$searching%' 
+            OR features LIKE '%$searching%'
+            OR type LIKE '%$searching%'
+            OR beds LIKE '%$searching%'
+            OR rating LIKE '%$searching%'
+            OR address LIKE '%$searching%'";
 
         }
     } elseif (isset($_POST['clearFilterButton'])) {
         $query = "SELECT * FROM hotels";
-    }
-      else {
+    } else {
         $query = "SELECT * FROM hotels";
     }
 
@@ -1641,7 +1646,7 @@ function staffViewBookings()
     if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
         // Store the input value or choice
         $sortOption = $_POST['sortUsers'];
-        $searchName = $_POST['search'];
+        $searching = $_POST['search'];
 
         // If statements where the sorting and searching takes place
         if ($sortOption === 'sortUsersA-daysA') {
@@ -1676,26 +1681,43 @@ function staffViewBookings()
             INNER JOIN hotels h ON b.hotel_id = h.hotel_id
             ORDER BY totalCost DESC";
 
+        } elseif ($sortOption === 'sortUsersA-bookingsD') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY bookingNo DESC";
+
+        } elseif ($sortOption === 'sortUsersA-bookings') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY bookingNo";
+
         } else {
 
             $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
             FROM booking b
             INNER JOIN users u ON b.user_id = u.user_id
-            INNER JOIN hotels h ON b.hotel_id = h.hotel_id WHERE name LIKE '%$searchName%' 
-            OR fullname LIKE '%$searchName%' 
-            OR checkInDate LIKE '%$searchName%'
-            OR checkOutDate LIKE '%$searchName%'
-            OR totalCost LIKE '%$searchName%'";
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id 
+            WHERE h.name LIKE '%$searching%' 
+            OR u.fullname LIKE '%$searching%' 
+            OR b.checkInDate LIKE '%$searching%'
+            OR b.checkOutDate LIKE '%$searching%'
+            OR b.totalCost LIKE '%$searching%'
+            OR b.bookingNo LIKE '%$searching%'";
         }
     } elseif (isset($_POST['clearFilterButton'])) {
         $query = "SELECT * FROM hotels";
-    }
-     else {
+    } else {
 
         $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
         FROM booking b
         INNER JOIN users u ON b.user_id = u.user_id
-        INNER JOIN hotels h ON b.hotel_id = h.hotel_id ";
+        INNER JOIN hotels h ON b.hotel_id = h.hotel_id";
     }
 
     // Execute the query and display the results
