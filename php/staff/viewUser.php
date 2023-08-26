@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require '../functions.php';
 
@@ -56,15 +57,48 @@ require '../functions.php';
     </div>
 
 
-    <!-- All the current information of the user will show -->
-    <div class="d-flex justify-content-center align-items-center my-5">
+
+
+    <?php
+    // If the employee is Admin, then they can add a new employee.
+    if ($_SESSION['role'] === "Admin") {
+
+        $output1 = <<<DELIMETER
+        <form method="POST">
+        <button type="submit" name="adminNewUser" class="infoButtons mx-5 p-3"> Register User </button>
+        </form>
+
+        <div class="d-flex justify-content-center align-items-center my-5">
         <div class="staffView p-5">
-            <?php staffViewUsers(); ?>
+        DELIMETER;
+        echo $output1;
+
+        adminViewUsers();
+
+        $output2 = <<<DELIMETER
         </div>
-    </div>
+        </div>
+        DELIMETER;
+        echo $output2;
+
+    } else {
+
+        $output3 = <<<DELIMETER
+        <div class="d-flex justify-content-center align-items-center my-5">
+        <div class="staffView p-5">
+        DELIMETER;
+        echo $output3;
+
+        staffViewUsers();
 
 
-
+       $output4 = <<<DELIMETER
+        </div>
+        </div>
+        DELIMETER;
+        echo $output4;
+    }
+    ?>
 </body>
 
 </html>

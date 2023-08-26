@@ -6,6 +6,11 @@ require './functions.php';
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
 }
+
+if(isset($_POST['receiptButton'])){
+    generateReceiptforIndividual();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +44,11 @@ if (isset($_SESSION['username'])) {
                 DELIMETER;
                 echo $book1;
                 ?>
+
+                <div class="d-flex justify-content-center align-items-center">
+                    <button type="submit" name="receiptButton" class="editButton p-3 my-3 mx-5"> Generate Receipt
+                    </button>
+                </div>
 
                 <!-- Go back to the index page -->
                 <button type="submit" name="logOutButtonFinal" class="tranBack"><img class="logOutStyle mx-3 mt-3"

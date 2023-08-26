@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 // Hotel class
@@ -136,10 +137,23 @@ class User
         $stmt = mysqli_prepare($this->mysqli, $query);
         mysqli_stmt_bind_param($stmt, "i", $userId);
         $result = mysqli_stmt_execute($stmt);
+
+
         mysqli_stmt_close($stmt);
         return $result;
     }
 
+    public function userDeleted($deleteUserId)
+    {
+        $query = "DELETE FROM users WHERE user_id=?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $deleteUserId);
+        $result = mysqli_stmt_execute($stmt);
+
+
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
 }
 
 class Booking
@@ -269,6 +283,7 @@ if (isset($_POST['logOutButton'])) {
 
 // Final LogoutButton
 if (isset($_POST['logOutButtonFinal'])) {
+    unset($_SESSION['bookingInfo']);
     session_unset();
     session_destroy();
 
@@ -281,9 +296,16 @@ if (isset($_POST['returnHome'])) {
     header("Location: ../index.php");
 }
 
+// Return home for staff members
 if (isset($_POST['staffReturnHome'])) {
     header("Location: ../index.php");
 }
+
+// Admin, return to user page
+if (isset($_POST['returnAdminUser'])) {
+    header("Location: ../staff/viewUser.php");
+}
+
 // Return to staff page
 if (isset($_POST['returnStaffHome'])) {
     header("Location: ../staff/staff.php");
@@ -359,6 +381,12 @@ if (isset($_POST['staffViewInfo'])) {
     header("Location: ../staff/viewUser.php");
 }
 
+
+
+// Admin, go back to viewUser.php
+if (isset($_POST['adminReturnUser'])) {
+    header("Location: ../staff/viewUser.php");
+}
 
 // Database connection
 function db_connect()
@@ -1234,7 +1262,6 @@ function confirmBooking($userId, $hotelId)
         <form method="POST">
             <div class="d-flex justify-content-center align-items-center">
                 <button type="submit" name="confirmFinalBooking" class="editButton p-3 my-3 mx-5"> Confirm Booking </button>
-                <button type="submit" name="receiptButton" class="editButton p-3 my-3 mx-5"> Generate Receipt </button>
             </div>
         </form>
         DELIMETER;
@@ -1279,7 +1306,7 @@ function confirmFinalBooking()
 
         if (mysqli_stmt_execute($stmt)) {
             // Clear the booking information from session
-            unset($_SESSION['bookingInfo']);
+
             header("Location: ../payment.php");
             exit();
         } else {
@@ -1444,47 +1471,48 @@ function addNewEmployee()
 // Function so that the employees can view the users on the system
 function staffViewUsers()
 {
-    // Connect to the database
-    $mysqli = db_connect();
-    if (!$mysqli) {
-        return;
-    }
+    if ($_SESSION['role'] != 'Admin') {
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
 
-    // When the user clicks on the sort button or the search button
-    if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
-        // Store the input value or choice
-        $sortOption = $_POST['sortUsers'];
-        $searching = $_POST['search'];
+        // When the user clicks on the sort button or the search button
+        if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
+            // Store the input value or choice
+            $sortOption = $_POST['sortUsers'];
+            $searching = $_POST['search'];
 
-        // If statements where the sorting and searching takes place
-        if ($sortOption === 'sortUsersA-Username') {
-            $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY username";
+            // If statements where the sorting and searching takes place
+            if ($sortOption === 'sortUsersA-Username') {
+                $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY username";
 
-        } elseif ($sortOption === 'sortUsersA-Number') {
-            $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY user_id";
+            } elseif ($sortOption === 'sortUsersA-Number') {
+                $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY user_id";
 
-        } elseif ($sortOption === 'sortUsersA-NumberD') {
-            $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY user_id DESC";
+            } elseif ($sortOption === 'sortUsersA-NumberD') {
+                $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY user_id DESC";
 
-        } else {
-            $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' 
+            } else {
+                $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' 
             OR email LIKE '%$searching%' 
             OR username LIKE '%$searching%'
             OR address LIKE '%$searching%'
             OR password LIKE '%$searching%'
             OR phoneNumber LIKE '%$searching%'";
 
+            }
+        } elseif (isset($_POST['clearFilterButton'])) {
+            $query = "SELECT * FROM users";
+        } else {
+            $query = "SELECT * FROM users";
         }
-    } elseif (isset($_POST['clearFilterButton'])) {
-        $query = "SELECT * FROM users";
-    } else {
-        $query = "SELECT * FROM users";
-    }
 
-    $result = mysqli_query($mysqli, $query);
+        $result = mysqli_query($mysqli, $query);
 
-    if (mysqli_num_rows($result) > 0) {
-        $heading = <<<DELIMITER
+        if (mysqli_num_rows($result) > 0) {
+            $heading = <<<DELIMITER
             <table>
             <h2 class="mb-5"> User Information </h2>
             <tr>
@@ -1496,10 +1524,10 @@ function staffViewUsers()
                 <th> Phone Number </th>
             </tr>
         DELIMITER;
-        $rows = '';
+            $rows = '';
 
-        while ($row = mysqli_fetch_assoc($result)) {
-            $rowHTML = <<<DELIMITER
+            while ($row = mysqli_fetch_assoc($result)) {
+                $rowHTML = <<<DELIMITER
                 <tr>
                     <td class="name p-4"> <p> {$row['username']} </p> </td>
                     <td class="name p-4"> <p> {$row['fullname']} </p> </td> 
@@ -1509,22 +1537,23 @@ function staffViewUsers()
                     <td class="name p-4"> <p> {$row['phoneNumber']} </p> </td>
                 </tr>
             DELIMITER;
-            $rows .= $rowHTML;
-        }
+                $rows .= $rowHTML;
+            }
 
-        $table = <<<DELIMITER
+            $table = <<<DELIMITER
             {$heading}
             {$rows}
             </table>
         DELIMITER;
-        echo $table;
+            echo $table;
 
-    } else {
-        echo 'No users found.';
+        } else {
+            echo 'No users found.';
+        }
+
+        mysqli_free_result($result);
+        mysqli_close($mysqli);
     }
-
-    mysqli_free_result($result);
-    mysqli_close($mysqli);
 }
 
 
@@ -1767,5 +1796,239 @@ function staffViewBookings()
     mysqli_free_result($result);
     mysqli_close($mysqli);
 }
+
+function registerNewUser()
+{
+    if (isset($_POST['newUsername']) && isset($_POST['newFullName']) && isset($_POST['newAddress']) && isset($_POST['newPassword']) && isset($_POST['newEmail']) && isset($_POST['newPhoneNumber'])) {
+
+        // Get the user data from the POST request
+        $_SESSION['username'] = $_POST['newUsername'];
+        $username = $_SESSION['username'];
+        $_SESSION['fullname'] = $_POST['newFullName'];
+        $fullName = $_SESSION['fullname'];
+        $address = $_POST['newAddress'];
+        $password = $_POST['newPassword'];
+        $email = $_POST['newEmail'];
+        $phoneNumber = $_POST['newPhoneNumber'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Check if the email and phoneNumber already exists in the database 
+        $query = "SELECT * FROM users WHERE email = ? OR phoneNumber = ?";
+        $stmt = mysqli_prepare($mysqli, $query);
+
+        // Prepare the statement to bind the parameters (email)
+        mysqli_stmt_bind_param($stmt, "ss", $email, $phoneNumber);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+
+        // If there is information in the table that matches the input value
+        if (mysqli_stmt_num_rows($stmt) > 0) {
+            echo '<h2 class="p-3">Email or Phone Number already exists.</h2>';
+            mysqli_stmt_close($stmt);
+            mysqli_close($mysqli);
+            return;
+        }
+
+        // SQL Statement
+        $query = "INSERT INTO users (`username`, `fullname`, `address`, `password`, `email`, `phoneNumber`) VALUES (?, ?, ?, ?, ?, ?)";
+
+        // Prepare the statement
+        $stmt = mysqli_prepare($mysqli, $query);
+
+        // Bind the parameters to the statement (username, fullname, address, password and email)
+        mysqli_stmt_bind_param($stmt, "ssssss", $username, $fullName, $address, $password, $email, $phoneNumber);
+
+        // If the user has successfully been added to the database
+        if (mysqli_stmt_execute($stmt)) {
+
+            // Getting the user_id from the table
+            $user_id = mysqli_insert_id($mysqli);
+
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['username'] = $username;
+            $_SESSION['fullname'] = $fullName;
+
+            echo '<h2 class="p-3">Success: User created successfully! <br> Head back to Home Page for Login</h2>';
+            exit();
+        } else {
+            echo 'Error creating user: ' . mysqli_error($mysqli);
+        }
+
+        // Close the statement and the database connection
+        mysqli_stmt_close($stmt);
+        mysqli_close($mysqli);
+    }
+}
+
+// Admin to view users
+function adminViewUsers()
+{
+    if ($_SESSION['role'] == 'Admin') {
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Admin can add new user
+        if (isset($_POST['adminNewUser'])) {
+            header("Location: ../admin/registerNewUser.php");
+        }
+
+        // When the user clicks on the sort button or the search button
+        if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
+            // Store the input value or choice
+            $sortOption = $_POST['sortUsers'];
+            $searching = $_POST['search'];
+
+            // If statements where the sorting and searching takes place
+            if ($sortOption === 'sortUsersA-Username') {
+                $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY username";
+
+            } elseif ($sortOption === 'sortUsersA-Number') {
+                $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY user_id";
+
+            } elseif ($sortOption === 'sortUsersA-NumberD') {
+                $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' ORDER BY user_id DESC";
+
+            } else {
+                $query = "SELECT * FROM users WHERE fullname LIKE '%$searching%' 
+            OR email LIKE '%$searching%' 
+            OR username LIKE '%$searching%'
+            OR address LIKE '%$searching%'
+            OR password LIKE '%$searching%'
+            OR phoneNumber LIKE '%$searching%'";
+
+            }
+        } elseif (isset($_POST['clearFilterButton'])) {
+            $query = "SELECT * FROM users";
+        } else {
+            $query = "SELECT * FROM users";
+        }
+
+        $result = mysqli_query($mysqli, $query);
+
+        if (mysqli_num_rows($result) > 0) {
+
+            $heading = <<<DELIMITER
+            <table>
+            <h2 class="mb-5"> User Information </h2>
+            <tr>
+                <th> Username </th>
+                <th> Full Name </th>
+                <th> Address </th>
+                <th> Password </th>
+                <th> Email </th>
+                <th> Phone Number </th>
+            </tr>
+        DELIMITER;
+            $rows = '';
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+
+                $rowHTML = <<<DELIMITER
+                <tr>
+                    <td class="name p-4"> <p> {$row['username']} </p> </td>
+                    <td class="name p-4"> <p> {$row['fullname']} </p> </td> 
+                    <td class="name p-4"> <p> {$row['address']} </p> </td>
+                    <td class="name p-4"> <p> {$row['password']} </p> </td>
+                    <td class="name p-4"> <p> {$row['email']} </p> </td>
+                    <td class="name p-4"> <p> {$row['phoneNumber']} </p> </td>
+                    <td class="p-4"><a href="../admin/editUser.php?user_id={$row['user_id']}"><img class="homeButtonAdmin"
+            src="../../static/img/edit.gif" alt="Edit" title="Edit"></a></td>           
+    DELIMITER;
+                $rows .= $rowHTML;
+            }
+            $table = <<<DELIMITER
+            {$heading}
+            {$rows}
+            </table>
+        DELIMITER;
+            echo $table;
+
+        } else {
+            echo 'No users found.';
+        }
+
+        mysqli_free_result($result);
+        mysqli_close($mysqli);
+    }
+}
+
+
+function adminEditUser()
+{
+
+    if (isset($_POST['adminEditFinalButton'])) {
+
+        if (isset($_GET['user_id'])) { // Using $_GET here
+
+            // Capture user_id from the URL parameter
+            $userId = $_GET['user_id']; // Use $_GET here
+
+            $username = $_POST['editUsername'];
+            $fullname = $_POST['editFullName'];
+            $address = $_POST['editAddress'];
+            $email = $_POST['editEmail'];
+            $phoneNumber = $_POST['editPhoneNumber'];
+
+            // Connect to the database
+            $mysqli = db_connect();
+            if (!$mysqli) {
+                echo 'Database connection error.';
+                exit;
+            }
+
+            // Create an instance of the User class
+            $user = new User($mysqli);
+
+            // Retrieve existing user data from the database
+            $existingUserData = $user->getUserData($userId);
+
+            // Update only the fields that the user has interacted with
+            if (empty($username)) {
+                $username = $existingUserData['username'];
+            }
+            if (empty($fullname)) {
+                $fullname = $existingUserData['fullname'];
+            }
+            if (empty($address)) {
+                $address = $existingUserData['address'];
+            }
+            if (empty($email)) {
+                $email = $existingUserData['email'];
+            }
+            if (empty($phoneNumber)) {
+                $phoneNumber = $existingUserData['phoneNumber'];
+            }
+
+            // Pass user_id along with other fields to the editUser method
+            $userUpdated = $user->editUser($userId, $username, $fullname, $address, $email, $phoneNumber);
+
+            if ($userUpdated) {
+                $_SESSION['username'] = $username;
+                $_SESSION['fullname'] = $fullname;
+
+                echo '<h2 class="p-3">Success: User information updated successfully! <br> Head back to the Information Page</h2>';
+                mysqli_close($mysqli);
+                exit();
+            } else {
+                echo 'User not updated.';
+
+            }
+        }
+    }
+}
+
+
+
+
 
 ?>
