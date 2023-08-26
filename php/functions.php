@@ -89,6 +89,40 @@ class Hotel
         return $relatedHotels;
     }
 
+    public function addHotel($name, $pricePerNight, $thumbnail, $features, $type, $beds, $rating, $address)
+    {
+        $query = "INSERT INTO hotels (name, pricePerNight, thumbnail, features, type, beds, rating, address ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "sibssiis", $name, $pricePerNight, $thumbnail, $features, $type, $beds, $rating, $address);
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+    public function adminHotelEdit($hotelId, $name, $pricePerNight, $features, $type, $beds, $rating, $address)
+    {
+        $query = "UPDATE hotels SET name = ?, pricePerNight = ?, features = ?, type = ?, beds = ?, rating = ?, address = ? WHERE hotel_id = ?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "sissiisi", $name, $pricePerNight, $features, $type, $beds, $rating, $address, $hotelId);
+        $result = mysqli_stmt_execute($stmt);
+
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+
+    public function deleteHotel($hotelId)
+    {
+        $query = "DELETE FROM hotels WHERE hotel_id=?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $hotelId);
+        $result = mysqli_stmt_execute($stmt);
+
+
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
 }
 
 // User Class
@@ -108,6 +142,18 @@ class User
 
         $stmt = mysqli_prepare($this->mysqli, $query);
         mysqli_stmt_bind_param($stmt, "sssssi", $username, $fullname, $address, $email, $phoneNumber, $userId);
+        $result = mysqli_stmt_execute($stmt);
+
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+    public function adminUserEdit($userId, $username, $fullname, $address, $password, $email, $phoneNumber)
+    {
+        $query = "UPDATE users SET username = ?, fullname = ?, address = ?, password = ?, email = ?, phoneNumber = ? WHERE user_id = ?";
+
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "ssssssi", $username, $fullname, $address, $password, $email, $phoneNumber, $userId);
         $result = mysqli_stmt_execute($stmt);
 
         mysqli_stmt_close($stmt);
@@ -143,17 +189,6 @@ class User
         return $result;
     }
 
-    public function userDeleted($deleteUserId)
-    {
-        $query = "DELETE FROM users WHERE user_id=?";
-        $stmt = mysqli_prepare($this->mysqli, $query);
-        mysqli_stmt_bind_param($stmt, "i", $deleteUserId);
-        $result = mysqli_stmt_execute($stmt);
-
-
-        mysqli_stmt_close($stmt);
-        return $result;
-    }
 }
 
 class Booking
@@ -242,6 +277,46 @@ class Booking
             return false;
         }
     }
+
+
+    public function deleteBooking($bookingNo)
+    {
+        $query = "DELETE FROM booking WHERE bookingNo=?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $bookingNo);
+        $result = mysqli_stmt_execute($stmt);
+
+
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+    public function adminBookingEdit($bookingNo, $checkInDate, $checkOutDate)
+    {
+        $query = "UPDATE booking SET checkInDate = ?, checkOutDate = ? WHERE bookingNo = ?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "ddi", $checkInDate, $checkOutDate, $bookingNo);
+        $result = mysqli_stmt_execute($stmt);
+
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+    public function getBookingData($bookingNo)
+    {
+        $query = "SELECT * FROM booking WHERE bookingNo = ?";
+
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $bookingNo);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+        $userData = mysqli_fetch_assoc($result);
+
+        mysqli_stmt_close($stmt);
+
+        return $userData;
+    }
 }
 
 
@@ -304,6 +379,16 @@ if (isset($_POST['staffReturnHome'])) {
 // Admin, return to user page
 if (isset($_POST['returnAdminUser'])) {
     header("Location: ../staff/viewUser.php");
+}
+
+// Admin, return to hotel page
+if (isset($_POST['returnAdminHotel'])) {
+    header("Location: ../staff/viewHotel.php");
+}
+
+// Admin, return to booking page
+if(isset($_POST['returnAdminBooking'])){
+    header("Location: ../staff/viewBooking.php");
 }
 
 // Return to staff page
@@ -381,11 +466,14 @@ if (isset($_POST['staffViewInfo'])) {
     header("Location: ../staff/viewUser.php");
 }
 
-
-
 // Admin, go back to viewUser.php
 if (isset($_POST['adminReturnUser'])) {
     header("Location: ../staff/viewUser.php");
+}
+
+// Admin, add new hotel
+if (isset($_POST['adminNewHotel'])) {
+    header("Location: ../admin/addHotel.php");
 }
 
 // Database connection
@@ -1942,7 +2030,10 @@ function adminViewUsers()
                     <td class="name p-4"> <p> {$row['email']} </p> </td>
                     <td class="name p-4"> <p> {$row['phoneNumber']} </p> </td>
                     <td class="p-4"><a href="../admin/editUser.php?user_id={$row['user_id']}"><img class="homeButtonAdmin"
-            src="../../static/img/edit.gif" alt="Edit" title="Edit"></a></td>           
+                                    src="../../static/img/edit.gif" alt="Edit" title="Edit"></a></td>    
+                    <td class="p-4"><a href="../staff/viewUser.php?user_id={$row['user_id']}"><img class="homeButtonAdmin"
+                                    src="../../static/img/bin.gif" alt="Delete Booking" title="Delete Booking"
+                                    attribution="https://www.flaticon.com/free-animated-icons/document"></a</td>       
     DELIMITER;
                 $rows .= $rowHTML;
             }
@@ -1962,20 +2053,20 @@ function adminViewUsers()
     }
 }
 
-
+// This is where the admin can edit the user information
 function adminEditUser()
 {
 
     if (isset($_POST['adminEditFinalButton'])) {
 
-        if (isset($_GET['user_id'])) { // Using $_GET here
+        if (isset($_GET['user_id'])) {
 
-            // Capture user_id from the URL parameter
-            $userId = $_GET['user_id']; // Use $_GET here
+            $userId = $_GET['user_id'];
 
             $username = $_POST['editUsername'];
             $fullname = $_POST['editFullName'];
             $address = $_POST['editAddress'];
+            $password = $_POST['editPassword'];
             $email = $_POST['editEmail'];
             $phoneNumber = $_POST['editPhoneNumber'];
 
@@ -2002,6 +2093,9 @@ function adminEditUser()
             if (empty($address)) {
                 $address = $existingUserData['address'];
             }
+            if (empty($password)) {
+                $password = $existingUserData['password'];
+            }
             if (empty($email)) {
                 $email = $existingUserData['email'];
             }
@@ -2010,7 +2104,7 @@ function adminEditUser()
             }
 
             // Pass user_id along with other fields to the editUser method
-            $userUpdated = $user->editUser($userId, $username, $fullname, $address, $email, $phoneNumber);
+            $userUpdated = $user->adminUserEdit($userId, $username, $fullname, $address, $password, $email, $phoneNumber);
 
             if ($userUpdated) {
                 $_SESSION['username'] = $username;
@@ -2027,8 +2121,501 @@ function adminEditUser()
     }
 }
 
+// This is where the admin can delete a user
+function adminDeleteUser()
+{
+
+    if (isset($_GET['user_id'])) {
+
+        $userId = $_GET['user_id'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Create a new instance of the User class
+        $user = new User($mysqli);
+
+        // Call the method from the User class
+        $result = $user->deleteUser($userId);
+
+        if ($result) {
+            header("Location: ../admin/deleteUser.php");
+        } else {
+            echo '<h3 class="p-3">You cannot delete this account since they have an active booking </h3>';
+        }
+    }
+}
+
+// Admin side of the Hotels
+function adminViewHotels()
+{
+
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // When the user clicks on the sort button or the search button
+    if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
+        // Store the input value or choice
+        $sortOption = $_POST['sortUsers'];
+        $searching = $_POST['search'];
+
+
+        // If statements where the sorting and searching takes place
+        if ($sortOption === 'sortUsersA-name') {
+
+            $query = "SELECT * FROM hotels WHERE name LIKE '%$searching%' ORDER BY name";
+
+        } elseif ($sortOption === 'sortUsersA-priceA') {
+
+            $query = "SELECT * FROM hotels WHERE pricePerNight LIKE '%$searching%' ORDER BY pricePerNight";
+
+        } elseif ($sortOption === 'sortUsersA-priceD') {
+
+            $query = "SELECT * FROM hotels WHERE pricePerNight LIKE '%$searching%' ORDER BY pricePerNight DESC";
+
+        } elseif ($sortOption === 'sortUsersA-rating') {
+
+            $query = "SELECT * FROM hotels WHERE rating LIKE '%$searching%' ORDER BY rating DESC";
+
+        } elseif ($sortOption === 'sortUsersA-ratingPoor') {
+
+            $query = "SELECT * FROM hotels WHERE rating LIKE '%$searching%' ORDER BY rating";
+
+        } else {
+
+            $query = "SELECT * FROM hotels WHERE name LIKE '%$searching%' 
+            OR pricePerNight LIKE '%$searching%' 
+            OR features LIKE '%$searching%'
+            OR type LIKE '%$searching%'
+            OR beds LIKE '%$searching%'
+            OR rating LIKE '%$searching%'
+            OR address LIKE '%$searching%'";
+
+        }
+    } elseif (isset($_POST['clearFilterButton'])) {
+        $query = "SELECT * FROM hotels";
+    } else {
+        $query = "SELECT * FROM hotels";
+    }
+
+    $result = mysqli_query($mysqli, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        $heading = <<<DELIMITER
+                            <table>
+                            <h2 class="my-5"> Hotel Information </h2>
+                            <tr>
+                            <th> </th>
+                            <th class="heading"> Hotel Name </th>
+                            <th class="heading"> Price Per Night </th>
+                            <th class="heading"> Features </th>
+                            <th class="heading"> Type </th>
+                            <th class="heading"> Beds </th>
+                            <th class="heading"> Rating </th>
+                            <th class="heading"> Address </th>
+                            </tr>
+                        DELIMITER;
+        $rows = '';
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $rowHTML = <<<DELIMITER
+                            <tr>
+                                <td class="p-3"><img src="../../static/img/{$row['thumbnail']}" alt="Hotel Thumbnail" class="bookCoverHotel"></td>
+                                <td class="p-2"> <h5> {$row['name']} </h5> </td>
+                                <td class="p-2"> <h5> R {$row['pricePerNight']} </h5> </td> 
+                                <td class="feature p-2"> <h6> {$row['features']} </h6> </td>
+                                <td class="p-2"> <h5> {$row['type']} </h5> </td>
+                                <td class="p-2"> <h5> {$row['beds']} </h5> </td>
+                                <td class="p-2"> <h5> {$row['rating']} </h5> </td>
+                                <td class="address p-2"> <h5> {$row['address']} </h5> </td>
+                                <td class="p-2"><a href="../admin/editHotel.php?hotel_id={$row['hotel_id']}"><img class="homeButtonHotel"
+                                    src="../../static/img/edit.gif" alt="Edit" title="Edit"></a></td>    
+                                <td class="p-2"><a href="../staff/viewHotel.php?hotel_id={$row['hotel_id']}"><img class="homeButtonHotel"
+                                    src="../../static/img/bin.gif" alt="Delete" title="Delete"
+                                    attribution="https://www.flaticon.com/free-animated-icons/document"></a</td>  
+                            </tr>
+                            DELIMITER;
+            $rows .= $rowHTML;
+        }
+
+        $table = <<<DELIMITER
+                        {$heading}
+                        {$rows}
+                        </table>
+                        DELIMITER;
+        echo $table;
+
+    } else {
+        echo 'No users found.';
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+}
 
 
 
+function adminDeleteHotel()
+{
 
+    if (isset($_GET['hotel_id'])) {
+
+        $hotelId = $_GET['hotel_id'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Create a new instance of the User class
+        $hotel = new Hotel($mysqli, $hotelId);
+
+        // Call the method from the User class
+        $result = $hotel->deleteHotel($hotelId);
+
+        if ($result) {
+            header("Location: ../admin/deleteHotel.php");
+        } else {
+            echo '<h3 class="p-3">You cannot delete this hotel since it has an active booking </h3>';
+        }
+    }
+}
+
+function adminAddHotel()
+{
+
+    if (isset($_POST['addAdminHotel'])) {
+
+        if (isset($_POST['hotel_id'])) {
+
+            $hotelId = $_POST['hotel_id'];
+        }
+
+        $name = $_POST['hotelName'];
+        $pricePerNight = $_POST['hotelPricePerNight'];
+        $thumbnail = "star.png";
+        $features = $_POST['hotelFeatures'];
+        $type = $_POST['hotelType'];
+        $beds = $_POST['hotelBeds'];
+        $rating = $_POST['hotelRating'];
+        $address = $_POST['hotelAddress'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            echo 'Database connection error.';
+            exit;
+        }
+
+        // Create an instance of the User class
+        $hotel = new Hotel($mysqli, $hotelId);
+
+        // Pass user_id along with other fields to the editUser method
+        $hotelAdd = $hotel->addHotel($name, $pricePerNight, $thumbnail, $features, $type, $beds, $rating, $address);
+
+        if ($hotelAdd) {
+            echo '<h2 class="p-3">Success: Hotel added successfully! <br> Head back to the Information Page</h2>';
+            mysqli_close($mysqli);
+            exit();
+        } else {
+            echo 'Hotel not added.';
+
+        }
+    }
+}
+
+// Admin can edit a specific hotel
+function adminEditHotel()
+{
+
+    if (isset($_POST['adminEditHotelFinal'])) {
+
+        if (isset($_GET['hotel_id'])) {
+
+            $hotelId = $_GET['hotel_id'];
+
+            $name = $_POST['editHotelName'];
+            $pricePerNight = $_POST['editHotelPrice'];
+            $features = $_POST['editHotelFeatures'];
+            $type = $_POST['editHotelType'];
+            $beds = $_POST['editHotelBeds'];
+            $rating = $_POST['editHotelRating'];
+            $address = $_POST['editHotelAddress'];
+
+            // Connect to the database
+            $mysqli = db_connect();
+            if (!$mysqli) {
+                echo 'Database connection error.';
+                exit;
+            }
+
+            // Create an instance of the User class
+            $hotel = new Hotel($mysqli, $hotelId);
+
+            // Retrieve existing user data from the database
+            $existingHotelData = $hotel->viewHotelsById();
+
+            // Update only the fields that the user has interacted with
+            if (empty($name)) {
+                $name = $existingHotelData['name'];
+            }
+            if (empty($pricePerNight)) {
+                $pricePerNight = $existingHotelData['pricePerNight'];
+            }
+            if (empty($features)) {
+                $features = $existingHotelData['features'];
+            }
+            if (empty($type)) {
+                $type = $existingHotelData['type'];
+            }
+            if (empty($beds)) {
+                $beds = $existingHotelData['beds'];
+            }
+            if (empty($rating)) {
+                $rating = $existingHotelData['rating'];
+            }
+            if (empty($address)) {
+                $address = $existingHotelData['address'];
+            }
+
+            // Pass user_id along with other fields to the editUser method
+            $hotelUpdated = $hotel->adminHotelEdit($hotelId, $name, $pricePerNight, $features, $type, $beds, $rating, $address);
+
+            if ($hotelUpdated) {
+
+                echo '<h2 class="p-3">Success: Hotel information updated successfully! <br> Head back to the Information Page</h2>';
+                mysqli_close($mysqli);
+                exit();
+            } else {
+                echo 'Hotel not updated.';
+
+            }
+        }
+    }
+}
+
+
+function adminViewBookings()
+{
+    // Connect to the database
+    $mysqli = db_connect();
+    if (!$mysqli) {
+        return;
+    }
+
+    // When the user clicks on the sort button or the search button
+    if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
+        // Store the input value or choice
+        $sortOption = $_POST['sortUsers'];
+        $searching = $_POST['search'];
+
+        // If statements where the sorting and searching takes place
+        if ($sortOption === 'sortUsersA-daysA') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY DATEDIFF(checkOutDate, checkInDate) DESC";
+
+        } elseif ($sortOption === 'sortUsersA-daysD') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY DATEDIFF(checkOutDate, checkInDate)";
+
+        } elseif ($sortOption === 'sortUsersA-totalCostA') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY totalCost";
+
+        } elseif ($sortOption === 'sortUsersA-totalCostD') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY totalCost DESC";
+
+        } elseif ($sortOption === 'sortUsersA-bookingsD') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY bookingNo DESC";
+
+        } elseif ($sortOption === 'sortUsersA-bookings') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            ORDER BY bookingNo";
+
+        } else {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id 
+            WHERE h.name LIKE '%$searching%' 
+            OR u.fullname LIKE '%$searching%' 
+            OR b.checkInDate LIKE '%$searching%'
+            OR b.checkOutDate LIKE '%$searching%'
+            OR b.totalCost LIKE '%$searching%'
+            OR b.bookingNo LIKE '%$searching%'";
+        }
+    } elseif (isset($_POST['clearFilterButton'])) {
+        $query = "SELECT * FROM hotels";
+    } else {
+
+        $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+        FROM booking b
+        INNER JOIN users u ON b.user_id = u.user_id
+        INNER JOIN hotels h ON b.hotel_id = h.hotel_id";
+    }
+
+    // Execute the query and display the results
+    $result = mysqli_query($mysqli, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        $heading = <<<DELIMITER
+                            <table>
+                            <h2 class="mb-5"> Booking Information </h2>
+                            <tr>
+                            <th> </th>
+                            <th> Hotel Name </th>
+                            <th> User </th>
+                            <th> Check In Date </th>
+                            <th> Check Out Date </th>
+                            <th> Total Cost</th>
+                            </tr>
+                        DELIMITER;
+        $rows = '';
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $rowHTML = <<<DELIMITER
+                            <tr>
+                                <td class="p-3"><img src="../../static/img/{$row['thumbnail']}" alt="Hotel Image" class="bookCover"></td>
+                                <td class="p-3"> <p> {$row['name']} </p> </td>
+                                <td class="p-3"> <p> {$row['fullname']} </p> </td> 
+                                <td class="p-3"> <p> {$row['checkInDate']} </p> </td>
+                                <td class="p-3"> <p> {$row['checkOutDate']} </p> </td>
+                                <td class="p-3"> <p> R {$row['totalCost']} </p> </td>
+                                <td class="p-2"><a href="../admin/editBooking.php?bookingNo={$row['bookingNo']}"><img class="homeButtonAdmin"
+                                    src="../../static/img/edit.gif" alt="Edit" title="Edit"></a></td>    
+                                <td class="p-2"><a href="../staff/viewBooking.php?bookingNo={$row['bookingNo']}"><img class="homeButtonAdmin"
+                                    src="../../static/img/bin.gif" alt="Delete" title="Delete"
+                                    attribution="https://www.flaticon.com/free-animated-icons/document"></a</td> 
+                            </tr>
+                            DELIMITER;
+            $rows .= $rowHTML;
+        }
+
+        $table = <<<DELIMITER
+                        {$heading}
+                        {$rows}
+                        </table>
+                        DELIMITER;
+        echo $table;
+
+    } else {
+        echo 'No booking found.';
+    }
+
+    mysqli_free_result($result);
+    mysqli_close($mysqli);
+}
+
+function adminDeleteBooking()
+{
+
+    if (isset($_GET['bookingNo'])) {
+
+        $bookingNo = $_GET['bookingNo'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Create a new instance of the User class
+        $booking = new Booking($mysqli);
+
+        // Call the method from the User class
+        $result = $booking->deleteBooking($bookingNo);
+
+        if ($result) {
+            header("Location: ../admin/deleteBooking.php");
+        } else {
+            echo '<h3 class="p-3">You cannot delete this booking since it has an active booking </h3>';
+        }
+    }
+}
+
+
+function adminEditBooking()
+{
+
+    if (isset($_POST['adminEditBookingFinal'])) {
+
+        if (isset($_GET['bookingNo'])) {
+
+            $bookingNo = $_GET['bookingNo'];
+
+            $checkInDate = $_POST['editCheckInDate'];
+            $checkOutDate = $_POST['editCheckOutDate'];
+
+            // Connect to the database
+            $mysqli = db_connect();
+            if (!$mysqli) {
+                echo 'Database connection error.';
+                exit;
+            }
+
+            // Create an instance of the User class
+            $booking = new Booking($mysqli);
+
+            // Retrieve existing user data from the database
+            $existingBookingData = $booking->getBookingData($bookingNo);
+
+            // Update only the fields that the user has interacted with
+            if (empty($checkInDate)) {
+                $checkInDate = $existingBookingData['checkInDate'];
+            }
+            if (empty($checkOutDate)) {
+                $checkOutDate = $existingBookingData['checkOutDate'];
+            }
+            
+            // Pass user_id along with other fields to the editUser method
+            $BookingUpdated = $booking->adminBookingEdit($bookingNo, $checkInDate, $checkOutDate);
+
+            if ($BookingUpdated) {
+
+                echo '<h2 class="p-3">Success: Booking information updated successfully! <br> Head back to the Information Page</h2>';
+                mysqli_close($mysqli);
+                exit();
+            } else {
+                echo 'Booking not updated.';
+
+            }
+        }
+    }
+}
 ?>

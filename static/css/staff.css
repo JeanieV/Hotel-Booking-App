@@ -25,6 +25,12 @@ body {
     border-radius: 20px;
 }
 
+.homeButtonHotel {
+    width: 60px;
+    height: 60px;
+    border-radius: 20px;
+}
+
 h1 {
     font-size: 60px;
     text-align: center;
@@ -49,8 +55,29 @@ h4 {
     color: #08392B;
 }
 
+h5 {
+    font-size: 16px;
+    text-align: center;
+    color: #08392B;
+}
+
+h6 {
+    font-size: 14px;
+    text-align: center;
+    color: #08392B;
+}
+
 .infoButtons {
     font-size: 30px;
+    background-color: #FF8300;
+    color: black;
+    border-color: #FF8300;
+    width: 15vw;
+    border-radius: 20px;
+}
+
+.thumbnailButton{
+    font-size: 20px;
     background-color: #FF8300;
     color: black;
     border-color: #FF8300;
@@ -85,7 +112,7 @@ h4 {
     width: 90vw;
 }
 
-.adminView{
+.adminView {
     background-color: #E1E7E0;
     border-radius: 35px;
     width: 50vw;
@@ -120,6 +147,14 @@ th {
     width: 20vw;
 }
 
+.feature {
+    width: 12vw;
+}
+
+.address {
+    width: 8vw;
+}
+
 .bookCover {
     width: 200px;
     height: 210px;
@@ -147,12 +182,26 @@ th {
     border-radius: 20px;
 }
 
+.labelStyle {
+    color: #08392B;
+    font-size: 28px;
+}
+
+
 .inputStyle {
     height: 3vw;
     width: 25vw;
     text-align: center;
     font-size: 25px;
 }
+
+.inputAdminStyle {
+    height: 3vw;
+    width: 15vw;
+    text-align: center;
+    font-size: 20px;
+}
+
 
 .glass {
     cursor: pointer;

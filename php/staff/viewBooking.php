@@ -59,19 +59,44 @@ require '../functions.php';
         </form>
     </div>
 
-    <!-- Search bar -->
-    <div class="d-flex justify-content-center align-items-center">
-        <form method="POST" action="viewBooking.php">
+    <?php
+    // If the employee is Admin, then they can add a new employee.
+    if ($_SESSION['role'] === "Admin") {
 
-        </form>
-    </div>
+        $output1 = <<<DELIMETER
+        <div class="d-flex justify-content-center align-items-center my-5">
+        <div class="staffViewH p-5">
+        DELIMETER;
+        echo $output1;
+        
+        adminDeleteBooking();
+        adminViewBookings();
+        
 
-    <!-- All the current information of the user will show -->
-    <div class="d-flex justify-content-center align-items-center my-5">
-        <div class="staffViewB p-5">
-            <?php staffViewBookings(); ?>
+        $output2 = <<<DELIMETER
         </div>
-    </div>
+        </div>
+        DELIMETER;
+        echo $output2;
+
+    } else {
+
+        $output3 = <<<DELIMETER
+        <div class="d-flex justify-content-center align-items-center my-5">
+        <div class="staffViewH p-5">
+        DELIMETER;
+        echo $output3;
+
+        staffViewBookings();
+
+
+       $output4 = <<<DELIMETER
+        </div>
+        </div>
+        DELIMETER;
+        echo $output4;
+    }
+    ?>
 
 
 

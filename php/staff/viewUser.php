@@ -73,6 +73,7 @@ require '../functions.php';
         DELIMETER;
         echo $output1;
 
+        adminDeleteUser();
         adminViewUsers();
 
         $output2 = <<<DELIMETER

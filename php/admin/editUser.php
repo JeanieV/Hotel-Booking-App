@@ -42,7 +42,7 @@ require '../functions.php';
 
             <form method="POST" class="editForm">
                 <h1 class="py-5"> Edit user profile: </h1>
-                <h4> Please note that Password can't be updated! </h4>
+        
                 <div class="d-flex justify-content-center align-items-center my-4">
                     <table>
                         <tr>
@@ -58,6 +58,11 @@ require '../functions.php';
                         <tr>
                             <td class="p-4"><label for="editAddress" class="labelStyle"> Edit Address: </label></td>
                             <td class="p-4"><input type="text" name="editAddress" class="inputStyle"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="p-4"><label for="editPassword" class="labelStyle"> Edit Password: </label></td>
+                            <td class="p-4"><input type="text" name="editPassword" class="inputStyle"></td>
                         </tr>
 
                         <tr>

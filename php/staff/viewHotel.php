@@ -59,19 +59,49 @@ require '../functions.php';
         </form>
     </div>
 
-    <!-- Search bar -->
-    <div class="d-flex justify-content-center align-items-center">
-        <form method="POST" action="viewHotel.php">
 
+    <?php
+    // If the employee is Admin, then they can add a new employee.
+    if ($_SESSION['role'] === "Admin") {
+
+        $output1 = <<<DELIMETER
+        <form method="POST">
+        <button type="submit" name="adminNewHotel" class="infoButtons mx-5 p-3"> Add Hotel </button>
         </form>
-    </div>
 
-    <!-- All the current information of the user will show -->
-    <div class="d-flex justify-content-center align-items-center my-5">
-        <div class="staffViewH p-3">
-            <?php staffViewHotels(); ?>
+        <div class="d-flex justify-content-center align-items-center my-5">
+        <div class="staffViewH p-5">
+        DELIMETER;
+        echo $output1;
+        
+        adminDeleteHotel();
+        adminViewHotels();
+        
+
+        $output2 = <<<DELIMETER
         </div>
-    </div>
+        </div>
+        DELIMETER;
+        echo $output2;
+
+    } else {
+
+        $output3 = <<<DELIMETER
+        <div class="d-flex justify-content-center align-items-center my-5">
+        <div class="staffViewH p-5">
+        DELIMETER;
+        echo $output3;
+
+        staffViewHotels();
+
+
+       $output4 = <<<DELIMETER
+        </div>
+        </div>
+        DELIMETER;
+        echo $output4;
+    }
+    ?>
 
 
 
