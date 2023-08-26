@@ -2,6 +2,11 @@
 
 session_start();
 
+
+// ---------------------------------------------------------
+// Classes and Methods
+// ---------------------------------------------------------
+
 // Hotel class
 class Hotel
 {
@@ -14,7 +19,7 @@ class Hotel
         $this->hotelId = $hotelId;
     }
 
-
+    // Calculate the total cost by fetching the pricePerNight
     public function calculateCost()
     {
         $query = "SELECT pricePerNight FROM hotels WHERE hotel_id=?";
@@ -48,6 +53,7 @@ class Hotel
         return $hotelData;
     }
 
+    // Compare the one hotel with another
     public static function compareHotels(Hotel $hotel1, Hotel $hotel2)
     {
         $hotel1Cost = $hotel1->calculateCost();
@@ -60,6 +66,7 @@ class Hotel
         }
     }
 
+    // If the hotels relate based on specific price difference
     public function getRelatedHotels($priceDifference)
     {
         // Fetch the current hotel's information
@@ -89,6 +96,7 @@ class Hotel
         return $relatedHotels;
     }
 
+    // Method to add hotel to system from ADMIN
     public function addHotel($name, $pricePerNight, $thumbnail, $features, $type, $beds, $rating, $address)
     {
         $query = "INSERT INTO hotels (name, pricePerNight, thumbnail, features, type, beds, rating, address ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -99,6 +107,7 @@ class Hotel
         return $result;
     }
 
+    // Method to update the hotel information from ADMIN
     public function adminHotelEdit($hotelId, $name, $pricePerNight, $features, $type, $beds, $rating, $address)
     {
         $query = "UPDATE hotels SET name = ?, pricePerNight = ?, features = ?, type = ?, beds = ?, rating = ?, address = ? WHERE hotel_id = ?";
@@ -110,7 +119,7 @@ class Hotel
         return $result;
     }
 
-
+    // Method to delete the clicked on hotel
     public function deleteHotel($hotelId)
     {
         $query = "DELETE FROM hotels WHERE hotel_id=?";
@@ -148,6 +157,7 @@ class User
         return $result;
     }
 
+    // Method to edit the user information from ADMIN
     public function adminUserEdit($userId, $username, $fullname, $address, $password, $email, $phoneNumber)
     {
         $query = "UPDATE users SET username = ?, fullname = ?, address = ?, password = ?, email = ?, phoneNumber = ? WHERE user_id = ?";
@@ -177,6 +187,7 @@ class User
         return $userData;
     }
 
+    // Method to delete the clicked on user
     public function deleteUser($userId)
     {
         $query = "DELETE FROM users WHERE user_id=?";
@@ -201,6 +212,7 @@ class Booking
         $this->mysqli = $mysqli;
     }
 
+    // Method to add a booking for the user
     public function addBooking($userId, $hotelId, $checkInDate, $checkOutDate, $totalCost, $cancelled, $completed)
     {
         $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -211,7 +223,7 @@ class Booking
         return $result;
     }
 
-
+    // Cancel booking if the user clicks on the delete button (change the cancel column to 1)
     public function cancelBooking($bookingId)
     {
         // Find out if the cancellation is more than 2 days away
@@ -246,6 +258,7 @@ class Booking
         }
     }
 
+    // Set the cancelled column to 1 if the checkInDate is the same as current date
     public function completedBooking($bookingId)
     {
         // Fetch the checkInDate from the database
@@ -273,12 +286,11 @@ class Booking
 
             return $result;
         } else {
-            // The booking is not yet completed
             return false;
         }
     }
 
-
+    // Delete booking if clicked on
     public function deleteBooking($bookingNo)
     {
         $query = "DELETE FROM booking WHERE bookingNo=?";
@@ -291,17 +303,50 @@ class Booking
         return $result;
     }
 
+    // Edit the clicked booking from ADMIN
     public function adminBookingEdit($bookingNo, $checkInDate, $checkOutDate)
     {
-        $query = "UPDATE booking SET checkInDate = ?, checkOutDate = ? WHERE bookingNo = ?";
+        // When the dates are changed, the total cost needs to update as well
+        $newTotalCost = $this->calculateUpdatedTotalCost($bookingNo, $checkInDate, $checkOutDate);
+
+        // Update the checkInDate, checkOutDate, and totalCost
+        $query = "UPDATE booking SET checkInDate = ?, checkOutDate = ?, totalCost = ? WHERE bookingNo = ?";
         $stmt = mysqli_prepare($this->mysqli, $query);
-        mysqli_stmt_bind_param($stmt, "ddi", $checkInDate, $checkOutDate, $bookingNo);
+        mysqli_stmt_bind_param($stmt, "ssdi", $checkInDate, $checkOutDate, $newTotalCost, $bookingNo);
         $result = mysqli_stmt_execute($stmt);
 
         mysqli_stmt_close($stmt);
         return $result;
     }
 
+    // If the dates change, then the total cost needs to update as well
+    private function calculateUpdatedTotalCost($bookingNo, $checkInDate, $checkOutDate)
+    {
+        // Calculate the difference in days between checkInDate and checkOutDate
+        $checkInDateTime = new DateTime($checkInDate);
+        $checkOutDateTime = new DateTime($checkOutDate);
+        $interval = $checkInDateTime->diff($checkOutDateTime);
+        $numOfDays = $interval->days;
+
+        // Querying the pricePerNight from Hotel table(needs to join)
+        $query = "SELECT h.pricePerNight FROM booking b
+              INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+              WHERE b.bookingNo = ?";
+
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $bookingNo);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $pricePerNight);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Calculate the new totalCost that will update as the dates update
+        $newTotalCost = $numOfDays * $pricePerNight;
+
+        return $newTotalCost;
+    }
+
+    // Get all the information from the booking table
     public function getBookingData($bookingNo)
     {
         $query = "SELECT * FROM booking WHERE bookingNo = ?";
@@ -319,7 +364,7 @@ class Booking
     }
 }
 
-
+// Staff class
 class Staff
 {
     private $mysqli;
@@ -339,8 +384,55 @@ class Staff
         mysqli_stmt_close($stmt);
         return $result;
     }
+
+    // Admin can make edits to the staff
+    public function adminEditStaffmember($staffId, $employee_number, $fullname, $role)
+    {
+        $query = "UPDATE staff SET employee_number = ?, fullname = ?, role = ? WHERE staff_id = ?";
+
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "sssi", $employee_number, $fullname, $role, $staffId);
+        $result = mysqli_stmt_execute($stmt);
+
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+    // Method to make sure that only the information is changed that the user interacted with.
+    public function getUserStaff($staffId)
+    {
+        $query = "SELECT * FROM staff WHERE staff_id = ?";
+
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $staffId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+        $userData = mysqli_fetch_assoc($result);
+
+        mysqli_stmt_close($stmt);
+
+        return $userData;
+    }
+
+    // Method to delete the clicked on user
+    public function deleteStaff($staffId)
+    {
+        $query = "DELETE FROM staff WHERE staff_id=?";
+        $stmt = mysqli_prepare($this->mysqli, $query);
+        mysqli_stmt_bind_param($stmt, "i", $staffId);
+        $result = mysqli_stmt_execute($stmt);
+
+
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
 }
 
+
+// ---------------------------------------------------------
+// Buttons and Redirects
+// ---------------------------------------------------------
 
 // Sign Up a new user
 if (isset($_POST['newUserButton'])) {
@@ -387,13 +479,18 @@ if (isset($_POST['returnAdminHotel'])) {
 }
 
 // Admin, return to booking page
-if(isset($_POST['returnAdminBooking'])){
+if (isset($_POST['returnAdminBooking'])) {
     header("Location: ../staff/viewBooking.php");
 }
 
 // Return to staff page
 if (isset($_POST['returnStaffHome'])) {
     header("Location: ../staff/staff.php");
+}
+
+// Return Admin back to staff view page
+if(isset($_POST['returnStaffView'])){
+    header("Location: ../staff/viewStaff.php");
 }
 
 // Return to Hotel Page after clicking on viewing a Hotel
@@ -476,7 +573,10 @@ if (isset($_POST['adminNewHotel'])) {
     header("Location: ../admin/addHotel.php");
 }
 
-// Database connection
+// ---------------------------------------------------------
+// Database Connection
+// ---------------------------------------------------------
+
 function db_connect()
 {
     $user = 'root';
@@ -622,7 +722,6 @@ function login()
 // ---------------------------------------------------------
 // Hotel Information
 // ---------------------------------------------------------
-
 
 
 // Function to show the information inside the hotel table.
@@ -828,7 +927,7 @@ function determinePhpFile($hotelId)
 
 
 // ---------------------------------------------------------
-// CRUD Operations
+// CRUD Operations (USER SIDE)
 // ---------------------------------------------------------
 
 // If the user clicks on the editButton, the updating will take place
@@ -1407,8 +1506,7 @@ function confirmFinalBooking()
     }
 }
 
-
-
+// After the booking has been confirmed
 function generateReceiptforIndividual()
 {
 
@@ -2390,8 +2488,9 @@ function adminEditHotel()
             $hotelUpdated = $hotel->adminHotelEdit($hotelId, $name, $pricePerNight, $features, $type, $beds, $rating, $address);
 
             if ($hotelUpdated) {
-
-                echo '<h2 class="p-3">Success: Hotel information updated successfully! <br> Head back to the Information Page</h2>';
+                echo '<div class="adminView p-3">';
+                echo '<h3 class="p-3">Success: Hotel information updated successfully! <br> Head back to the Information Page</h3>';
+                echo '</div>';
                 mysqli_close($mysqli);
                 exit();
             } else {
@@ -2582,6 +2681,7 @@ function adminEditBooking()
             $checkInDate = $_POST['editCheckInDate'];
             $checkOutDate = $_POST['editCheckOutDate'];
 
+
             // Connect to the database
             $mysqli = db_connect();
             if (!$mysqli) {
@@ -2602,13 +2702,185 @@ function adminEditBooking()
             if (empty($checkOutDate)) {
                 $checkOutDate = $existingBookingData['checkOutDate'];
             }
-            
+
             // Pass user_id along with other fields to the editUser method
             $BookingUpdated = $booking->adminBookingEdit($bookingNo, $checkInDate, $checkOutDate);
 
             if ($BookingUpdated) {
+                echo '<div class="adminView p-3">';
+                echo '<h3 class="p-3">Success: Booking information updated successfully! <br> Head back to the Information Page</h3>';
+                echo '</div>';
+                mysqli_close($mysqli);
+                exit();
+            } else {
+                echo 'Booking not updated.';
 
-                echo '<h2 class="p-3">Success: Booking information updated successfully! <br> Head back to the Information Page</h2>';
+            }
+        }
+    }
+}
+
+// Admin can view staff members
+function adminViewStaff()
+{
+    if ($_SESSION['role'] == 'Admin') {
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // When the user clicks on the sort button or the search button
+        if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
+            // Store the input value or choice
+            $sortOption = $_POST['sortUsers'];
+            $searching = $_POST['search'];
+
+            // If statements where the sorting and searching takes place
+            if ($sortOption === 'sortUsersA-Username') {
+                $query = "SELECT * FROM staff WHERE fullname LIKE '%$searching%' ORDER BY fullname";
+
+            } elseif ($sortOption === 'sortUsersA-Number') {
+                $query = "SELECT * FROM staff WHERE fullname LIKE '%$searching%' ORDER BY staff_id";
+
+            } elseif ($sortOption === 'sortUsersA-NumberD') {
+                $query = "SELECT * FROM staff WHERE fullname LIKE '%$searching%' ORDER BY staff_id DESC";
+
+            } else {
+                $query = "SELECT * FROM staff WHERE fullname LIKE '%$searching%' 
+            OR employee_number LIKE '%$searching%' 
+            OR role LIKE '%$searching%'";
+
+            }
+        } elseif (isset($_POST['clearFilterButton'])) {
+            $query = "SELECT * FROM staff";
+        } else {
+            $query = "SELECT * FROM staff";
+        }
+
+        $result = mysqli_query($mysqli, $query);
+
+        if (mysqli_num_rows($result) > 0) {
+
+            $heading = <<<DELIMITER
+            <table>
+            <h2 class="mb-5"> Staff Information </h2>
+            <tr>
+                <th> Employee Number </th>
+                <th> Full Name </th>
+                <th> Role </th>
+                
+            </tr>
+        DELIMITER;
+            $rows = '';
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+
+                $rowHTML = <<<DELIMITER
+                <tr>
+                    <td class="name p-4"> <p> {$row['employee_number']} </p> </td>
+                    <td class="name p-4"> <p> {$row['fullname']} </p> </td> 
+                    <td class="name p-4"> <p> {$row['role']} </p> </td>
+                    <td class="p-4"><a href="../admin/editStaff.php?staff_id={$row['staff_id']}"><img class="homeButtonAdmin"
+                                    src="../../static/img/edit.gif" alt="Edit" title="Edit"></a></td>    
+                    <td class="p-4"><a href="../staff/viewStaff.php?staff_id={$row['staff_id']}"><img class="homeButtonAdmin"
+                                    src="../../static/img/bin.gif" alt="Delete Booking" title="Delete Booking"
+                                    attribution="https://www.flaticon.com/free-animated-icons/document"></a</td>       
+    DELIMITER;
+                $rows .= $rowHTML;
+            }
+            $table = <<<DELIMITER
+            {$heading}
+            {$rows}
+            </table>
+        DELIMITER;
+            echo $table;
+
+        } else {
+            echo 'No staff found.';
+        }
+
+        mysqli_free_result($result);
+        mysqli_close($mysqli);
+    }
+}
+
+// Admin is able to delete staff members
+function adminDeleteStaff()
+{
+
+    if (isset($_GET['staff_id'])) {
+
+        $staffId = $_GET['staff_id'];
+
+        // Connect to the database
+        $mysqli = db_connect();
+        if (!$mysqli) {
+            return;
+        }
+
+        // Create a new instance of the User class
+        $staff = new Staff($mysqli);
+
+        // Call the method from the User class
+        $result = $staff->deleteStaff($staffId);
+
+        if ($result) {
+            header("Location: ../admin/deleteStaff.php");
+        } else {
+            echo '<h3 class="p-3">You cannot delete this employee </h3>';
+        }
+    }
+}
+
+// Admin is able to edit staff profiles
+function adminEditStaff()
+{
+
+    if (isset($_POST['adminEditStaffFinal'])) {
+
+        if (isset($_GET['staff_id'])) {
+
+            $staffId = $_GET['staff_id'];
+
+            $fullname = $_POST['editEmployeeFullname'];
+            $employee_number = $_POST['editEmployee_number'];
+            $role = $_POST['editEmployee-role'];
+
+
+            // Connect to the database
+            $mysqli = db_connect();
+            if (!$mysqli) {
+                echo 'Database connection error.';
+                exit;
+            }
+
+            // Create an instance of the User class
+            $staff = new Staff($mysqli);
+
+            // Retrieve existing user data from the database
+            $existingStaffData = $staff->getUserStaff($staffId);
+
+            // Update only the fields that the user has interacted with
+            if (empty($fullname)) {
+                $fullname = $existingStaffData['fullname'];
+            }
+            if (empty($employee_number)) {
+                $employee_number = $existingStaffData['employee_number'];
+            }
+            if (empty($role)) {
+                $role = $existingStaffData['role'];
+            }
+
+            // Pass user_id along with other fields to the editUser method
+            $StaffUpdated = $staff->adminEditStaffmember($staffId, $employee_number, $fullname, $role);
+
+            if ($StaffUpdated) {
+                echo '<div class="adminView p-3">';
+                echo '<h3 class="p-3">Success: Booking information updated successfully! <br> Head back to the Information Page</h3>';
+                echo '</div>';
                 mysqli_close($mysqli);
                 exit();
             } else {

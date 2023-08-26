@@ -75,8 +75,8 @@ if (isset($_SESSION['staffFullName'])) {
                 // If the employee is Admin, then they can add a new employee.
                 if ($_SESSION['role'] === "Admin") {
                     $button = <<<DELIMETER
-                    <form method="POST" action="signUp.php">
-                        <button type="submit" name="addEmployee" class="infoButtons p-3"> Add Employee </button>
+                    <form method="POST" action="viewStaff.php">
+                        <button type="submit" name="viewEmployees" class="infoButtons p-3"> Employees </button>
                     </form>'
                     DELIMETER;
                     echo $button;
