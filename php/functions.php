@@ -2935,12 +2935,12 @@ function adminEditStaff()
 
             if ($StaffUpdated) {
                 echo '<div class="adminView p-3">';
-                echo '<h3 class="p-3">Success: Booking information updated successfully! <br> Head back to the Information Page</h3>';
+                echo '<h3 class="p-3">Success: Staff information updated successfully! <br> Head back to the Information Page</h3>';
                 echo '</div>';
                 mysqli_close($mysqli);
                 exit();
             } else {
-                echo 'Booking not updated.';
+                echo 'Staff not updated.';
 
             }
         }
