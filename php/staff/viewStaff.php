@@ -61,7 +61,7 @@ require '../functions.php';
     </form>
 
     <div class="d-flex justify-content-center align-items-center my-5">
-        <div class="staffView p-5">
+        <div class="adminView p-5">
 
 
             <?php adminDeleteStaff(); ?>

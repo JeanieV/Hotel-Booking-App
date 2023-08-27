@@ -428,6 +428,11 @@ if (isset($_POST['newUserButton'])) {
     header("Location: ../users/signUserUp.php");
 }
 
+// Sign Up a new user
+if (isset($_POST['signUpAsNewUser'])) {
+    header("Location: ./users/signUserUp.php");
+}
+
 // Logout
 if (isset($_POST['logOutButton'])) {
     session_unset();
@@ -2449,7 +2454,9 @@ function adminAddHotel()
         $hotelAdd = $hotel->addHotel($name, $pricePerNight, $thumbnail, $features, $type, $beds, $rating, $address);
 
         if ($hotelAdd) {
+            echo '<div class="adminView p-3">';
             echo '<h2 class="p-3">Success: Hotel added successfully! <br> Head back to the Information Page</h2>';
+            echo '</div>';
             mysqli_close($mysqli);
             exit();
         } else {

@@ -164,7 +164,7 @@ if (isset($_POST['employeeButton']) && isset($_POST['id'])) {
                         <!-- New User Button -->
                         <div class="container d-flex justify-content-center align-items-center">
                             <div class="mx-5 mt-3">
-                                <button name="newUserButton" type="submit" class="logInButton p-2">Sign Up</button>
+                                <button name="signUpAsNewUser" type="submit" class="logInButton p-2">Sign Up</button>
                             </div>
                         </div>
 
