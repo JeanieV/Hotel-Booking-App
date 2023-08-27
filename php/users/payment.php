@@ -1,6 +1,6 @@
 <?php
 session_start();
-require './functions.php';
+require '../functions.php';
 
 // Public username
 if (isset($_SESSION['username'])) {
@@ -26,7 +26,7 @@ if(isset($_POST['receiptButton'])){
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/bookings.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/css/bookings.css'>
 </head>
 
 <body>
@@ -52,7 +52,7 @@ if(isset($_POST['receiptButton'])){
 
                 <!-- Go back to the index page -->
                 <button type="submit" name="logOutButtonFinal" class="tranBack"><img class="logOutStyle mx-3 mt-3"
-                        src="../static/img/logout.png" alt="Log Out as User" title="Log Out as User"
+                        src="../../static/img/logout.png" alt="Log Out as User" title="Log Out as User"
                         attribution="https://www.flaticon.com/free-icons/logout"></button>
             </form>
 

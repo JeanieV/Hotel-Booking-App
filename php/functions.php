@@ -212,17 +212,6 @@ class Booking
         $this->mysqli = $mysqli;
     }
 
-    // Method to add a booking for the user
-    public function addBooking($userId, $hotelId, $checkInDate, $checkOutDate, $totalCost, $cancelled, $completed)
-    {
-        $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($this->mysqli, $query);
-        mysqli_stmt_bind_param($stmt, "iiddiii", $userId, $hotelId, $checkInDate, $checkOutDate, $totalCost, $cancelled, $completed);
-        $result = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        return $result;
-    }
-
     // Cancel booking if the user clicks on the delete button (change the cancel column to 1)
     public function cancelBooking($bookingId)
     {
@@ -436,7 +425,7 @@ class Staff
 
 // Sign Up a new user
 if (isset($_POST['newUserButton'])) {
-    header("Location: ./users/signUserUp.php");
+    header("Location: ../users/signUserUp.php");
 }
 
 // Logout
@@ -454,7 +443,7 @@ if (isset($_POST['logOutButtonFinal'])) {
     session_unset();
     session_destroy();
 
-    header("Location: ./index.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -489,7 +478,7 @@ if (isset($_POST['returnStaffHome'])) {
 }
 
 // Return Admin back to staff view page
-if(isset($_POST['returnStaffView'])){
+if (isset($_POST['returnStaffView'])) {
     header("Location: ../staff/viewStaff.php");
 }
 
@@ -1154,6 +1143,9 @@ function addTemporaryBooking()
                         // Calculate total cost
                         $totalCost = $numberOfDays * $pricePerNight;
 
+                        // Get the current date and time for creationDate
+                        $bookingDate = date('Y-m-d H:i:s');
+
                         // Store the booking information in session variables
                         $_SESSION['bookingInfo'] = array(
                             'userId' => $userId,
@@ -1161,6 +1153,7 @@ function addTemporaryBooking()
                             'checkInDate' => $checkInDate,
                             'checkOutDate' => $checkOutDate,
                             'totalCost' => $totalCost,
+                            'bookingDate' => $bookingDate,
                         );
 
                         header("Location: ../users/confirmBooking.php");
@@ -1210,6 +1203,7 @@ function viewBookings($userId)
                 <th> Check In Date </th>
                 <th> Check Out Date </th>
                 <th> Total Cost </th>
+                <th> Booking Date </th>
             </tr>
         DELIMITER;
         $rows = '';
@@ -1225,7 +1219,8 @@ function viewBookings($userId)
                 'userFullName' => $row['fullname'],
                 'checkInStartDate' => $row['checkInDate'],
                 'checkOutEndDate' => $row['checkOutDate'],
-                'totalCost' => $row['totalCost']
+                'totalCost' => $row['totalCost'],
+                'bookingDate' => $row['bookingDate']
             ];
 
             $_SESSION['bookings'][$bookingId] = $booking; // Store each booking in the array
@@ -1233,11 +1228,12 @@ function viewBookings($userId)
             $rowHTML = <<<DELIMITER
                 <tr>
                     <td class="p-3"><img src="../../static/img/{$row['thumbnail']}" alt="Book Thumbnail" class="bookCover"></td>
-                    <td class="name p-3"> <h4> {$booking['hotelName']} </h4></td>
-                    <td class="name p-3"> <h4> {$booking['userFullName']} </h4></td>
-                    <td class="name p-2"> <h4> {$booking['checkInStartDate']} </h4></td>
-                    <td class="name p-2"> <h4> {$booking['checkOutEndDate']} </h4></td>
-                    <td class="name p-3"> <h4> R {$booking['totalCost']} </h4></td>
+                    <td class="name p-3"> <h5> {$booking['hotelName']} </h5></td>
+                    <td class="name p-3"> <h5> {$booking['userFullName']} </h5></td>
+                    <td class="name p-2"> <h5> {$booking['checkInStartDate']} </h5></td>
+                    <td class="name p-2"> <h5> {$booking['checkOutEndDate']} </h5></td>
+                    <td class="name p-3"> <h5> R {$booking['totalCost']} </h5></td>
+                    <td class="name p-2"> <h5> {$booking['bookingDate']} </h5></td>
                     <form method="POST">
                     <input type="hidden" name="bookingNo" value="$bookingId">
                             <td class="p-2"><button type="submit" name="clearBookingButton" class="tranBack"><img class="homeButton"
@@ -1273,11 +1269,16 @@ function generateReceipt()
 
     $filename = "receipt.txt";
 
-    $bookingId = $_POST['bookingNo']; // Retrieve the booking number from the button click
-    $booking = $_SESSION['bookings'][$bookingId]; // Retrieve the specific booking information
+    $bookingId = $_POST['bookingNo'];
+    $booking = $_SESSION['bookings'][$bookingId];
+    $timestamp = new DateTime();
 
     $data = [
         "Thank you for booking, " . $_SESSION['fullname'],
+        "",
+        "You made your booking on: " .  $booking['bookingDate'],
+        "",
+        "You requested a receipt on: " . $timestamp->format('Y-m-d H:i:s'),
         "",
         "Hotel Name: " . $booking['hotelName'],
         "User Full Name: " . $booking['userFullName'],
@@ -1487,14 +1488,12 @@ function confirmFinalBooking()
         }
 
         // Insert the booking information into the booking table
-        $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO booking (user_id, hotel_id, checkInDate, checkOutDate, totalCost, cancelled, completed, bookingDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($mysqli, $query);
-        mysqli_stmt_bind_param($stmt, "iissiii", $bookingInfo['userId'], $bookingInfo['hotelId'], $bookingInfo['checkInDate'], $bookingInfo['checkOutDate'], $bookingInfo['totalCost'], $cancelled, $completed);
+        mysqli_stmt_bind_param($stmt, "iissiiis", $bookingInfo['userId'], $bookingInfo['hotelId'], $bookingInfo['checkInDate'], $bookingInfo['checkOutDate'], $bookingInfo['totalCost'], $cancelled, $completed, $bookingInfo['bookingDate']);
 
         if (mysqli_stmt_execute($stmt)) {
-            // Clear the booking information from session
-
-            header("Location: ../payment.php");
+            header("Location: ../users/payment.php");
             exit();
         } else {
             echo 'Error creating booking: ' . mysqli_error($mysqli);
@@ -1512,8 +1511,16 @@ function generateReceiptforIndividual()
 
     $filename = "receipt.txt";
 
+    $timestamp = new DateTime();
+    $bookingInfo = $_SESSION['bookingInfo'];
+
+
     $data = [
         "Thank you for booking, " . $_SESSION['fullname'],
+        "",
+        "You made your booking on: " . $_SESSION['bookingInfo']['bookingDate'],
+        "",
+        "You requested a receipt on: " . $timestamp->format('Y-m-d H:i:s'),
         "",
         "Hotel Name: " . $_SESSION['name'],
         "User Full Name: " . $_SESSION['fullname'],
@@ -1912,6 +1919,22 @@ function staffViewBookings()
             INNER JOIN hotels h ON b.hotel_id = h.hotel_id
             ORDER BY bookingNo";
 
+        } elseif ($sortOption === 'cancelledBookings') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            WHERE cancelled = 1";
+
+        } elseif ($sortOption === 'completedBookings') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            WHERE completed = 1";
+
         } else {
 
             $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
@@ -1935,6 +1958,7 @@ function staffViewBookings()
         INNER JOIN hotels h ON b.hotel_id = h.hotel_id";
     }
 
+
     // Execute the query and display the results
     $result = mysqli_query($mysqli, $query);
 
@@ -1955,14 +1979,19 @@ function staffViewBookings()
 
         while ($row = mysqli_fetch_assoc($result)) {
 
+            // This will make sure that the completed and cancelled fields are distinct from one another
+            $completedClass = $row['completed'] ? 'completed' : '';
+            $cancelledClass = $row['cancelled'] ? 'cancelled' : '';
+
             $rowHTML = <<<DELIMITER
                             <tr>
                                 <td class="p-3"><img src="../../static/img/{$row['thumbnail']}" alt="Hotel Image" class="bookCover"></td>
-                                <td class="p-3"> <p> {$row['name']} </p> </td>
-                                <td class="p-3"> <p> {$row['fullname']} </p> </td> 
-                                <td class="p-3"> <p> {$row['checkInDate']} </p> </td>
-                                <td class="p-3"> <p> {$row['checkOutDate']} </p> </td>
-                                <td class="p-3"> <p> R {$row['totalCost']} </p> </td>
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> {$row['name']} </p> </td>
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> {$row['fullname']} </p> </td> 
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> {$row['checkInDate']} </p> </td>
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> {$row['checkOutDate']} </p> </td>
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> R {$row['totalCost']} </p> </td>
+
                             </tr>
                             DELIMITER;
             $rows .= $rowHTML;
@@ -1976,7 +2005,7 @@ function staffViewBookings()
         echo $table;
 
     } else {
-        echo 'No users found.';
+        echo 'No bookings found.';
     }
 
     mysqli_free_result($result);
@@ -2565,6 +2594,22 @@ function adminViewBookings()
             INNER JOIN hotels h ON b.hotel_id = h.hotel_id
             ORDER BY bookingNo";
 
+        } elseif ($sortOption === 'cancelledBookings') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            WHERE cancelled = 1";
+
+        } elseif ($sortOption === 'completedBookings') {
+
+            $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
+            FROM booking b
+            INNER JOIN users u ON b.user_id = u.user_id
+            INNER JOIN hotels h ON b.hotel_id = h.hotel_id
+            WHERE completed = 1";
+
         } else {
 
             $query = "SELECT b.*, u.fullname, h.name, h.thumbnail, h.address
@@ -2608,14 +2653,18 @@ function adminViewBookings()
 
         while ($row = mysqli_fetch_assoc($result)) {
 
+            // This will make sure that the completed and cancelled fields are distinct from one another
+            $completedClass = $row['completed'] ? 'completed' : '';
+            $cancelledClass = $row['cancelled'] ? 'cancelled' : '';
+
             $rowHTML = <<<DELIMITER
                             <tr>
                                 <td class="p-3"><img src="../../static/img/{$row['thumbnail']}" alt="Hotel Image" class="bookCover"></td>
-                                <td class="p-3"> <p> {$row['name']} </p> </td>
-                                <td class="p-3"> <p> {$row['fullname']} </p> </td> 
-                                <td class="p-3"> <p> {$row['checkInDate']} </p> </td>
-                                <td class="p-3"> <p> {$row['checkOutDate']} </p> </td>
-                                <td class="p-3"> <p> R {$row['totalCost']} </p> </td>
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> {$row['name']} </p> </td>
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> {$row['fullname']} </p> </td> 
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> {$row['checkInDate']} </p> </td>
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> {$row['checkOutDate']} </p> </td>
+                                <td class="p-3"> <p class="$completedClass $cancelledClass"> R {$row['totalCost']} </p> </td>
                                 <td class="p-2"><a href="../admin/editBooking.php?bookingNo={$row['bookingNo']}"><img class="homeButtonAdmin"
                                     src="../../static/img/edit.gif" alt="Edit" title="Edit"></a></td>    
                                 <td class="p-2"><a href="../staff/viewBooking.php?bookingNo={$row['bookingNo']}"><img class="homeButtonAdmin"

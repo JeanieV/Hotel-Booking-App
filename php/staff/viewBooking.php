@@ -41,6 +41,8 @@ require '../functions.php';
                     <option value="sortUsersA-totalCostA">Min total cost</option>
                     <option value="sortUsersA-bookingsD">Most recent bookings</option>
                     <option value="sortUsersA-bookings">Former bookings</option>
+                    <option value="cancelledBookings">Cancelled bookings</option>
+                    <option value="completedBookings">Completed bookings</option>
                 </select>
                 <button type="submit" name="sortBookingButton" class="sort-submit p-4">Sort</button>
             </div>
@@ -55,7 +57,7 @@ require '../functions.php';
                 <button type="submit" name="clearFilterButton" class="clear-filter-button"><i class="fa fa-times"></i>
                     Clear Filter</button>
             </div>
-            
+
         </form>
     </div>
 
@@ -66,12 +68,18 @@ require '../functions.php';
         $output1 = <<<DELIMETER
         <div class="d-flex justify-content-center align-items-center my-5">
         <div class="staffViewH p-5">
+
+        <div class="d-flex justify-content-center align-items-center">
+            <h4 class="completed p-3"> Completed Bookings </h4>
+            <h4 class="cancelled p-3"> Cancelled Bookings </h4>
+            <h4> Upcoming Bookings </h4>
+        </div>
         DELIMETER;
         echo $output1;
-        
+
         adminDeleteBooking();
         adminViewBookings();
-        
+
 
         $output2 = <<<DELIMETER
         </div>
@@ -84,13 +92,19 @@ require '../functions.php';
         $output3 = <<<DELIMETER
         <div class="d-flex justify-content-center align-items-center my-5">
         <div class="staffViewH p-5">
+
+        <div class="d-flex justify-content-center align-items-center">
+            <h4 class="completed p-3"> Completed Bookings </h4>
+            <h4 class="cancelled p-3"> Cancelled Bookings </h4>
+            <h4> Upcoming Bookings </h4>
+        </div>
         DELIMETER;
         echo $output3;
 
         staffViewBookings();
 
 
-       $output4 = <<<DELIMETER
+        $output4 = <<<DELIMETER
         </div>
         </div>
         DELIMETER;

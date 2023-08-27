@@ -245,3 +245,646 @@ table td {
     padding: 8px 12px;
 }
 
+
+/*Media Queries Below*/
+
+@media only screen and (min-width: 200px) and (max-width: 319px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+    
+    .carousel {
+        height: 35vh;
+    }
+    
+    .carousel-inner {
+        height: 100%; 
+    }
+    
+    img {
+        object-fit: cover; 
+    }
+    
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .sleeps {
+        width: 40px;
+        height: 40px;
+    }
+
+    p {
+        font-size: 10px;
+    }
+    
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        font-size: 10px;
+        height: 15px;
+        width: 20vw;
+    }
+    
+    .dateConfirmHotelPage {
+        font-size: 15px;
+        width: 15vw;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 15px;
+    }
+    
+    h4 {
+        font-size: 20px;
+    }
+    
+    .features {
+        width: 10vw;
+    }
+    
+    
+    .extraInfoButtons {
+        font-size: 15px;
+        width: 30vw;
+    }
+    
+    
+    .viewMoreButton {
+        font-size: 10px;
+        width: 15vw;
+    }
+    
+    
+    .background {
+        width: 30vw;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    .infoBackground{
+        background-color: #E1E7E0;
+        width: 80vw;
+        text-align: center;
+        border-radius: 30px;
+    }
+    
+    table td {
+        padding: 2px 6px;
+    }
+
+    .small-image{
+        width: 20px;
+    }
+
+    .corner-image {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 20px; 
+        z-index: 1; 
+    }
+
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+    
+    .carousel {
+        height: 35vh;
+    }
+    
+    .carousel-inner {
+        height: 100%; 
+    }
+    
+    img {
+        object-fit: cover; 
+    }
+    
+   
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .sleeps {
+        width: 40px;
+        height: 40px;
+    }
+
+    p {
+        font-size: 10px;
+    }
+    
+    
+    .labelStyle {
+        font-size: 13px;
+    }
+    
+    .inputStyle {
+        font-size: 10px;
+        height: 15px;
+        width: 25vw;
+    }
+    
+    .dateConfirmHotelPage {
+        font-size: 15px;
+        width: 15vw;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 15px;
+    }
+    
+    h4 {
+        font-size: 20px;
+    }
+    
+    .features {
+        width: 10vw;
+    }
+    
+    
+    .extraInfoButtons {
+        font-size: 15px;
+        width: 30vw;
+    }
+    
+    
+    .viewMoreButton {
+        font-size: 15px;
+        width: 30vw;
+    }
+    
+    
+    .background {
+        width: 30vw;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    .infoBackground{
+        background-color: #E1E7E0;
+        width: 80vw;
+        text-align: center;
+        border-radius: 30px;
+    }
+    
+    table td {
+        padding: 2px 6px;
+    }
+
+    .small-image{
+        width: 20px;
+    }
+
+    .corner-image {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 20px; 
+        z-index: 1; 
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+    
+    .carousel {
+        height: 35vh;
+    }
+    
+    img {
+        object-fit: cover; 
+    }
+   
+    .homeButton {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .sleeps {
+        width: 50px;
+        height: 50px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+    
+    
+    .labelStyle {
+        font-size: 20px;
+    }
+    
+    .inputStyle {
+        font-size: 20px;
+        height: 30px;
+        width: 25vw;
+    }
+    
+    .dateConfirmHotelPage {
+        font-size: 15px;
+        width: 15vw;
+    }
+    
+    h2 {
+        font-size: 30px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 25px;
+    }
+    
+    .features {
+        width: 10vw;
+    }
+    
+    .extraInfoButtons {
+        font-size: 18px;
+        width: 30vw;
+    }
+    
+    .viewMoreButton {
+        font-size: 17px;
+        width: 30vw;
+    }
+    
+    
+    .background {
+        width: 30vw;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    .infoBackground{
+        background-color: #E1E7E0;
+        width: 80vw;
+        text-align: center;
+        border-radius: 30px;
+    }
+    
+    table td {
+        padding: 2px 6px;
+    }
+
+    .small-image{
+        width: 30px;
+    }
+
+    .corner-image {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 30px; 
+        z-index: 1; 
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+    
+    .carousel {
+        height: 40vh;
+    }
+    
+    img {
+        object-fit: cover; 
+    }
+   
+    .homeButton {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .sleeps {
+        width: 55px;
+        height: 55px;
+    }
+
+    p {
+        font-size: 20px;
+    }
+    
+    
+    .labelStyle {
+        font-size: 20px;
+    }
+    
+    .inputStyle {
+        font-size: 20px;
+        height: 30px;
+        width: 25vw;
+    }
+    
+    .dateConfirmHotelPage {
+        font-size: 15px;
+        width: 15vw;
+    }
+    
+    h2 {
+        font-size: 30px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 25px;
+    }
+    
+    .features {
+        width: 10vw;
+    }
+    
+    .extraInfoButtons {
+        font-size: 18px;
+        width: 30vw;
+    }
+    
+    .viewMoreButton {
+        font-size: 17px;
+        width: 30vw;
+    }
+    
+    
+    .background {
+        width: 30vw;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    .infoBackground{
+        background-color: #E1E7E0;
+        width: 80vw;
+        text-align: center;
+        border-radius: 30px;
+    }
+    
+    table td {
+        padding: 2px 6px;
+    }
+
+    .small-image{
+        width: 30px;
+    }
+
+    .corner-image {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 30px; 
+        z-index: 1; 
+    }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+
+    h1 {
+        font-size: 40px;
+    }
+    
+    .carousel {
+        height: 45vh;
+    }
+    
+    img {
+        object-fit: cover; 
+    }
+   
+    .homeButton {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .sleeps {
+        width: 55px;
+        height: 55px;
+    }
+
+    p {
+        font-size: 20px;
+    }
+    
+    
+    .labelStyle {
+        font-size: 20px;
+    }
+    
+    .inputStyle {
+        font-size: 20px;
+        height: 30px;
+        width: 25vw;
+    }
+    
+    .dateConfirmHotelPage {
+        font-size: 15px;
+        width: 15vw;
+    }
+    
+    h2 {
+        font-size: 30px;
+    }
+    
+    h3 {
+        font-size: 30px;
+    }
+    
+    h4 {
+        font-size: 35px;
+    }
+    
+    .features {
+        width: 10vw;
+    }
+    
+    .extraInfoButtons {
+        font-size: 20px;
+        width: 30vw;
+    }
+    
+    .viewMoreButton {
+        font-size: 20px;
+        width: 20vw;
+    }
+    
+    .background {
+        width: 30vw;
+    }
+    
+    h5 {
+        font-size: 25px;
+    }
+    
+    .infoBackground{
+        width: 80vw;
+    }
+    
+    table td {
+        padding: 2px 6px;
+    }
+
+    .small-image{
+        width: 40px;
+    }
+
+    .corner-image {
+        width: 40px; 
+    }
+}
+
+@media only screen and (min-width: 1201px) {
+
+    h1 {
+        font-size: 70px;
+    }
+    
+    .carousel {
+        height: 75vh;
+    }
+    
+
+    .homeButton {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .sleeps {
+        width: 80px;
+        height: 80px;
+    }
+
+    p {
+        font-size: 22px;
+    }
+    
+    
+    .labelStyle {
+        font-size: 25px;
+    }
+    
+    .inputStyle {
+        font-size: 20px;
+        height: 40px;
+        width: 12vw;
+    }
+    
+    .dateConfirmHotelPage {
+        font-size: 22px;
+        width: 12vw;
+    }
+    
+    h2 {
+        font-size: 22px;
+    }
+    
+    h3 {
+        font-size: 32px;
+    }
+    
+    h4 {
+        font-size: 50px;
+    }
+    
+    .features {
+        width: 30vw;
+    }
+    
+    .extraInfoButtons {
+        font-size: 23px;
+        width: 12vw;
+    }
+    
+    .viewMoreButton {
+        font-size: 20px;
+        width: 8vw;
+    }
+    
+    .background {
+        width: 30vw;
+    }
+    
+    h5 {
+        font-size: 35px;
+    }
+    
+    .infoBackground{
+        width: 80vw;
+    }
+    
+    table td {
+        padding: 8px 12px;
+    }
+
+    .small-image{
+        width: 50px;
+    }
+
+    .corner-image {
+        width: 50px; 
+    }
+}

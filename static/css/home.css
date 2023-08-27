@@ -204,3 +204,521 @@ h6 {
     color: #E1E7E0;
     border: none;
 }
+
+
+/*Media Queries Below*/
+
+@media only screen and (min-width: 200px) and (max-width: 319px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .carousel {
+        height: 50vh;
+    }
+
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h4 {
+        font-size: 10px;
+    }
+
+    .labelStyle {
+        font-size: 15px;
+    }
+
+    .inputStyle {
+        height: 15px;
+        width: 20vw;
+    }
+
+    .logInButton {
+        font-size: 10px;
+        width: 15vw;
+    }
+
+    h3 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    h5 {
+        font-size: 20px;
+    }
+
+
+    .viewMoreButton {
+        font-size: 10px;
+        width: 15vw;
+    }
+
+    .hotelImage {
+        width: 100%;
+        height: 400px;
+    }
+
+    .starRating {
+        font-size: 10px;
+    }
+
+    h6 {
+        font-size: 20px;
+    }
+
+    .close {
+        font-size: 40px;
+    }
+
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+
+    .logOutStyle {
+        width: 30px;
+        height: 30px;
+    }
+
+    .extraInfoButtons {
+        font-size: 15px;
+        width: 30vw;
+    }
+
+}
+
+@media only screen and (min-width: 319px) and (max-width: 480px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .carousel {
+        height: 50vh;
+    }
+
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h4 {
+        font-size: 10px;
+    }
+
+    .labelStyle {
+        font-size: 15px;
+    }
+
+    .inputStyle {
+        height: 15px;
+        width: 20vw;
+    }
+
+    .logInButton {
+        font-size: 10px;
+        width: 15vw;
+    }
+
+    h3 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    h5 {
+        font-size: 20px;
+    }
+
+
+    .viewMoreButton {
+        font-size: 10px;
+        width: 15vw;
+    }
+
+    .hotelImage {
+        width: 100%;
+        height: 400px;
+    }
+
+    .starRating {
+        font-size: 10px;
+    }
+
+    h6 {
+        font-size: 20px;
+    }
+
+    .close {
+        font-size: 20px;
+    }
+
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+
+    .logOutStyle {
+        width: 30px;
+        height: 30px;
+    }
+
+    .extraInfoButtons {
+        font-size: 15px;
+        width: 30vw;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .carousel {
+        height: 50vh;
+    }
+
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h4 {
+        font-size: 10px;
+    }
+
+    .labelStyle {
+        font-size: 15px;
+    }
+
+    .inputStyle {
+        height: 15px;
+        width: 15vw;
+    }
+
+    .logInButton {
+        font-size: 10px;
+        width: 15vw;
+    }
+
+    h3 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    h5 {
+        font-size: 20px;
+    }
+
+
+    .viewMoreButton {
+        font-size: 10px;
+        width: 10vw;
+    }
+
+    .hotelImage {
+        width: 100%;
+        height: 400px;
+    }
+
+    .starRating {
+        font-size: 10px;
+    }
+
+    h6 {
+        font-size: 20px;
+    }
+
+    .close {
+        font-size: 20px;
+    }
+
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+
+    .logOutStyle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .extraInfoButtons {
+        font-size: 15px;
+        width: 30vw;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+    .carousel {
+        height: 50vh;
+    }
+
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h4 {
+        font-size: 10px;
+    }
+
+    .labelStyle {
+        font-size: 15px;
+    }
+
+    .inputStyle {
+        height: 30px;
+        width: 15vw;
+    }
+
+    .logInButton {
+        font-size: 15px;
+        width: 15vw;
+    }
+
+    h3 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    h5 {
+        font-size: 20px;
+    }
+
+
+    .viewMoreButton {
+        font-size: 10px;
+        width: 10vw;
+    }
+
+    .hotelImage {
+        width: 100%;
+        height: 400px;
+    }
+
+    .starRating {
+        font-size: 10px;
+    }
+
+    h6 {
+        font-size: 20px;
+    }
+
+    .close {
+        font-size: 20px;
+    }
+
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+
+    .logOutStyle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .extraInfoButtons {
+        font-size: 15px;
+        width: 30vw;
+    }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+
+    .carousel {
+        height: 60vh;
+    }
+
+    h1 {
+        font-size: 60px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+
+    h4 {
+        font-size: 20px;
+    }
+
+    .labelStyle {
+        font-size: 25px;
+    }
+
+    .inputStyle {
+        height: 40px;
+        width: 15vw;
+    }
+
+    .logInButton {
+        font-size: 25px;
+        width: 17vw;
+    }
+
+    h3 {
+        font-size: 60px;
+    }
+
+    p {
+        font-size: 40px;
+    }
+
+    h5 {
+        font-size: 40px;
+    }
+
+
+    .viewMoreButton {
+        font-size: 20px;
+        width: 13vw;
+    }
+
+    .starRating {
+        font-size: 20px;
+    }
+
+    h6 {
+        font-size: 40px;
+    }
+
+    .close {
+        font-size: 20px;
+    }
+
+    .homeButton {
+        width: 70px;
+        height: 70px;
+    }
+
+    .logOutStyle {
+        width: 70px;
+        height: 70px;
+    }
+
+    .extraInfoButtons {
+        font-size: 23px;
+        width: 30vw;
+    }
+
+}
+
+@media only screen and (min-width: 1201px) {
+
+    .carousel {
+        height: 80vh;
+    }
+
+    h1 {
+        font-size: 70px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+
+    h4 {
+        font-size: 20px;
+    }
+
+    .labelStyle {
+        font-size: 25px;
+    }
+
+    .inputStyle {
+        height: 40px;
+        width: 15vw;
+    }
+
+    .logInButton {
+        font-size: 25px;
+        width: 9vw;
+    }
+
+    h3 {
+        font-size: 70px;
+    }
+
+    p {
+        font-size: 40px;
+    }
+
+    h5 {
+        font-size: 40px;
+    }
+
+
+    .viewMoreButton {
+        font-size: 20px;
+        width: 8vw;
+    }
+
+    .starRating {
+        font-size: 20px;
+    }
+
+    h6 {
+        font-size: 40px;
+    }
+
+    .close {
+        font-size: 40px;
+    }
+
+    .homeButton {
+        width: 80px;
+        height: 80px;
+    }
+
+    .logOutStyle {
+        width: 80px;
+        height: 80px;
+    }
+
+    .extraInfoButtons {
+        font-size: 23px;
+        width: 15vw;
+    }
+}

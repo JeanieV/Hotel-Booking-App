@@ -100,3 +100,400 @@ p {
     width: 70px;
     height: 70px;
 }
+
+
+/*Media Queries Below*/
+
+@media only screen and (min-width: 200px) and (max-width: 319px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .homeButton {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .editForm {
+        width: 70vw;
+    }
+    
+    h1 {
+        font-size: 30px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 25px;
+    }
+    
+    h4{
+        font-size: 28px; 
+    }
+    
+    
+    p {
+        font-size: 27px;
+    }
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        height: 30px;
+        width: 20vw;
+        text-align: center;
+    }
+    
+    .editButton {
+        font-size: 23px;
+        width: 30vw;
+    }
+    
+    .informationTable {
+        width: 50vw;
+    }
+    
+    .viewAllInfoButtons {
+        font-size: 20px;
+        width: 40vw;
+    }
+    
+    .logOutStyle {
+        width: 30px;
+        height: 30px;
+    }
+
+}
+
+@media only screen and (min-width: 319px) and (max-width: 480px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .homeButton {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .editForm {
+        width: 70vw;
+    }
+    
+    h1 {
+        font-size: 30px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 25px;
+    }
+    
+    h4{
+        font-size: 28px; 
+    }
+    
+    
+    p {
+        font-size: 27px;
+    }
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        height: 30px;
+        width: 20vw;
+        text-align: center;
+    }
+    
+    .editButton {
+        font-size: 23px;
+        width: 30vw;
+    }
+    
+    .informationTable {
+        width: 50vw;
+    }
+    
+    .viewAllInfoButtons {
+        font-size: 20px;
+        width: 40vw;
+    }
+    
+    .logOutStyle {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .homeButton {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .editForm {
+        width: 70vw;
+    }
+    
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 30px;
+    }
+    
+    h3 {
+        font-size: 25px;
+    }
+    
+    h4{
+        font-size: 28px; 
+    }
+    
+    
+    p {
+        font-size: 20px;
+    }
+    
+    .labelStyle {
+        font-size: 20px;
+    }
+    
+    .inputStyle {
+        height: 30px;
+        width: 20vw;
+        text-align: center;
+    }
+    
+    .editButton {
+        font-size: 23px;
+        width: 25vw;
+    }
+    
+    .informationTable {
+        width: 50vw;
+    }
+    
+    .viewAllInfoButtons {
+        font-size: 20px;
+        width: 40vw;
+    }
+    
+    .logOutStyle {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+   
+    .homeButton {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .editForm {
+        width: 50vw;
+    }
+    
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 30px;
+    }
+    
+    h3 {
+        font-size: 25px;
+    }
+    
+    h4{
+        font-size: 28px; 
+    }
+    
+    
+    p {
+        font-size: 20px;
+    }
+    
+    .labelStyle {
+        font-size: 20px;
+    }
+    
+    .inputStyle {
+        height: 30px;
+        width: 20vw;
+        text-align: center;
+    }
+    
+    .editButton {
+        font-size: 23px;
+        width: 25vw;
+    }
+    
+    .informationTable {
+        width: 50vw;
+    }
+    
+    .viewAllInfoButtons {
+        font-size: 30px;
+        width: 20vw;
+    }
+    
+    .logOutStyle {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+
+    .homeButton {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .editForm {
+        width: 50vw;
+    }
+    
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 30px;
+    }
+    
+    h3 {
+        font-size: 25px;
+    }
+    
+    h4{
+        font-size: 28px; 
+    }
+    
+    
+    p {
+        font-size: 20px;
+    }
+    
+    .labelStyle {
+        font-size: 20px;
+    }
+    
+    .inputStyle {
+        height: 30px;
+        width: 20vw;
+        text-align: center;
+    }
+    
+    .editButton {
+        font-size: 23px;
+        width: 25vw;
+    }
+    
+    .informationTable {
+        width: 50vw;
+    }
+    
+    .viewAllInfoButtons {
+        font-size: 35px;
+        width: 20vw;
+    }
+    
+    .logOutStyle {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media only screen and (min-width: 1201px) {
+
+    .homeButton {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .editForm {
+        width: 50vw;
+    }
+    
+    h1 {
+        font-size: 50px;
+    }
+    
+    h2 {
+        font-size: 50px;
+    }
+    
+    h3 {
+        font-size: 35px;
+    }
+    
+    h4{
+        font-size: 28px;
+    }
+    
+    
+    p {
+        font-size: 27px;
+    }
+    
+    .labelStyle {
+        font-size: 28px;
+    }
+    
+    .inputStyle {
+        height: 40px;
+        width: 15vw;
+    }
+    
+    .editButton {
+        font-size: 23px;
+        width: 10vw;
+    }
+    
+    .informationTable {
+        width: 50vw;
+    }
+    
+    .viewAllInfoButtons {
+        font-size: 35px;
+        width: 15vw;
+    }
+    
+    .logOutStyle {
+        width: 70px;
+        height: 70px;
+    }
+}
