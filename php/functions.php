@@ -2732,7 +2732,7 @@ function adminViewStaff()
         }
 
         // When the user clicks on the sort button or the search button
-        if (isset($_POST['sortUserButton']) || isset($_POST['search'])) {
+        if (isset($_POST['sortStaffButton']) || isset($_POST['search'])) {
             // Store the input value or choice
             $sortOption = $_POST['sortUsers'];
             $searching = $_POST['search'];
@@ -2749,11 +2749,11 @@ function adminViewStaff()
 
             } else {
                 $query = "SELECT * FROM staff WHERE fullname LIKE '%$searching%' 
-            OR employee_number LIKE '%$searching%' 
+            OR employee_number = '$searching' 
             OR role LIKE '%$searching%'";
 
             }
-        } elseif (isset($_POST['clearFilterButton'])) {
+        } elseif (isset($_POST['clearFilterButtonStaff'])) {
             $query = "SELECT * FROM staff";
         } else {
             $query = "SELECT * FROM staff";

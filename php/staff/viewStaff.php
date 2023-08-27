@@ -31,16 +31,16 @@ require '../functions.php';
 
     <!-- Sort Users Alphabetically -->
     <div class="d-flex justify-content-center align-items-center">
-        <form method="POST" action="viewUser.php">
+        <form method="POST" action="viewStaff.php">
 
             <div class="d-flex justify-content-center align-items-center mt-4">
                 <select name="sortUsers" class="sort-dropdown p-3 mx-3">
                     <option class=""> Sort by: </option>
-                    <option value="sortUsersA-Username">Username</option>
-                    <option value="sortUsersA-Number"> Former signed up users</option>
-                    <option value="sortUsersA-NumberD">Recently signed up users</option>
+                    <option value="sortUsersA-Username">Fullname</option>
+                    <option value="sortUsersA-Number"> Former employees</option>
+                    <option value="sortUsersA-NumberD">Recent employees</option>
                 </select>
-                <button type="submit" name="sortUserButton" class="sort-submit p-3">Sort</button>
+                <button type="submit" name="sortStaffButton" class="sort-submit p-3">Sort</button>
             </div>
 
             <!-- Search bar -->
@@ -50,7 +50,7 @@ require '../functions.php';
 
             </div>
             <div class="d-flex justify-content-center align-items-center mt-3">
-                <button type="submit" name="clearFilterButton" class="clear-filter-button"><i class="fa fa-times"></i>
+                <button type="submit" name="clearFilterButtonStaff" class="clear-filter-button"><i class="fa fa-times"></i>
                     Clear Filter</button>
             </div>
         </form>
