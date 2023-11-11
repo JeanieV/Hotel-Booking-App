@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     session_start();
 
     // Include the functions file
-    require __DIR__ . '/php/index.php';
+    require __DIR__ . '/../php/index.php';
 
     $response = array(
         'message' => 'Hello, World'
@@ -18,5 +18,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     http_response_code(405);
     echo json_encode(array('error' => 'Method Not Allowed'));
 }
-
 ?>

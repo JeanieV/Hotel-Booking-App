@@ -4,7 +4,8 @@
     },
     "routes": [
         { "src": "/api/(.*)", "dest": "/api/index.php" },
-        { "src": "/php/(.*)", "dest": "/php/index.php" }
+        { "src": "/php/(.*)", "dest": "/php/index.php" },
+        { "src": "/(.*)", "dest": "/api/index.php" }
     ]
 }
 
