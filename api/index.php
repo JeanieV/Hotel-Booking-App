@@ -7,8 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     session_start();
 
     // Include the functions file
-    require './functions.php';
-    require './index.php';
+    require '../php/functions.php';
+    require '../php/index.php';
     $response = array(
         'message' => 'Hello, World'
     );
