@@ -1,6 +1,6 @@
 <?php
 session_start();
-require __DIR__ . '/functions.php';
+require '/functions.php';
 
 // Check if the viewMoreButton is submitted
 if (isset($_POST['viewMoreButton'])) {
