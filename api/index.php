@@ -1,17 +1,17 @@
-<?php
+<!-- <?php
 
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+// if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-    // Include the functions file
-    require './functions.php';
+//     // Include the functions file
+//     require './functions.php';
 
-} else {
-    http_response_code(405);
-    echo json_encode(array('error' => 'Method Not Allowed'));
-}
-?>
+// } else {
+//     http_response_code(405);
+//     echo json_encode(array('error' => 'Method Not Allowed'));
+// }
+?> -->
 
 <?php
 session_start();
