@@ -1,0 +1,1132 @@
+body {
+    background-image: url('../../static/img/background_3D.jpg');
+}
+
+.tranBack {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.home {
+    background-color: #E1E7E0;
+    color: black;
+    font-size: 25px;
+}
+
+.homeButton {
+    width: 80px;
+    height: 80px;
+}
+
+.homeButtonAdmin {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+}
+
+.homeButtonHotel {
+    width: 60px;
+    height: 60px;
+    border-radius: 20px;
+}
+
+h1 {
+    font-size: 60px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
+h2 {
+    font-size: 50px;
+    text-align: center;
+    color: #08392B;
+}
+
+h3 {
+    font-size: 30px;
+    text-align: center;
+    color: #08392B;
+}
+
+h4 {
+    font-size: 18px;
+    text-align: center;
+    color: #08392B;
+}
+
+h5 {
+    font-size: 16px;
+    text-align: center;
+    color: #08392B;
+}
+
+h6 {
+    font-size: 14px;
+    text-align: center;
+    color: #08392B;
+}
+
+.infoButtons {
+    font-size: 30px;
+    background-color: #FF8300;
+    color: black;
+    border-color: #FF8300;
+    width: 15vw;
+    border-radius: 20px;
+}
+
+.infoButtons:hover {
+    font-size: 30px;
+    background-color: #001F3D;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 15vw;
+}
+
+.staffView {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 90vw;
+}
+
+
+.staffViewH {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 95vw;
+}
+
+.staffViewB {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 90vw;
+}
+
+.adminView {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 50vw;
+}
+
+p {
+    font-size: 20px;
+    text-align: center;
+    color: #08392B;
+}
+
+.background {
+    background-color: #E1E7E0;
+    width: max-content;
+}
+
+th {
+    text-align: center;
+    font-size: 30px;
+    color: #FF8300;
+    padding: 20px;
+}
+
+.heading {
+    text-align: center;
+    font-size: 25px;
+    color: #FF8300;
+
+}
+
+.name {
+    width: 20vw;
+}
+
+.feature {
+    width: 12vw;
+}
+
+.address {
+    width: 8vw;
+}
+
+.bookCover {
+    width: 200px;
+    height: 210px;
+}
+
+.bookCoverHotel {
+    width: 150px;
+    height: 160px;
+}
+
+.sort-dropdown {
+    background-color: #FF8300;
+    color: black;
+    font-size: 25px;
+    border-color: #FF8300;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.sort-submit {
+    background-color: #FF8300;
+    color: black;
+    font-size: 25px;
+    border-color: #FF8300;
+    border-radius: 20px;
+}
+
+.labelStyle {
+    color: #08392B;
+    font-size: 28px;
+}
+
+
+.inputStyle {
+    height: 3vw;
+    width: 25vw;
+    text-align: center;
+    font-size: 25px;
+}
+
+.inputAdminStyle {
+    height: 3vw;
+    width: 15vw;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+.glass {
+    cursor: pointer;
+    font-size: 25px;
+    background-color: #FF8300;
+    color: #E1E7E0;
+    width: 4vw;
+}
+
+.clear-filter-button {
+    cursor: pointer;
+    font-size: 20px;
+    background-color: #FF8300;
+    color: black;
+    width: 10vw;
+}
+
+.completed {
+    color: green;
+}
+
+.cancelled {
+    color: red;
+}
+
+/*Media Queries Below*/
+
+@media only screen and (min-width: 200px) and (max-width: 319px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    tr, td {
+        padding: 0;
+    }
+    .home {
+        font-size: 18px;
+    }
+    
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .homeButtonAdmin {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .homeButtonHotel {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .staffView {
+        width: 100vw;
+        padding: 0;
+        margin: 0;
+    }
+    
+    
+    .staffViewH {
+        width: 50vw;
+    }
+    
+    .staffViewB {
+        width: 50vw;
+    }
+    
+    .adminView {
+        width: 100vw;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+    
+    h2 {
+        font-size: 15px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 4px;
+    }
+    
+    h5 {
+        font-size: 17px;
+    }
+    
+    h6 {
+        font-size: 18px;
+    }
+    
+    .infoButtons {
+        font-size: 10px;
+        width: 30vw;
+        margin-top: 20px;
+    }
+    
+    .infoButtons:hover {
+        font-size: 20px;
+        width: 15vw;
+    }
+    
+    p {
+        font-size: 10px;
+    }
+    
+    table {
+        padding: 0;
+    }
+    th {
+        font-size: 10px;
+    }
+    
+    .heading {
+        font-size: 10px;
+    }
+    
+    .name {
+        padding: 0;
+    }
+    
+    .feature {
+        width: 1vw;
+    }
+    
+    .address {
+        width: 2vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .bookCoverHotel {
+        width: 150px;
+        height: 160px;
+    }
+    
+    .sort-dropdown {
+        font-size: 15px;
+    }
+    
+    .sort-submit {
+        font-size: 15px;
+    }
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        height: 10vw;
+        width: 50vw;
+        font-size: 15px;
+    }
+    
+    .inputAdminStyle {
+        height: 3vw;
+        width: 30vw;
+        font-size: 20px;
+    }
+
+    .glass {
+        font-size: 10px;
+        width: 10vw;
+    }
+    
+    .clear-filter-button {
+        font-size: 10px;
+        width: 25vw;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    tr, td {
+        padding: 0;
+    }
+    .home {
+        font-size: 18px;
+    }
+    
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .homeButtonAdmin {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .homeButtonHotel {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .staffView {
+        width: 200vw;
+        padding: 0;
+        margin: 0;
+    }
+    
+    
+    .staffViewH {
+        width: 200vw;
+    }
+    
+    .staffViewB {
+        width: 200vw;
+    }
+    
+    .adminView {
+        width: 200vw;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 4px;
+    }
+    
+    h5 {
+        font-size: 17px;
+    }
+    
+    h6 {
+        font-size: 18px;
+    }
+    
+    .infoButtons {
+        font-size: 10px;
+        width: 30vw;
+        margin-top: 20px;
+    }
+    
+    .infoButtons:hover {
+        font-size: 20px;
+        width: 15vw;
+    }
+    
+    p {
+        font-size: 10px;
+    }
+    
+    table {
+        padding: 0;
+    }
+    th {
+        font-size: 10px;
+    }
+    
+    .heading {
+        font-size: 10px;
+    }
+    
+    .name {
+        padding: 0;
+    }
+    
+    .feature {
+        width: 1vw;
+    }
+    
+    .address {
+        width: 2vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .bookCoverHotel {
+        width: 150px;
+        height: 160px;
+    }
+    
+    .sort-dropdown {
+        font-size: 15px;
+    }
+    
+    .sort-submit {
+        font-size: 15px;
+    }
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        height: 10vw;
+        width: 50vw;
+        font-size: 15px;
+    }
+    
+    .inputAdminStyle {
+        height: 3vw;
+        width: 30vw;
+        font-size: 20px;
+    }
+
+    .glass {
+        font-size: 10px;
+        width: 10vw;
+    }
+    
+    .clear-filter-button {
+        font-size: 10px;
+        width: 25vw;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    tr, td {
+        padding: 0;
+    }
+    .home {
+        font-size: 18px;
+    }
+    
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .homeButtonAdmin {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .homeButtonHotel {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .staffView {
+        width: 200vw;
+        padding: 0;
+        margin: 0;
+    }
+    
+    
+    .staffViewH {
+        width: 200vw;
+    }
+    
+    .staffViewB {
+        width: 200vw;
+    }
+    
+    .adminView {
+        width: 200vw;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 4px;
+    }
+    
+    h5 {
+        font-size: 17px;
+    }
+    
+    h6 {
+        font-size: 18px;
+    }
+    
+    .infoButtons {
+        font-size: 10px;
+        width: 30vw;
+        margin-top: 20px;
+    }
+    
+    .infoButtons:hover {
+        font-size: 20px;
+        width: 15vw;
+    }
+    
+    p {
+        font-size: 10px;
+    }
+    
+    table {
+        padding: 0;
+    }
+    th {
+        font-size: 10px;
+    }
+    
+    .heading {
+        font-size: 10px;
+    }
+    
+    .name {
+        padding: 0;
+    }
+    
+    .feature {
+        width: 1vw;
+    }
+    
+    .address {
+        width: 2vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .bookCoverHotel {
+        width: 150px;
+        height: 160px;
+    }
+    
+    .sort-dropdown {
+        font-size: 15px;
+    }
+    
+    .sort-submit {
+        font-size: 15px;
+    }
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        height: 6vw;
+        width: 30vw;
+        font-size: 15px;
+    }
+    
+    .inputAdminStyle {
+        height: 3vw;
+        width: 30vw;
+        font-size: 20px;
+    }
+
+    .glass {
+        font-size: 10px;
+        width: 10vw;
+    }
+    
+    .clear-filter-button {
+        font-size: 10px;
+        width: 25vw;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+    tr, td {
+        padding: 0;
+    }
+    .home {
+        font-size: 18px;
+    }
+    
+    .homeButton {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .homeButtonAdmin {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .homeButtonHotel {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .staffView {
+        width: 90vw;
+        padding: 0;
+        margin: 0;
+    }
+    
+    
+    .staffViewH {
+        width: 95vw;
+    }
+    
+    .staffViewB {
+        width: 90vw;
+    }
+    
+    .adminView {
+        width: 50vw;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 4px;
+    }
+    
+    h5 {
+        font-size: 17px;
+    }
+    
+    h6 {
+        font-size: 18px;
+    }
+    
+    .infoButtons {
+        font-size: 10px;
+        width: 30vw;
+        margin-top: 20px;
+    }
+    
+    .infoButtons:hover {
+        font-size: 20px;
+        width: 15vw;
+    }
+    
+    p {
+        font-size: 10px;
+    }
+    
+    table {
+        padding: 0;
+    }
+    th {
+        font-size: 10px;
+    }
+    
+    .heading {
+        font-size: 10px;
+    }
+    
+    .name {
+        padding: 0;
+    }
+    
+    .feature {
+        width: 1vw;
+    }
+    
+    .address {
+        width: 2vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .bookCoverHotel {
+        width: 150px;
+        height: 160px;
+    }
+    
+    .sort-dropdown {
+        font-size: 15px;
+    }
+    
+    .sort-submit {
+        font-size: 15px;
+    }
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        height: 6vw;
+        width: 30vw;
+        font-size: 15px;
+    }
+    
+    .inputAdminStyle {
+        height: 3vw;
+        width: 30vw;
+        font-size: 20px;
+    }
+
+    .glass {
+        font-size: 10px;
+        width: 10vw;
+    }
+    
+    .clear-filter-button {
+        font-size: 10px;
+        width: 25vw;
+    }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+
+    
+    .home {
+        font-size: 18px;
+    }
+    
+    .homeButton {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .homeButtonAdmin {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .homeButtonHotel {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .staffView {
+        width: 90vw;
+        padding: 0;
+        margin: 0;
+    }
+    
+    
+    .staffViewH {
+        width: 95vw;
+    }
+    
+    .staffViewB {
+        width: 90vw;
+    }
+    
+    .adminView {
+        width: 50vw;
+    }
+
+    h1 {
+        font-size: 50px;
+    }
+    
+    h2 {
+        font-size: 40px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 4px;
+    }
+    
+    h5 {
+        font-size: 17px;
+    }
+    
+    h6 {
+        font-size: 18px;
+    }
+    
+    .infoButtons {
+        font-size: 20px;
+        width: 15vw;
+        margin-top: 20px;
+    }
+    
+    .infoButtons:hover {
+        font-size: 20px;
+        width: 15vw;
+    }
+    
+    p {
+        font-size: 16px;
+    }
+    
+    th {
+        font-size: 20px;
+    }
+    
+    .heading {
+        font-size: 10px;
+    }
+    
+    .name {
+        padding: 0;
+    }
+    
+    .feature {
+        width: 1vw;
+    }
+    
+    .address {
+        width: 2vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .bookCoverHotel {
+        width: 150px;
+        height: 160px;
+    }
+    
+    .sort-dropdown {
+        font-size: 15px;
+    }
+    
+    .sort-submit {
+        font-size: 15px;
+    }
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        height: 3vw;
+        width: 25vw;
+        font-size: 15px;
+    }
+    
+    .inputAdminStyle {
+        height: 3vw;
+        width: 30vw;
+        font-size: 20px;
+    }
+
+    .glass {
+        font-size: 10px;
+        width: 10vw;
+    }
+    
+    .clear-filter-button {
+        font-size: 10px;
+        width: 25vw;
+    }
+}
+
+@media only screen and (min-width: 1201px) {
+    
+    .home {
+        font-size: 25px;
+    }
+    
+    .homeButton {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .homeButtonAdmin {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .homeButtonHotel {
+        width: 60px;
+        height: 60px;
+    }
+    
+    h1 {
+        font-size: 60px;
+    }
+    
+    h2 {
+        font-size: 50px;
+    }
+    
+    h3 {
+        font-size: 30px;
+    }
+    
+    h4 {
+        font-size: 18px;
+    }
+    
+    h5 {
+        font-size: 16px;
+    }
+    
+    h6 {
+        font-size: 14px;
+    }
+    
+    .infoButtons {
+        font-size: 30px;
+        width: 15vw;
+    }
+    
+    .infoButtons:hover {
+        font-size: 30px;
+        width: 15vw;
+    }
+    
+    .staffView {
+        width: 90vw;
+    }
+    
+    
+    .staffViewH {
+        width: 95vw;
+    }
+    
+    .staffViewB {
+        width: 90vw;
+    }
+    
+    .adminView {
+        width: 50vw;
+    }
+    
+    p {
+        font-size: 20px;
+    }
+    
+    th {
+        font-size: 30px;
+        padding: 20px;
+    }
+    
+    .heading {
+        font-size: 25px;
+    }
+    
+    .name {
+        width: 20vw;
+    }
+    
+    .feature {
+        width: 12vw;
+    }
+    
+    .address {
+        width: 8vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .bookCoverHotel {
+        width: 150px;
+        height: 160px;
+    }
+    
+    .sort-dropdown {
+        font-size: 25px;
+    }
+    
+    .sort-submit {
+        font-size: 25px;
+    }
+    
+    .labelStyle {
+        font-size: 28px;
+    }
+    
+    
+    .inputStyle {
+        height: 3vw;
+        width: 25vw;
+        font-size: 25px;
+    }
+    
+    .inputAdminStyle {
+        height: 3vw;
+        width: 15vw;
+        font-size: 20px;
+    }
+    
+    
+    .glass {
+        font-size: 25px;
+        width: 4vw;
+    }
+    
+    .clear-filter-button {
+        font-size: 20px;
+        width: 10vw;
+    }
+    
+}

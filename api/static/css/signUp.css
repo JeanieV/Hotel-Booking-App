@@ -1,0 +1,320 @@
+body {
+    background-color: #08392B;
+}
+
+.signUpForm {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 50vw;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    color: #08392B;
+}
+
+h2 {
+    font-size: 50px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
+.labelStyle {
+    color: #08392B;
+    font-size: 28px;
+}
+
+.inputStyle {
+    height: 40px;
+    width: 15vw;
+    text-align: center;
+}
+
+.logInButton{
+    font-size: 25px;
+    background-color: #08392B;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 9vw;
+}
+
+.logInButton:hover {
+    transform: scale(1.1);
+    background-color: #B1D4E0;
+    color: black;
+    border: none;
+}
+
+.tranBack {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.homeButton{
+    width: 80px;
+    height: 80px;
+    border-radius: 30px;
+}
+
+p{
+    font-size: 20px;
+    text-align: center;
+    color: #08392B; 
+}
+
+
+/*Media Queries Below*/
+
+@media only screen and (min-width: 200px) and (max-width: 319px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .signUpForm {
+        width: 60vw;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        font-size: 10px;
+        height: 20px;
+        width: 15vw;
+    }
+    
+    .logInButton{
+        font-size: 20px;
+        width: 30vw;
+    }
+    
+    
+    .homeButton{
+        width: 50px;
+        height: 50px;
+    }
+    
+    p{
+        font-size: 10px;
+    }
+    
+
+}
+
+@media only screen and (min-width: 319px) and (max-width: 480px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .signUpForm {
+        width: 60vw;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    .labelStyle {
+        font-size: 15px;
+    }
+    
+    .inputStyle {
+        font-size: 10px;
+        height: 20px;
+        width: 15vw;
+    }
+    
+    .logInButton{
+        font-size: 20px;
+        width: 30vw;
+    }
+    
+    
+    .homeButton{
+        width: 50px;
+        height: 50px;
+    }
+    
+    p{
+        font-size: 15px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .signUpForm {
+        width: 60vw;
+    }
+    
+    h1 {
+        font-size: 30px;
+    }
+    
+    h2 {
+        font-size: 25px;
+    }
+    
+    .labelStyle {
+        font-size: 20px;
+    }
+    
+    .inputStyle {
+        font-size: 15px;
+        height: 30px;
+        width: 15vw;
+    }
+    
+    .logInButton{
+        font-size: 20px;
+        width: 20vw;
+    }
+    
+    
+    .homeButton{
+        width: 50px;
+        height: 50px;
+    }
+    
+    p{
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+    
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 25px;
+    }
+    
+    .labelStyle {
+        font-size: 20px;
+    }
+    
+    .inputStyle {
+        font-size: 15px;
+        height: 30px;
+        width: 15vw;
+    }
+    
+    .logInButton{
+        font-size: 20px;
+        width: 15vw;
+    }
+    
+    
+    .homeButton{
+        width: 70px;
+        height: 70px;
+    }
+    
+    p{
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 25px;
+    }
+    
+    .labelStyle {
+        font-size: 20px;
+    }
+    
+    .inputStyle {
+        font-size: 15px;
+        height: 30px;
+        width: 15vw;
+    }
+    
+    .logInButton{
+        font-size: 20px;
+        width: 15vw;
+    }
+    
+    
+    .homeButton{
+        width: 70px;
+        height: 70px;
+    }
+    
+    p{
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 1201px) {
+
+    h1 {
+        font-size: 50px;
+    }
+    
+    h2 {
+        font-size: 50px;
+    }
+    
+    .labelStyle {
+        font-size: 28px;
+    }
+    
+    .inputStyle {
+        font-size: 15px;
+        height: 40px;
+        width: 15vw;
+    }
+    
+    .logInButton{
+        font-size: 25px;
+        width: 9vw;
+    }
+    
+    
+    .homeButton{
+        width: 80px;
+        height: 80px;
+    }
+    
+    p{
+        font-size: 20px;
+    }
+}

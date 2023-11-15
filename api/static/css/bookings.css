@@ -1,0 +1,646 @@
+body {
+    background-color: #08392B;
+}
+
+/* Home Button */
+.tranBack {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.homeButton {
+    width: 80px;
+    height: 80px;
+    border-radius: 30px;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
+h2 {
+    font-size: 50px;
+    text-align: center;
+    color: #001F3D;
+}
+
+h3 {
+    font-size: 35px;
+    text-align: center;
+    color: #E1E7E0;
+}
+
+h4 {
+    font-size: 30px;
+    text-align: center;
+    color: #001F3D;
+}
+
+h5 {
+    font-size: 25px;
+    text-align: center;
+    color: #001F3D;
+}
+
+h6{
+    font-size: 20px;
+    text-align: center;
+    color: #001F3D;
+}
+
+p {
+    font-size: 27px;
+    color: #E1E7E0;
+    text-align: center;
+}
+
+.space {
+    width: 15vw;
+}
+
+.name {
+    width: 25vw;
+}
+
+.bookCover {
+    width: 200px;
+    height: 210px;
+}
+
+.hotelImage {
+    width: 60vw;
+    height: 70vh;
+}
+
+.bookView {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 95vw;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+    font-size: 30px;
+    color: #08392B;
+    padding: 5px;
+}
+
+.summaryTable {
+    border: #001F3D solid 5px;
+}
+
+.editButton {
+    font-size: 23px;
+    background-color: #08392B;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 15vw;
+}
+
+.editButton:hover {
+    font-size: 23px;
+    background-color: #001F3D;
+    color: #E1E7E0;
+    border-color: #E1E7E0;
+    width: 15vw;
+}
+
+.logOutStyle {
+    width: 70px;
+    height: 70px;
+}
+
+.logOutView {
+    background-color: #E1E7E0;
+    border-radius: 35px;
+    width: 90vw;
+    text-align: center;
+}
+
+
+/*Media Queries Below*/
+
+@media only screen and (min-width: 200px) and (max-width: 319px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .homeButton {
+        width: 40px;
+        height: 40px;
+    }
+    
+    h1 {
+        font-size: 25px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 20px;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    h6{
+        font-size: 10px;
+    }
+    
+    p {
+        font-size: 15px;
+    }
+    
+    .space {
+        width: 15vw;
+    }
+    
+    .name {
+        width: 25vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .hotelImage {
+        width: 80vw;
+        height: 60vh;
+    }
+    
+    .bookView {
+        width: 95vw;
+    }
+    
+    th {
+        font-size: 30px;
+        padding: 5px;
+    }
+    
+    .editButton {
+        font-size: 15px;
+        width: 30vw;
+    }
+    
+    .editButton:hover {
+        font-size: 15px;
+        width: 30vw;
+    }
+    
+    .logOutStyle {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .logOutView {
+        width: 90vw;
+    }
+
+}
+
+@media only screen and (min-width: 319px) and (max-width: 480px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .homeButton {
+        width: 50px;
+        height: 50px;
+    }
+    
+    h1 {
+        font-size: 25px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 20px;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    h6{
+        font-size: 10px;
+    }
+    
+    p {
+        font-size: 15px;
+    }
+    
+    .space {
+        width: 15vw;
+    }
+    
+    .name {
+        width: 25vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .hotelImage {
+        width: 80vw;
+        height: 60vh;
+    }
+    
+    .bookView {
+        width: 95vw;
+    }
+    
+    th {
+        font-size: 30px;
+        padding: 5px;
+    }
+    
+    .editButton {
+        font-size: 15px;
+        width: 20vw;
+    }
+    
+    .editButton:hover {
+        font-size: 15px;
+        width: 20vw;
+    }
+    
+    .logOutStyle {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .logOutView {
+        width: 90vw;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .homeButton {
+        width: 50px;
+        height: 50px;
+    }
+    
+    h1 {
+        font-size: 40px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 20px;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    h6{
+        font-size: 10px;
+    }
+    
+    p {
+        font-size: 15px;
+    }
+    
+    .space {
+        width: 15vw;
+    }
+    
+    .name {
+        width: 25vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .hotelImage {
+        width: 80vw;
+        height: 60vh;
+    }
+    
+    .bookView {
+        width: 95vw;
+    }
+    
+    th {
+        font-size: 30px;
+        padding: 5px;
+    }
+    
+    .editButton {
+        font-size: 15px;
+        width: 20vw;
+    }
+    
+    .editButton:hover {
+        font-size: 15px;
+        width: 20vw;
+    }
+    
+    .logOutStyle {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .logOutView {
+        width: 90vw;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+    body,
+    div,
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .homeButton {
+        width: 50px;
+        height: 50px;
+    }
+    
+    h1 {
+        font-size: 50px;
+    }
+    
+    h2 {
+        font-size: 30px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 20px;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    h6{
+        font-size: 10px;
+    }
+    
+    p {
+        font-size: 15px;
+    }
+    
+    .space {
+        width: 15vw;
+    }
+    
+    .name {
+        width: 25vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .hotelImage {
+        width: 70vw;
+        height: 60vh;
+    }
+    
+    .bookView {
+        width: 70vw;
+    }
+    
+    th {
+        font-size: 30px;
+        padding: 5px;
+    }
+    
+    .editButton {
+        font-size: 15px;
+        width: 20vw;
+    }
+    
+    .editButton:hover {
+        font-size: 15px;
+        width: 20vw;
+    }
+    
+    .logOutStyle {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .logOutView {
+        width: 90vw;
+    }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+
+    .homeButton {
+        width: 50px;
+        height: 50px;
+    }
+    
+    h1 {
+        font-size: 50px;
+    }
+    
+    h2 {
+        font-size: 30px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 20px;
+    }
+    
+    h5 {
+        font-size: 15px;
+    }
+    
+    h6{
+        font-size: 10px;
+    }
+    
+    p {
+        font-size: 15px;
+    }
+    
+    .space {
+        width: 15vw;
+    }
+    
+    .name {
+        width: 25vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .hotelImage {
+        width: 70vw;
+        height: 60vh;
+    }
+    
+    .bookView {
+        width: 70vw;
+    }
+    
+    th {
+        font-size: 30px;
+        padding: 5px;
+    }
+    
+    .editButton {
+        font-size: 15px;
+        width: 20vw;
+    }
+    
+    .editButton:hover {
+        font-size: 15px;
+        width: 20vw;
+    }
+    
+    .logOutStyle {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .logOutView {
+        width: 90vw;
+    }
+}
+
+@media only screen and (min-width: 1201px) {
+
+    .homeButton {
+        width: 80px;
+        height: 80px;
+    }
+    
+    h1 {
+        font-size: 50px;
+    }
+    
+    h2 {
+        font-size: 50px;
+    }
+    
+    h3 {
+        font-size: 35px;
+    }
+    
+    h4 {
+        font-size: 30px;
+    }
+    
+    h5 {
+        font-size: 25px;
+    }
+    
+    h6{
+        font-size: 20px;
+    }
+    
+    p {
+        font-size: 27px;
+    }
+    
+    .space {
+        width: 15vw;
+    }
+    
+    .name {
+        width: 25vw;
+    }
+    
+    .bookCover {
+        width: 200px;
+        height: 210px;
+    }
+    
+    .hotelImage {
+        width: 60vw;
+        height: 70vh;
+    }
+    
+    .bookView {
+        width: 95vw;
+    }
+    
+    th {
+        font-size: 30px;
+        padding: 5px;
+    }
+    
+    .editButton {
+        font-size: 23px;
+        width: 15vw;
+    }
+    
+    .editButton:hover {
+        font-size: 23px;
+        width: 15vw;
+    }
+    
+    .logOutStyle {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .logOutView {
+        width: 90vw;
+    }
+}

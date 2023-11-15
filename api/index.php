@@ -1,21 +1,4 @@
-<!-- <?php
-
-// header('Content-Type: application/json');
-
-// if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
-//     // Include the functions file
-//     require './functions.php';
-
-// } else {
-//     http_response_code(405);
-//     echo json_encode(array('error' => 'Method Not Allowed'));
-// }
-?> -->
-
 <?php
-// session_start();
-// require __DIR__ .'/functions.php';
 
 // Check if the viewMoreButton is submitted
 if (isset($_POST['viewMoreButton'])) {
@@ -43,8 +26,6 @@ if (isset($_POST['employeeButton']) && isset($_POST['id'])) {
     employeeLogin();
 }
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +42,7 @@ if (isset($_POST['employeeButton']) && isset($_POST['id'])) {
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' type='text/css' media='screen' href='./home.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/home.css'>
 </head>
 
 <body>
@@ -89,7 +70,7 @@ if (isset($_POST['employeeButton']) && isset($_POST['id'])) {
             <div class="carousel-item active">
 
                 <video class="oceanView" autoplay loop muted>
-                    <source src="./video/background-ocean.mp4" type="video/mp4"
+                    <source src="../static/video/background-ocean.mp4" type="video/mp4"
                         attribution="Video by Dimitris Mourousiadis: https://www.pexels.com/video/aerial-view-of-beautiful-greek-beach-6460125/">
                 </video>
 
@@ -102,7 +83,7 @@ if (isset($_POST['employeeButton']) && isset($_POST['id'])) {
             <div class="carousel-item">
 
                 <video class="oceanView" autoplay loop muted>
-                    <source src="./video/background-greece.mp4" type="video/mp4"
+                    <source src="../static/video/background-greece.mp4" type="video/mp4"
                         attribution="Video by Pat Whelen: https://www.pexels.com/video/acropolis-of-athens-5737310/">
                 </video>
 
@@ -115,7 +96,7 @@ if (isset($_POST['employeeButton']) && isset($_POST['id'])) {
             <div class="carousel-item">
 
                 <video class="oceanView" autoplay loop muted>
-                    <source src="./video/background-houses.mp4" type="video/mp4"
+                    <source src="../static/video/background-houses.mp4" type="video/mp4"
                         attribution="Video by Dimitris Mourousiadis: https://www.pexels.com/video/aerial-shot-of-santorini-6192496/">
                 </video>
 
