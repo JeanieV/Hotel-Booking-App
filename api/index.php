@@ -14,7 +14,7 @@
 ?> -->
 
 <?php
-session_start();
+// session_start();
 // require __DIR__ .'/functions.php';
 
 // Check if the viewMoreButton is submitted
