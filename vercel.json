@@ -5,7 +5,7 @@
     "routes": [
         { "src": "/api/(.*)", "dest": "/api/index.php" },
         { "src": "/api/(.*)", "dest": "/api/functions.php" },
-        { "src": "/api/static/css/(.*)", "dest": "/api/static/css/home.css" },
+        { "src": "/static/css/(.*)", "dest": "/static/css/$1" },
         { "src": "/(.*)", "dest": "/api/index.php" }
     ]
 }
