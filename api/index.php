@@ -6,6 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     // Include the functions file
     require __DIR__ .'/../php/index.php';
+    require __DIR__ .'/../php/functions.php';
+    require __DIR__ .'/../static/css/home.css';
+    
     
 
     // $response = array(
