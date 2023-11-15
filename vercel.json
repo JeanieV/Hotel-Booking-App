@@ -8,6 +8,7 @@
         { "src": "/static/css/(.*)", "dest": "/static/css/$1" },
         { "src": "/static/img/(.*)", "dest": "/static/img/$1" },
         { "src": "/static/video/(.*)", "dest": "/static/video/$1" },
+        { "src": "/hotels/(.*)", "dest": "/hotels/$1" },
         { "src": "/(.*)", "dest": "/api/index.php" }
     ]
 }
