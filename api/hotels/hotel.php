@@ -1,5 +1,6 @@
 <?php
-require '../functions.php';
+require __DIR__ . '/functions.php';
+
 
 if (isset($_SESSION['fullname'])) {
     $fullname = $_SESSION['fullname'];
