@@ -39,7 +39,7 @@
         },
         {
             "src": "/users/(.*)",
-            "dest": "/api/users/$1"
+            "dest": "/users/$1"
         },
         {
             "src": "/(.*)",
