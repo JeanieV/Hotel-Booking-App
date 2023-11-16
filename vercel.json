@@ -11,7 +11,8 @@
         { "src": "/hotels/(.*)", "dest": "/hotels/$1" },
         { "src": "/admin/(.*)", "dest": "/admin/$1" },
         { "src": "/staff/(.*)", "dest": "/staff/$1" },
-        { "src": "/users/(.*)", "dest": "/users/$1" },
+        { "src": "/users/(.*)", "dest": "/users/signUserUp.php" },
+        { "src": "/api/(.*)", "dest": "/api/greece_bookings.sql" },
         { "src": "/(.*)", "dest": "/api/index.php" }
     ]
 }
