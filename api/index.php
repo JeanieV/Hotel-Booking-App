@@ -1,5 +1,7 @@
 <?php
 
+require './functions.php';
+
 // Check if the viewMoreButton is submitted
 if (isset($_POST['viewMoreButton'])) {
     // Your message to be displayed

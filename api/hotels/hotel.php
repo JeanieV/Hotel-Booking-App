@@ -1,4 +1,5 @@
 <?php
+require '../functions.php';
 
 if (isset($_SESSION['fullname'])) {
     $fullname = $_SESSION['fullname'];
