@@ -1,18 +1,49 @@
 {
     "functions": {
-        "api/**/*.php": { "runtime": "vercel-php@0.6.0" }
+        "api/**/*.php": {
+            "runtime": "vercel-php@0.6.0"
+        }
     },
     "routes": [
-        { "src": "/api/(.*)", "dest": "/api/index.php" },
-        { "src": "/api/(.*)", "dest": "/api/functions.php" },
-        { "src": "/static/css/(.*)", "dest": "/static/css/$1" },
-        { "src": "/static/img/(.*)", "dest": "/static/img/$1" },
-        { "src": "/static/video/(.*)", "dest": "/static/video/$1" },
-        { "src": "/hotels/(.*)", "dest": "/hotels/$1" },
-        { "src": "/admin/(.*)", "dest": "/admin/$1" },
-        { "src": "/staff/(.*)", "dest": "/staff/$1" },
-        { "src": "/users/(.*)", "dest": "/users/signUserUp.php" },
-        { "src": "/(.*)", "dest": "/api/index.php" }
+        {
+            "src": "/api/(.*)",
+            "dest": "/api/index.php"
+        },
+        {
+            "src": "/api/(.*)",
+            "dest": "/api/functions.php"
+        },
+        {
+            "src": "/static/css/(.*)",
+            "dest": "/static/css/$1"
+        },
+        {
+            "src": "/static/img/(.*)",
+            "dest": "/static/img/$1"
+        },
+        {
+            "src": "/static/video/(.*)",
+            "dest": "/static/video/$1"
+        },
+        {
+            "src": "/hotels/(.*)",
+            "dest": "/hotels/$1"
+        },
+        {
+            "src": "/admin/(.*)",
+            "dest": "/admin/$1"
+        },
+        {
+            "src": "/staff/(.*)",
+            "dest": "/staff/$1"
+        },
+        {
+            "src": "/users/(.*)",
+            "dest": "/api/users/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/api/index.php"
+        }
     ]
 }
-
