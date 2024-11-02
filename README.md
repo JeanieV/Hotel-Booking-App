@@ -120,3 +120,6 @@ This is the different bookings:
 
 
 If it is green, the booking is completed, if it is red, then the booking was cancelled. If it is blue, then the booking will still take place.
+
+Enter the following on my MAMP localhost:
+http://localhost/Hotel-Booking-App/php/index.php
